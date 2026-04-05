@@ -1,4 +1,4 @@
-name: Quality Gates (Rune Audit)
+name: Quality Gates (RuneGate Grouped)
 
 on:
   pull_request:
@@ -14,17 +14,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ─── Basic validation ────────────────────────────────────────────────────────
-
-  validate:
-    name: RuneGate/Validate
+  # ─── Path-change detection ──────────────────────────────────────────────────
+  # Skips expensive jobs when irrelevant files change (e.g. README-only edits).
+  # Jobs that run on config=true: validate.
+  # security-secrets always runs regardless of path changes.
+  changes:
+    name: Detect changed paths
     runs-on: ubuntu-latest
+    outputs:
+      config: ${{ steps.diff.outputs.config }}
     steps:
       - uses: actions/checkout@v6
-      - name: Validate repository structure
+        with:
+          fetch-depth: 0
+      - name: Compute changed paths
+        id: diff
         run: |
-          echo "Repository structure OK"
-          ls -la
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            CHANGED=$(git diff --name-only \
+              "${{ github.event.pull_request.base.sha }}" \
+              "${{ github.event.pull_request.head.sha }}" 2>/dev/null || echo ".")
+          else
+            BEFORE="${{ github.event.before }}"
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              CHANGED="."
+            else
+              CHANGED=$(git diff --name-only "$BEFORE" "${{ github.sha }}" 2>/dev/null || echo ".")
+            fi
+          fi
+          printf '%s\n' "$CHANGED"
+          # config: VEX files, YAML/JSON configs, CODEOWNERS, LICENSE, or any structured data
+          if printf '%s\n' "$CHANGED" | grep -qE '^(\.vex/|\.github/CODEOWNERS|LICENSE|.*\.(yaml|yml|json|toml))'; then
+            echo "config=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "config=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  # ─── Security gates ──────────────────────────────────────────────────────────
 
   security-secrets:
     name: RuneGate/Security/SecretScanning
@@ -33,9 +60,136 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: gitleaks — hardcoded credential detection (IEC 62443 4-1 ML4 SM-8)
+        run: |
+          set -euo pipefail
+          GITLEAKS_VERSION="8.24.3"
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xzf - -C /tmp gitleaks
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+            HEAD="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+            HEAD="${{ github.sha }}"
+          fi
+
+          # Use a bash array so the --log-opts value (which contains spaces) is
+          # passed as a single argument to gitleaks — unquoted string expansion
+          # would cause word-splitting and make --first-parent an unknown flag.
+          SCAN_ARGS=()
+          if [ -n "$BASE" ] \
+             && [ "$BASE" != "0000000000000000000000000000000000000000" ] \
+             && git cat-file -t "$BASE" >/dev/null 2>&1; then
+            SCAN_ARGS=(--log-opts "--no-merges --first-parent ${BASE}..${HEAD}")
+            echo "Range scan: ${BASE}..${HEAD}"
+          else
+            echo "Base SHA not available — scanning full repository"
+          fi
+
+          /tmp/gitleaks detect --redact -v --exit-code=1 "${SCAN_ARGS[@]}"
+
+  # ─── Validation gates ────────────────────────────────────────────────────────
+
+  validate:
+    name: RuneGate/Validate
+    needs: [changes, security-secrets]
+    if: needs.changes.outputs.config == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate YAML files
+        run: |
+          set -euo pipefail
+          pip install --quiet pyyaml
+          python3 - <<'PY'
+          import yaml, sys
+          from pathlib import Path
+
+          errors = []
+          files = sorted(Path('.').rglob('*.yml')) + sorted(Path('.').rglob('*.yaml'))
+          checked = 0
+          for f in files:
+              if '.git' in f.parts:
+                  continue
+              try:
+                  with open(f) as fh:
+                      yaml.safe_load(fh)
+                  print(f'OK: {f}')
+                  checked += 1
+              except yaml.YAMLError as e:
+                  errors.append(f'{f}: {e}')
+
+          if errors:
+              for err in errors:
+                  print(f'ERROR: {err}')
+              sys.exit(1)
+          print(f'Validated {checked} YAML file(s)')
+          PY
+      - name: Validate OpenVEX documents
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+
+          vex_dir = Path('.vex')
+          if not vex_dir.exists():
+              print('.vex/ directory not found — skipping OpenVEX validation')
+              sys.exit(0)
+
+          errors = []
+          checked = 0
+          for f in sorted(vex_dir.rglob('*.json')):
+              try:
+                  data = json.loads(f.read_text(encoding='utf-8'))
+                  # Basic OpenVEX structure check (openvex.dev spec)
+                  required = {'@context', '@id', 'author', 'timestamp', 'version', 'statements'}
+                  missing = required - set(data.keys())
+                  if missing:
+                      errors.append(f'{f}: missing required OpenVEX fields: {sorted(missing)}')
+                  else:
+                      print(f'OK: {f}')
+                      checked += 1
+              except json.JSONDecodeError as e:
+                  errors.append(f'{f}: invalid JSON: {e}')
+
+          if errors:
+              for err in errors:
+                  print(f'ERROR: {err}')
+              sys.exit(1)
+          print(f'Validated {checked} OpenVEX document(s)')
+          PY
+      - name: Verify README exists
+        run: |
+          set -euo pipefail
+          if [ -f README.md ]; then
+            echo "OK: README.md"
+          else
+            echo "ERROR: README.md not found"
+            exit 1
+          fi
+
+  security-licenses:
+    name: RuneGate/Security/LicenseCompliance
+    needs: [changes, security-secrets]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify LICENSE — Apache-2.0 (IEC 62443 4-1 ML4 SM-2)
+        run: |
+          set -euo pipefail
+          if [ ! -f LICENSE ]; then
+            echo "WARNING: LICENSE file not found — expected Apache-2.0"
+            exit 0
+          fi
+          if grep -qi "apache.*2\.0\|apache.*license.*version.*2" LICENSE; then
+            echo "OK: LICENSE is Apache-2.0"
+          else
+            echo "ERROR: LICENSE does not appear to be Apache-2.0"
+            exit 1
+          fi
 
   # ─── Merge gate ──────────────────────────────────────────────────────────────
 
@@ -43,11 +197,13 @@ jobs:
     name: Merge Gate
     if: always()
     needs:
-      - validate
+      - changes
       - security-secrets
+      - validate
+      - security-licenses
     runs-on: ubuntu-latest
     steps:
-      - name: Verify all gates passed or were skipped
+      - name: Verify all concept gates passed
         env:
           NEEDS_JSON: ${{ toJson(needs) }}
         run: |
@@ -64,3 +220,4 @@ jobs:
               raise SystemExit(1)
           print('All RuneGate checks passed.')
           PY
+
