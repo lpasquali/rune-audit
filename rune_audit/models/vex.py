@@ -24,9 +24,7 @@ class VEXJustification(str, Enum):
     COMPONENT_NOT_PRESENT = "component_not_present"
     VULNERABLE_CODE_NOT_PRESENT = "vulnerable_code_not_present"
     VULNERABLE_CODE_NOT_IN_EXECUTE_PATH = "vulnerable_code_not_in_execute_path"
-    VULNERABLE_CODE_CANNOT_BE_CONTROLLED_BY_ADVERSARY = (
-        "vulnerable_code_cannot_be_controlled_by_adversary"
-    )
+    VULNERABLE_CODE_CANNOT_BE_CONTROLLED_BY_ADVERSARY = "vulnerable_code_cannot_be_controlled_by_adversary"
     INLINE_MITIGATIONS_ALREADY_EXIST = "inline_mitigations_already_exist"
 
 
@@ -92,21 +90,23 @@ class VEXDocument(BaseModel):
 
     @classmethod
     def from_openvex(
-        cls, data: dict[str, Any], source_repo: str = "",
+        cls,
+        data: dict[str, Any],
+        source_repo: str = "",
     ) -> VEXDocument:
         """Parse an OpenVEX JSON document."""
         required = {
-            "@context", "@id", "author", "timestamp", "version", "statements",
+            "@context",
+            "@id",
+            "author",
+            "timestamp",
+            "version",
+            "statements",
         }
         missing = required - set(data.keys())
         if missing:
-            raise ValueError(
-                f"Missing required OpenVEX fields: {sorted(missing)}"
-            )
-        statements = [
-            VEXStatement.from_openvex(s)
-            for s in data.get("statements", [])
-        ]
+            raise ValueError(f"Missing required OpenVEX fields: {sorted(missing)}")
+        statements = [VEXStatement.from_openvex(s) for s in data.get("statements", [])]
         ts = data["timestamp"]
         if isinstance(ts, str):
             ts = datetime.fromisoformat(ts.replace("Z", "+00:00"))
@@ -122,19 +122,11 @@ class VEXDocument(BaseModel):
 
     def get_suppressed_cves(self) -> set[str]:
         """Return CVE IDs that are suppressed (not_affected or fixed)."""
-        return {
-            s.vulnerability_name
-            for s in self.statements
-            if s.status in (VEXStatus.NOT_AFFECTED, VEXStatus.FIXED)
-        }
+        return {s.vulnerability_name for s in self.statements if s.status in (VEXStatus.NOT_AFFECTED, VEXStatus.FIXED)}
 
     def get_affected_cves(self) -> set[str]:
         """Return CVE IDs that are still affected."""
-        return {
-            s.vulnerability_name
-            for s in self.statements
-            if s.status == VEXStatus.AFFECTED
-        }
+        return {s.vulnerability_name for s in self.statements if s.status == VEXStatus.AFFECTED}
 
     @property
     def statement_count(self) -> int:

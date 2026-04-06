@@ -84,9 +84,13 @@ def collect_attestations(repo: str, tag: str) -> AttestationBundle:
     try:
         result = subprocess.run(
             [
-                "gh", "attestation", "verify",
-                "--repo", f"lpasquali/{repo}",
-                "--format", "json",
+                "gh",
+                "attestation",
+                "verify",
+                "--repo",
+                f"lpasquali/{repo}",
+                "--format",
+                "json",
                 f"oci://ghcr.io/lpasquali/{repo}:{tag}",
             ],
             capture_output=True,
@@ -99,7 +103,9 @@ def collect_attestations(repo: str, tag: str) -> AttestationBundle:
             payload = json.loads(result.stdout)
             return AttestationBundle(repo=repo, tag=tag, found=True, payload=payload)
         return AttestationBundle(
-            repo=repo, tag=tag, found=False,
+            repo=repo,
+            tag=tag,
+            found=False,
             error=result.stderr.strip() or "No attestation found",
         )
     except (subprocess.TimeoutExpired, json.JSONDecodeError, FileNotFoundError) as exc:
@@ -366,9 +372,7 @@ def _check_build_isolated(bundle: AttestationBundle) -> SLSACheckResult:
 # -- Public API ----------------------------------------------------------------
 
 
-def verify_slsa(
-    repo: str, tag: str, bundle: AttestationBundle | None = None
-) -> SLSAVerificationReport:
+def verify_slsa(repo: str, tag: str, bundle: AttestationBundle | None = None) -> SLSAVerificationReport:
     """Verify SLSA Level 3 compliance for a single repo+tag."""
     if bundle is None:
         bundle = collect_attestations(repo, tag)

@@ -28,11 +28,15 @@ def test_audit_config_load_defaults(monkeypatch: object) -> None:
 
 def test_audit_config_load_from_env(monkeypatch: object) -> None:
     """AuditConfig.load reads from environment variables."""
-    monkeypatch.setattr(os.environ, "get", lambda key, default="": {  # type: ignore[attr-defined]
-        "RUNE_AUDIT_GITHUB_TOKEN": "test-token",
-        "RUNE_AUDIT_REPOS": "repo-a, repo-b",
-        "RUNE_AUDIT_OUTPUT_DIR": "/tmp/audit",
-    }.get(key, default))
+    monkeypatch.setattr(
+        os.environ,
+        "get",
+        lambda key, default="": {  # type: ignore[attr-defined]
+            "RUNE_AUDIT_GITHUB_TOKEN": "test-token",
+            "RUNE_AUDIT_REPOS": "repo-a, repo-b",
+            "RUNE_AUDIT_OUTPUT_DIR": "/tmp/audit",
+        }.get(key, default),
+    )
     config = AuditConfig.load("/nonexistent/config.yaml")
     assert config.github_token == "test-token"
     assert config.repos == ["repo-a", "repo-b"]

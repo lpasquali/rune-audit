@@ -49,7 +49,10 @@ def get_github_token() -> str:
     try:
         result = subprocess.run(
             ["gh", "auth", "token"],
-            capture_output=True, text=True, check=True, timeout=10,
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10,
         )
         return result.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
@@ -134,9 +137,9 @@ class GitHubCollector:
             logger.warning("Failed to extract %s from zip: %s", filename, exc)
             return None
 
-    def collect_artifacts(self, repo: str, run_id: int | None = None) -> tuple[
-        SBOMDocument | None, CVEScanResult | None, CVEScanResult | None
-    ]:
+    def collect_artifacts(
+        self, repo: str, run_id: int | None = None
+    ) -> tuple[SBOMDocument | None, CVEScanResult | None, CVEScanResult | None]:
         artifact_meta = self._get_latest_artifact(repo, SBOM_ARTIFACT_NAME)
         if artifact_meta is None:
             return None, None, None
@@ -205,7 +208,10 @@ class GitHubCollector:
         results: list[GateResult] = []
         for job in jobs:
             gate = GateResult.from_github_job(
-                job, source_repo=repo, workflow_run_id=run_id, workflow_name=workflow_name,
+                job,
+                source_repo=repo,
+                workflow_run_id=run_id,
+                workflow_name=workflow_name,
             )
             results.append(gate)
         return results

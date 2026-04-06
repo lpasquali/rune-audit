@@ -29,9 +29,13 @@ def _make_passing_report(repo: str = "rune", tag: str = "v1") -> SLSAVerificatio
 
 def _make_failing_report(repo: str = "rune", tag: str = "v1") -> SLSAVerificationReport:
     report = SLSAVerificationReport(repo=repo, tag=tag, attestation_found=False)
-    report.checks.append(SLSACheckResult(
-        requirement=SLSARequirement.BUILD_PROVENANCE_EXISTS, status=VerificationStatus.FAIL, message="missing",
-    ))
+    report.checks.append(
+        SLSACheckResult(
+            requirement=SLSARequirement.BUILD_PROVENANCE_EXISTS,
+            status=VerificationStatus.FAIL,
+            message="missing",
+        )
+    )
     for req in list(SLSARequirement)[1:]:
         report.checks.append(SLSACheckResult(requirement=req, status=VerificationStatus.SKIP, message="skipped"))
     return report
@@ -40,10 +44,19 @@ def _make_failing_report(repo: str = "rune", tag: str = "v1") -> SLSAVerificatio
 def _create_vex_doc(vex_dir: Path) -> None:
     vex_dir.mkdir(parents=True, exist_ok=True)
     doc = {
-        "@context": "https://openvex.dev/ns/v0.2.0", "@id": "https://example.com/vex/test",
-        "author": "test", "timestamp": "2026-04-06T00:00:00Z", "version": 1,
-        "statements": [{"vulnerability": {"name": "CVE-2024-1234"}, "status": "not_affected",
-                        "justification": "component_not_present", "products": [{"@id": "pkg:pypi/rune-audit"}]}],
+        "@context": "https://openvex.dev/ns/v0.2.0",
+        "@id": "https://example.com/vex/test",
+        "author": "test",
+        "timestamp": "2026-04-06T00:00:00Z",
+        "version": 1,
+        "statements": [
+            {
+                "vulnerability": {"name": "CVE-2024-1234"},
+                "status": "not_affected",
+                "justification": "component_not_present",
+                "products": [{"@id": "pkg:pypi/rune-audit"}],
+            }
+        ],
     }
     (vex_dir / "test.json").write_text(json.dumps(doc))
 

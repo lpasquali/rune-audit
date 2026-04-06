@@ -43,9 +43,7 @@ class TestAuditConfig:
         assert cfg.output_dir == "/tmp/out"
 
     def test_from_yaml(self) -> None:
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".yaml", delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
             yaml.dump(
                 {
                     "repos": ["rune"],
@@ -91,9 +89,7 @@ class TestAuditConfig:
                 os.chdir(old_cwd)
 
     def test_empty_yaml(self) -> None:
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".yaml", delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
             f.write("")
             f.flush()
             with patch.dict(

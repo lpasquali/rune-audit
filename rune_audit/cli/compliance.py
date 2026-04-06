@@ -56,8 +56,7 @@ def evidence_matrix(
     gaps = sum(1 for i in _EVIDENCE_ITEMS if i["status"] == "gap")
     partial = sum(1 for i in _EVIDENCE_ITEMS if i["status"] == "partial")
     console.print(
-        f"\n[bold]Summary[/bold]: {met} met, {partial} partial, "
-        f"{gaps} gaps out of {len(_EVIDENCE_ITEMS)} requirements"
+        f"\n[bold]Summary[/bold]: {met} met, {partial} partial, {gaps} gaps out of {len(_EVIDENCE_ITEMS)} requirements"
     )
 
 

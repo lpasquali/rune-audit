@@ -23,10 +23,12 @@ def report_full(
     if output_dir:
         cfg.output_dir = output_dir
     cfg.output_format = output_format
-    console.print(Panel(
-        f"Generating full report ({output_format}) to {cfg.output_dir}",
-        title="Full Audit Report",
-    ))
+    console.print(
+        Panel(
+            f"Generating full report ({output_format}) to {cfg.output_dir}",
+            title="Full Audit Report",
+        )
+    )
     console.print("[yellow]Note: Full report generation pending (issue #22).[/yellow]")
 
 
@@ -51,8 +53,10 @@ def report_delta(
     """Generate a delta report showing changes since last audit."""
     cfg = AuditConfig.load(config_file)
     cfg.output_format = output_format
-    console.print(Panel(
-        f"Delta report since: {since or 'last audit'}",
-        title="Delta Report",
-    ))
+    console.print(
+        Panel(
+            f"Delta report since: {since or 'last audit'}",
+            title="Delta Report",
+        )
+    )
     console.print("[yellow]Note: Delta report generation pending (issue #22).[/yellow]")

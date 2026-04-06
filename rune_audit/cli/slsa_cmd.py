@@ -40,7 +40,9 @@ def slsa_verify(
 
     if output_format == "json":
         data = {
-            "repo": report.repo, "tag": report.tag, "passed": report.passed,
+            "repo": report.repo,
+            "tag": report.tag,
+            "passed": report.passed,
             "attestation_found": report.attestation_found,
             "checks": [
                 {"requirement": c.requirement.value, "status": c.status.value, "message": c.message}
@@ -77,17 +79,21 @@ def slsa_verify_all(
 ) -> None:
     """Verify SLSA Level 3 provenance across all ecosystem repos."""
     cfg = AuditConfig.load(config_file)
-    console.print(Panel(
-        f"Verifying SLSA L3 across {len(cfg.repos)} repos @ {tag}",
-        title="Ecosystem SLSA Verification",
-    ))
+    console.print(
+        Panel(
+            f"Verifying SLSA L3 across {len(cfg.repos)} repos @ {tag}",
+            title="Ecosystem SLSA Verification",
+        )
+    )
 
     reports = verify_slsa_all(tag, config=cfg)
 
     if output_format == "json":
         data = [
             {
-                "repo": r.repo, "tag": r.tag, "passed": r.passed,
+                "repo": r.repo,
+                "tag": r.tag,
+                "passed": r.passed,
                 "checks_passed": sum(1 for c in r.checks if c.status == VerificationStatus.PASS),
                 "checks_total": len(r.checks),
             }

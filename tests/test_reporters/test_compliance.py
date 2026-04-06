@@ -14,16 +14,62 @@ from rune_audit.reporters.compliance import ComplianceMatrixGenerator, Complianc
 
 
 def _make_vex_doc(stmts):
-    return VEXDocument.from_openvex({"@context": "https://openvex.dev/ns/v0.2.0", "@id": "t", "author": "t", "timestamp": "2026-04-01T00:00:00Z", "version": 1, "statements": stmts})
+    return VEXDocument.from_openvex(
+        {
+            "@context": "https://openvex.dev/ns/v0.2.0",
+            "@id": "t",
+            "author": "t",
+            "timestamp": "2026-04-01T00:00:00Z",
+            "version": 1,
+            "statements": stmts,
+        }
+    )
 
 
 def _make_full_evidence() -> EvidenceBundle:
-    sbom = SBOMDocument.from_cyclonedx({"bomFormat": "CycloneDX", "specVersion": "1.5", "metadata": {"timestamp": "2026-04-01T00:00:00Z", "tools": {"components": [{"name": "syft", "version": "1.0"}]}}, "components": [{"name": "pkg"}]}, source_repo="lpasquali/rune")
-    grype = CVEScanResult(findings=[CVEFinding(cve_id="CVE-X", severity=CVESeverity.LOW)], scanner_name="grype", source_repo="lpasquali/rune")
-    vex = _make_vex_doc([{"vulnerability": {"name": "CVE-X"}, "status": "not_affected", "justification": "component_not_present", "impact_statement": "OK."}])
+    sbom = SBOMDocument.from_cyclonedx(
+        {
+            "bomFormat": "CycloneDX",
+            "specVersion": "1.5",
+            "metadata": {
+                "timestamp": "2026-04-01T00:00:00Z",
+                "tools": {"components": [{"name": "syft", "version": "1.0"}]},
+            },
+            "components": [{"name": "pkg"}],
+        },
+        source_repo="lpasquali/rune",
+    )
+    grype = CVEScanResult(
+        findings=[CVEFinding(cve_id="CVE-X", severity=CVESeverity.LOW)],
+        scanner_name="grype",
+        source_repo="lpasquali/rune",
+    )
+    vex = _make_vex_doc(
+        [
+            {
+                "vulnerability": {"name": "CVE-X"},
+                "status": "not_affected",
+                "justification": "component_not_present",
+                "impact_statement": "OK.",
+            }
+        ]
+    )
     slsa = SLSAAttestation(subject_digest="abc", builder_id="b", source_repo="lpasquali/rune")
-    gates = [GateResult(gate_name="RuneGate/Security/LicenseCompliance", status=GateStatus.PASS, source_repo="lpasquali/rune"), GateResult(gate_name="RuneGate/Security/SecretScanning", status=GateStatus.PASS, source_repo="lpasquali/rune"), GateResult(gate_name="RuneGate/SAST", status=GateStatus.PASS, source_repo="lpasquali/rune")]
-    return EvidenceBundle(repos=["lpasquali/rune"], sboms=[sbom], cve_scans=[grype], vex_documents=[vex], slsa_attestations=[slsa], gate_results=gates)
+    gates = [
+        GateResult(
+            gate_name="RuneGate/Security/LicenseCompliance", status=GateStatus.PASS, source_repo="lpasquali/rune"
+        ),
+        GateResult(gate_name="RuneGate/Security/SecretScanning", status=GateStatus.PASS, source_repo="lpasquali/rune"),
+        GateResult(gate_name="RuneGate/SAST", status=GateStatus.PASS, source_repo="lpasquali/rune"),
+    ]
+    return EvidenceBundle(
+        repos=["lpasquali/rune"],
+        sboms=[sbom],
+        cve_scans=[grype],
+        vex_documents=[vex],
+        slsa_attestations=[slsa],
+        gate_results=gates,
+    )
 
 
 class TestComplianceMatrixGenerator:
@@ -37,40 +83,101 @@ class TestComplianceMatrixGenerator:
         assert matrix.total == 6 and matrix.gap_count > 0
 
     def test_gate_met(self) -> None:
-        evidence = EvidenceBundle(repos=["r"], gate_results=[GateResult(gate_name="RuneGate/Security/LicenseCompliance", status=GateStatus.PASS, source_repo="r")])
+        evidence = EvidenceBundle(
+            repos=["r"],
+            gate_results=[
+                GateResult(gate_name="RuneGate/Security/LicenseCompliance", status=GateStatus.PASS, source_repo="r")
+            ],
+        )
         sm2 = [r for r in ComplianceMatrixGenerator().generate(evidence).requirements if r.requirement_id == "SM-2"][0]
         assert sm2.status == ComplianceStatus.MET
 
     def test_gate_failing(self) -> None:
-        evidence = EvidenceBundle(repos=["r"], gate_results=[GateResult(gate_name="RuneGate/Security/SecretScanning", status=GateStatus.FAIL, source_repo="r")])
+        evidence = EvidenceBundle(
+            repos=["r"],
+            gate_results=[
+                GateResult(gate_name="RuneGate/Security/SecretScanning", status=GateStatus.FAIL, source_repo="r")
+            ],
+        )
         sm8 = [r for r in ComplianceMatrixGenerator().generate(evidence).requirements if r.requirement_id == "SM-8"][0]
         assert sm8.status == ComplianceStatus.NOT_MET
 
     def test_gate_partial(self) -> None:
-        evidence = EvidenceBundle(repos=["r1", "r2"], gate_results=[GateResult(gate_name="RuneGate/Security/SecretScanning", status=GateStatus.PASS, source_repo="r1")])
+        evidence = EvidenceBundle(
+            repos=["r1", "r2"],
+            gate_results=[
+                GateResult(gate_name="RuneGate/Security/SecretScanning", status=GateStatus.PASS, source_repo="r1")
+            ],
+        )
         sm8 = [r for r in ComplianceMatrixGenerator().generate(evidence).requirements if r.requirement_id == "SM-8"][0]
         assert sm8.status == ComplianceStatus.PARTIALLY_MET
 
     def test_sbom_met(self) -> None:
-        sbom = SBOMDocument.from_cyclonedx({"bomFormat": "CycloneDX", "components": [{"name": "a"}], "metadata": {"timestamp": "2026-04-01T00:00:00Z", "tools": {"components": [{"name": "syft", "version": "1.0"}]}}}, source_repo="r")
+        sbom = SBOMDocument.from_cyclonedx(
+            {
+                "bomFormat": "CycloneDX",
+                "components": [{"name": "a"}],
+                "metadata": {
+                    "timestamp": "2026-04-01T00:00:00Z",
+                    "tools": {"components": [{"name": "syft", "version": "1.0"}]},
+                },
+            },
+            source_repo="r",
+        )
         slsa = SLSAAttestation(subject_digest="abc", source_repo="r")
-        sm9 = [r for r in ComplianceMatrixGenerator().generate(EvidenceBundle(repos=["r"], sboms=[sbom], slsa_attestations=[slsa])).requirements if r.requirement_id == "SM-9"][0]
+        sm9 = [
+            r
+            for r in ComplianceMatrixGenerator()
+            .generate(EvidenceBundle(repos=["r"], sboms=[sbom], slsa_attestations=[slsa]))
+            .requirements
+            if r.requirement_id == "SM-9"
+        ][0]
         assert sm9.status == ComplianceStatus.MET
 
     def test_sbom_partial_no_slsa(self) -> None:
-        sbom = SBOMDocument.from_cyclonedx({"bomFormat": "CycloneDX", "components": [{"name": "a"}], "metadata": {"timestamp": "2026-04-01T00:00:00Z"}}, source_repo="r")
-        sm9 = [r for r in ComplianceMatrixGenerator().generate(EvidenceBundle(repos=["r"], sboms=[sbom])).requirements if r.requirement_id == "SM-9"][0]
+        sbom = SBOMDocument.from_cyclonedx(
+            {
+                "bomFormat": "CycloneDX",
+                "components": [{"name": "a"}],
+                "metadata": {"timestamp": "2026-04-01T00:00:00Z"},
+            },
+            source_repo="r",
+        )
+        sm9 = [
+            r
+            for r in ComplianceMatrixGenerator().generate(EvidenceBundle(repos=["r"], sboms=[sbom])).requirements
+            if r.requirement_id == "SM-9"
+        ][0]
         assert sm9.status == ComplianceStatus.PARTIALLY_MET
 
     def test_vex_met(self) -> None:
-        vex = _make_vex_doc([{"vulnerability": {"name": "CVE-X"}, "status": "not_affected", "justification": "component_not_present", "impact_statement": "OK."}])
+        vex = _make_vex_doc(
+            [
+                {
+                    "vulnerability": {"name": "CVE-X"},
+                    "status": "not_affected",
+                    "justification": "component_not_present",
+                    "impact_statement": "OK.",
+                }
+            ]
+        )
         scan = CVEScanResult(findings=[CVEFinding(cve_id="CVE-X", severity=CVESeverity.LOW)], scanner_name="grype")
-        dm4 = [r for r in ComplianceMatrixGenerator().generate(EvidenceBundle(repos=["r"], cve_scans=[scan], vex_documents=[vex])).requirements if r.requirement_id == "DM-4"][0]
+        dm4 = [
+            r
+            for r in ComplianceMatrixGenerator()
+            .generate(EvidenceBundle(repos=["r"], cve_scans=[scan], vex_documents=[vex]))
+            .requirements
+            if r.requirement_id == "DM-4"
+        ][0]
         assert dm4.status == ComplianceStatus.MET
 
     def test_vex_unsuppressed(self) -> None:
         scan = CVEScanResult(findings=[CVEFinding(cve_id="CVE-U", severity=CVESeverity.HIGH)], scanner_name="grype")
-        dm4 = [r for r in ComplianceMatrixGenerator().generate(EvidenceBundle(repos=["r"], cve_scans=[scan])).requirements if r.requirement_id == "DM-4"][0]
+        dm4 = [
+            r
+            for r in ComplianceMatrixGenerator().generate(EvidenceBundle(repos=["r"], cve_scans=[scan])).requirements
+            if r.requirement_id == "DM-4"
+        ][0]
         assert dm4.status == ComplianceStatus.PARTIALLY_MET
 
 
@@ -113,7 +220,14 @@ class TestComplianceEdgeCases:
 
     def test_sbom_missing_from_some_repos(self) -> None:
         """SM-9 with SBOM from only some repos."""
-        sbom = SBOMDocument.from_cyclonedx({"bomFormat": "CycloneDX", "components": [{"name": "a"}], "metadata": {"timestamp": "2026-04-01T00:00:00Z"}}, source_repo="r1")
+        sbom = SBOMDocument.from_cyclonedx(
+            {
+                "bomFormat": "CycloneDX",
+                "components": [{"name": "a"}],
+                "metadata": {"timestamp": "2026-04-01T00:00:00Z"},
+            },
+            source_repo="r1",
+        )
         evidence = EvidenceBundle(repos=["r1", "r2"], sboms=[sbom])
         gen = ComplianceMatrixGenerator()
         matrix = gen.generate(evidence)
@@ -147,7 +261,16 @@ class TestComplianceEdgeCases:
 
     def test_vex_only_vex_docs_no_scans(self) -> None:
         """DM-4 with VEX but no scans."""
-        vex = _make_vex_doc([{"vulnerability": {"name": "CVE-X"}, "status": "not_affected", "justification": "component_not_present", "impact_statement": "OK."}])
+        vex = _make_vex_doc(
+            [
+                {
+                    "vulnerability": {"name": "CVE-X"},
+                    "status": "not_affected",
+                    "justification": "component_not_present",
+                    "impact_statement": "OK.",
+                }
+            ]
+        )
         evidence = EvidenceBundle(repos=["r"], vex_documents=[vex])
         gen = ComplianceMatrixGenerator()
         dm4 = [r for r in gen.generate(evidence).requirements if r.requirement_id == "DM-4"][0]

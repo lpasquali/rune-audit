@@ -66,11 +66,7 @@ def test_sbom_document_from_cyclonedx_old_tools_format() -> None:
     data: dict[str, Any] = {
         "bomFormat": "CycloneDX",
         "specVersion": "1.4",
-        "metadata": {
-            "tools": [
-                {"vendor": "anchore", "name": "syft", "version": "0.90.0"}
-            ]
-        },
+        "metadata": {"tools": [{"vendor": "anchore", "name": "syft", "version": "0.90.0"}]},
         "components": [],
     }
     doc = SBOMDocument.from_cyclonedx(data)

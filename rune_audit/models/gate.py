@@ -50,9 +50,7 @@ class GateResult(BaseModel):
         timestamp = None
         completed_at = job_data.get("completed_at")
         if completed_at and isinstance(completed_at, str):
-            timestamp = datetime.fromisoformat(
-                completed_at.replace("Z", "+00:00")
-            )
+            timestamp = datetime.fromisoformat(completed_at.replace("Z", "+00:00"))
         return cls(
             gate_name=str(job_data.get("name", "")),
             status=status,
