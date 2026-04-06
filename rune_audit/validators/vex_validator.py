@@ -9,12 +9,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import TYPE_CHECKING
 
+from rune_audit.models.cve import CVEFinding, CVEScanResult
 from rune_audit.models.vex import VEXDocument, VEXJustification, VEXStatement, VEXStatus
-
-if TYPE_CHECKING:
-    from rune_audit.models.cve import CVEFinding, CVEScanResult
 
 
 class ValidationSeverity(str, Enum):
@@ -119,19 +116,16 @@ class VEXValidator:
                         source_repo=source_repo,
                     )
                 )
-        elif (
-            stmt.justification == VEXJustification.VULNERABLE_CODE_CANNOT_BE_CONTROLLED_BY_ADVERSARY
-            and not stmt.impact_statement
-        ):
-            msg = "vulnerable_code_cannot_be_controlled_by_adversary justification should cite mitigation"
-            result.findings.append(
-                ValidationFinding(
-                    severity=ValidationSeverity.WARNING,
-                    message=msg,
-                    cve_id=cve_id,
-                    source_repo=source_repo,
+        elif stmt.justification == VEXJustification.VULNERABLE_CODE_CANNOT_BE_CONTROLLED_BY_ADVERSARY:
+            if not stmt.impact_statement:
+                result.findings.append(
+                    ValidationFinding(
+                        severity=ValidationSeverity.WARNING,
+                        message="vulnerable_code_cannot_be_controlled_by_adversary justification should cite mitigation",
+                        cve_id=cve_id,
+                        source_repo=source_repo,
+                    )
                 )
-            )
 
     def cross_check(self, vex_docs: list[VEXDocument], scan_results: list[CVEScanResult]) -> VEXValidationResult:
         result = VEXValidationResult()

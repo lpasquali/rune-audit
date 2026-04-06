@@ -36,6 +36,8 @@ RUNE_REPOS: list[str] = [
 GITHUB_API_BASE = "https://api.github.com"
 SBOM_ARTIFACT_NAME = "sbom-security-outputs"
 QUALITY_GATES_WORKFLOW = "quality-gates.yml"
+
+
 def get_github_token() -> str:
     """Retrieve GitHub token from env or gh CLI."""
     token = os.environ.get("GITHUB_TOKEN", "")
@@ -55,6 +57,8 @@ def get_github_token() -> str:
         return result.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
         return ""
+
+
 class GitHubCollector:
     """Collect evidence artifacts from GitHub Actions across RUNE repos."""
 
