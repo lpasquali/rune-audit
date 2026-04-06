@@ -55,7 +55,7 @@ class GateResult(BaseModel):
             gate_name=str(job_data.get("name", "")),
             status=status,
             workflow_run_id=workflow_run_id,
-            job_id=int(job_data.get("id") or 0),
+            job_id=int(str(job_data.get("id", 0))),
             timestamp=timestamp,
             source_repo=source_repo,
             workflow_name=workflow_name,

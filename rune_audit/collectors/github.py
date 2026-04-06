@@ -108,7 +108,7 @@ class GitHubCollector:
         artifacts = data.get("artifacts", [])
         if not artifacts:
             return None
-        return dict(artifacts[0])  # type: ignore[arg-type]
+        return dict(artifacts[0])
 
     def _download_artifact(self, repo: str, artifact_id: int) -> bytes | None:
         resp = self._client.get(
