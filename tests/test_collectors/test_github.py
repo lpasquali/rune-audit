@@ -204,8 +204,8 @@ class TestGitHubCollector:
 class TestGitHubCollectorEdgeCases:
     def test_default_init(self) -> None:
         """Test init without client."""
-        from unittest.mock import patch
         import os
+        from unittest.mock import patch
         with patch.dict(os.environ, {"GITHUB_TOKEN": "tok", "RUNE_AUDIT_GITHUB_TOKEN": ""}):
             c = GitHubCollector(repos=["lpasquali/rune"])
             assert c._owns_client is True
@@ -224,7 +224,8 @@ class TestGitHubCollectorEdgeCases:
         assert "Authorization" not in headers
 
     def test_extract_json_missing_file(self) -> None:
-        import io, zipfile
+        import io
+        import zipfile
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w") as zf:
             zf.writestr("other.json", "{}")

@@ -1,7 +1,10 @@
 """Tests for VEX document models."""
 from typing import Any
+
 import pytest
-from rune_audit.models.vex import VEXDocument, VEXJustification, VEXProduct, VEXStatement, VEXStatus
+
+from rune_audit.models.vex import VEXDocument, VEXStatement, VEXStatus
+
 
 def test_status_values():
     assert VEXStatus.NOT_AFFECTED.value == "not_affected"

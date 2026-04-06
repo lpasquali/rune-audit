@@ -4,6 +4,7 @@ from rune_audit.models.evidence import EvidenceBundle
 from rune_audit.models.gate import GateResult, GateStatus
 from rune_audit.models.vex import VEXDocument
 
+
 def _vex(stmts):
     return VEXDocument.from_openvex({"@context": "https://openvex.dev/ns/v0.2.0", "@id": "t", "author": "t",
         "timestamp": "2026-01-01T00:00:00Z", "version": 1, "statements": stmts})
