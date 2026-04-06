@@ -1,7 +1,10 @@
 """Shared fixtures for verifier tests."""
 from __future__ import annotations
+
 import pytest
+
 from rune_audit.verifiers.slsa import AttestationBundle
+
 
 @pytest.fixture()
 def passing_bundle() -> AttestationBundle:

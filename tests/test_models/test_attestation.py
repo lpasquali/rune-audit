@@ -1,6 +1,7 @@
 """Tests for TPM2 attestation result models."""
 from rune_audit.models.attestation import AttestationResult
 
+
 def test_create_passed():
     r = AttestationResult(passed=True, pcr_digest="abc", message="OK")
     assert r.passed is True and r.pcr_digest == "abc"

@@ -1,14 +1,27 @@
 """Tests for the SLSA Level 3 provenance verifier."""
 from __future__ import annotations
+
 from unittest.mock import MagicMock, patch
+
 from rune_audit.config import AuditConfig
 from rune_audit.verifiers.slsa import (
-    AttestationBundle, SLSACheckResult, SLSARequirement, SLSAVerificationReport,
-    VerificationStatus, _check_build_isolated, _check_builder_trusted,
-    _check_provenance_exists, _check_provenance_signed,
-    _check_source_version_controlled, _extract_predicate,
-    _get_github_token, collect_attestations, verify_slsa, verify_slsa_all,
+    AttestationBundle,
+    SLSACheckResult,
+    SLSARequirement,
+    SLSAVerificationReport,
+    VerificationStatus,
+    _check_build_isolated,
+    _check_builder_trusted,
+    _check_provenance_exists,
+    _check_provenance_signed,
+    _check_source_version_controlled,
+    _extract_predicate,
+    _get_github_token,
+    collect_attestations,
+    verify_slsa,
+    verify_slsa_all,
 )
+
 
 class TestAttestationBundle:
     def test_defaults(self) -> None:

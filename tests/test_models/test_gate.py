@@ -1,6 +1,7 @@
 """Tests for quality gate result models."""
 from rune_audit.models.gate import GateResult, GateStatus
 
+
 def test_gate_status_values():
     assert GateStatus.PASS.value == "pass"
     assert GateStatus.FAIL.value == "fail"
