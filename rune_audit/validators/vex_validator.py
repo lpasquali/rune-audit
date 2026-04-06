@@ -9,12 +9,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import TYPE_CHECKING
 
+from rune_audit.models.cve import CVEFinding, CVEScanResult
 from rune_audit.models.vex import VEXDocument, VEXJustification, VEXStatement, VEXStatus
-
-if TYPE_CHECKING:
-    from rune_audit.models.cve import CVEFinding, CVEScanResult
 
 
 class ValidationSeverity(str, Enum):
@@ -62,75 +59,52 @@ class VEXValidator:
     def _validate_statement(self, stmt: VEXStatement, source_repo: str, result: VEXValidationResult) -> None:
         cve_id = stmt.vulnerability_name
         if stmt.status == VEXStatus.NOT_AFFECTED and stmt.justification is None:
-            result.findings.append(
-                ValidationFinding(
-                    severity=ValidationSeverity.ERROR,
-                    message="not_affected status requires justification",
-                    cve_id=cve_id,
-                    source_repo=source_repo,
-                )
-            )
+            result.findings.append(ValidationFinding(
+                severity=ValidationSeverity.ERROR,
+                message="not_affected status requires justification",
+                cve_id=cve_id, source_repo=source_repo,
+            ))
         if stmt.status == VEXStatus.AFFECTED and not stmt.action_statement:
-            result.findings.append(
-                ValidationFinding(
-                    severity=ValidationSeverity.WARNING,
-                    message="affected status should include action_statement",
-                    cve_id=cve_id,
-                    source_repo=source_repo,
-                )
-            )
+            result.findings.append(ValidationFinding(
+                severity=ValidationSeverity.WARNING,
+                message="affected status should include action_statement",
+                cve_id=cve_id, source_repo=source_repo,
+            ))
         if not stmt.impact_statement:
-            result.findings.append(
-                ValidationFinding(
-                    severity=ValidationSeverity.WARNING,
-                    message="missing impact_statement",
-                    cve_id=cve_id,
-                    source_repo=source_repo,
-                )
-            )
+            result.findings.append(ValidationFinding(
+                severity=ValidationSeverity.WARNING,
+                message="missing impact_statement",
+                cve_id=cve_id, source_repo=source_repo,
+            ))
         self._validate_justification_strength(stmt, source_repo, result)
 
     def _validate_justification_strength(
-        self,
-        stmt: VEXStatement,
-        source_repo: str,
-        result: VEXValidationResult,
+        self, stmt: VEXStatement, source_repo: str, result: VEXValidationResult,
     ) -> None:
         if stmt.status != VEXStatus.NOT_AFFECTED or stmt.justification is None:
             return
         cve_id = stmt.vulnerability_name
         if stmt.justification == VEXJustification.VULNERABLE_CODE_NOT_PRESENT:
             if not stmt.impact_statement:
-                result.findings.append(
-                    ValidationFinding(
-                        severity=ValidationSeverity.WARNING,
-                        message="vulnerable_code_not_present justification should cite version evidence",
-                        cve_id=cve_id,
-                        source_repo=source_repo,
-                    )
-                )
+                result.findings.append(ValidationFinding(
+                    severity=ValidationSeverity.WARNING,
+                    message="vulnerable_code_not_present justification should cite version evidence",
+                    cve_id=cve_id, source_repo=source_repo,
+                ))
         elif stmt.justification == VEXJustification.COMPONENT_NOT_PRESENT:
             if not stmt.impact_statement:
-                result.findings.append(
-                    ValidationFinding(
-                        severity=ValidationSeverity.WARNING,
-                        message="component_not_present justification should cite build config evidence",
-                        cve_id=cve_id,
-                        source_repo=source_repo,
-                    )
-                )
-        elif (
-            stmt.justification == VEXJustification.VULNERABLE_CODE_CANNOT_BE_CONTROLLED_BY_ADVERSARY
-            and not stmt.impact_statement
-        ):
-            result.findings.append(
-                ValidationFinding(
+                result.findings.append(ValidationFinding(
                     severity=ValidationSeverity.WARNING,
-                    message=("vulnerable_code_cannot_be_controlled_by_adversary justification should cite mitigation"),
-                    cve_id=cve_id,
-                    source_repo=source_repo,
-                )
-            )
+                    message="component_not_present justification should cite build config evidence",
+                    cve_id=cve_id, source_repo=source_repo,
+                ))
+        elif stmt.justification == VEXJustification.VULNERABLE_CODE_CANNOT_BE_CONTROLLED_BY_ADVERSARY:
+            if not stmt.impact_statement:
+                result.findings.append(ValidationFinding(
+                    severity=ValidationSeverity.WARNING,
+                    message="vulnerable_code_cannot_be_controlled_by_adversary justification should cite mitigation",
+                    cve_id=cve_id, source_repo=source_repo,
+                ))
 
     def cross_check(self, vex_docs: list[VEXDocument], scan_results: list[CVEScanResult]) -> VEXValidationResult:
         result = VEXValidationResult()
@@ -147,32 +121,26 @@ class VEXValidator:
             if stmt.status == VEXStatus.NOT_AFFECTED:
                 scan_finding = all_scan_findings.get(cve_id)
                 if scan_finding and scan_finding.fixed_version:
-                    result.findings.append(
-                        ValidationFinding(
-                            severity=ValidationSeverity.WARNING,
-                            message=(
-                                f"VEX suppression may be stale: fix available in "
-                                f"{scan_finding.package_name} {scan_finding.fixed_version}"
-                            ),
-                            cve_id=cve_id,
-                        )
-                    )
+                    result.findings.append(ValidationFinding(
+                        severity=ValidationSeverity.WARNING,
+                        message=(
+                            f"VEX suppression may be stale: fix available in "
+                            f"{scan_finding.package_name} {scan_finding.fixed_version}"
+                        ),
+                        cve_id=cve_id,
+                    ))
         for cve_id in all_scan_findings:
             if cve_id not in all_vex_cves:
-                result.findings.append(
-                    ValidationFinding(
-                        severity=ValidationSeverity.INFO,
-                        message="CVE found in scan but has no VEX statement",
-                        cve_id=cve_id,
-                    )
-                )
+                result.findings.append(ValidationFinding(
+                    severity=ValidationSeverity.INFO,
+                    message="CVE found in scan but has no VEX statement",
+                    cve_id=cve_id,
+                ))
         for cve_id, stmt in all_vex_cves.items():
             if cve_id not in all_scan_findings and stmt.status == VEXStatus.NOT_AFFECTED:
-                result.findings.append(
-                    ValidationFinding(
-                        severity=ValidationSeverity.INFO,
-                        message="VEX suppression for CVE not found in current scans (may be resolved)",
-                        cve_id=cve_id,
-                    )
-                )
+                result.findings.append(ValidationFinding(
+                    severity=ValidationSeverity.INFO,
+                    message="VEX suppression for CVE not found in current scans (may be resolved)",
+                    cve_id=cve_id,
+                ))
         return result

@@ -49,10 +49,7 @@ def get_github_token() -> str:
     try:
         result = subprocess.run(
             ["gh", "auth", "token"],
-            capture_output=True,
-            text=True,
-            check=True,
-            timeout=10,
+            capture_output=True, text=True, check=True, timeout=10,
         )
         return result.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
@@ -108,7 +105,7 @@ class GitHubCollector:
         artifacts = data.get("artifacts", [])
         if not artifacts:
             return None
-        return dict(artifacts[0])
+        return artifacts[0]
 
     def _download_artifact(self, repo: str, artifact_id: int) -> bytes | None:
         resp = self._client.get(
@@ -132,15 +129,14 @@ class GitHubCollector:
                 if target is None:
                     return None
                 raw = zf.read(target)
-                result: dict[str, Any] = json.loads(raw)
-                return result
+                return json.loads(raw)
         except (zipfile.BadZipFile, json.JSONDecodeError, KeyError) as exc:
             logger.warning("Failed to extract %s from zip: %s", filename, exc)
             return None
 
-    def collect_artifacts(
-        self, repo: str, run_id: int | None = None
-    ) -> tuple[SBOMDocument | None, CVEScanResult | None, CVEScanResult | None]:
+    def collect_artifacts(self, repo: str, run_id: int | None = None) -> tuple[
+        SBOMDocument | None, CVEScanResult | None, CVEScanResult | None
+    ]:
         artifact_meta = self._get_latest_artifact(repo, SBOM_ARTIFACT_NAME)
         if artifact_meta is None:
             return None, None, None
@@ -163,7 +159,10 @@ class GitHubCollector:
         return sbom, grype, trivy
 
     def collect_attestations(self, repo: str, subject_digest: str = "") -> list[SLSAAttestation]:
-        url = f"/repos/{repo}/attestations/sha256:{subject_digest}" if subject_digest else f"/repos/{repo}/attestations"
+        if subject_digest:
+            url = f"/repos/{repo}/attestations/sha256:{subject_digest}"
+        else:
+            url = f"/repos/{repo}/attestations"
         resp = self._client.get(url)
         if resp.status_code != 200:
             return []
@@ -206,10 +205,7 @@ class GitHubCollector:
         results: list[GateResult] = []
         for job in jobs:
             gate = GateResult.from_github_job(
-                job,
-                source_repo=repo,
-                workflow_run_id=run_id,
-                workflow_name=workflow_name,
+                job, source_repo=repo, workflow_run_id=run_id, workflow_name=workflow_name,
             )
             results.append(gate)
         return results
