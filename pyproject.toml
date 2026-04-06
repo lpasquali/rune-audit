@@ -1,0 +1,103 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rune-audit"
+version = "0.0.0a0"
+description = "RUNE Audit — compliance evidence collection and verification for IEC 62443 / SLSA"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+keywords = ["audit", "compliance", "iec-62443", "slsa", "sbom", "vex"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Topic :: Security",
+]
+dependencies = [
+    "typer>=0.9",
+    "rich>=13.7",
+    "httpx>=0.27.0",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+all = [
+    "typer>=0.9",
+    "rich>=13.7",
+    "httpx>=0.27.0",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+]
+dev = [
+    "pytest>=8",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+    "bandit",
+    "types-PyYAML>=6.0.12",
+    "respx>=0.22.0",
+]
+
+[project.scripts]
+rune-audit = "rune_audit.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/lpasquali/rune-audit"
+Documentation = "https://lpasquali.github.io/rune-docs/"
+Repository = "https://github.com/lpasquali/rune-audit"
+Issues = "https://github.com/lpasquali/rune-audit/issues"
+
+[tool.setuptools.packages.find]
+include = ["rune_audit*"]
+
+[tool.setuptools.package-data]
+"*" = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=rune_audit --cov-report=term-missing:skip-covered --cov-fail-under=97"
+markers = [
+    "regression: marks tests as regression tests",
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
+]
+
+[tool.coverage.run]
+source = ["rune_audit"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 97
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "SIM", "TCH"]
+# UP042: str+Enum -> StrEnum migration deferred (backwards compat with older Pydantic)
+# TCH001: Pydantic models need runtime imports, not TYPE_CHECKING blocks
+ignore = ["UP042"]
+
+[tool.ruff.lint.per-file-ignores]
+"rune_audit/models/*.py" = ["TCH001"]
+"rune_audit/collectors/base.py" = ["TCH001"]
+"tests/**/*.py" = ["TCH003"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.bandit]
+targets = ["rune_audit", "tests"]
+skips = ["B101"]

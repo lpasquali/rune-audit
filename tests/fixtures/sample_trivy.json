@@ -1,0 +1,29 @@
+{
+  "ArtifactName": "ghcr.io/lpasquali/rune:latest",
+  "CreatedAt": "2026-04-01T12:30:00Z",
+  "Results": [
+    {
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2005-2541",
+          "Severity": "LOW",
+          "PkgName": "tar",
+          "InstalledVersion": "1.35",
+          "FixedVersion": "",
+          "Description": "Tar archive vulnerability",
+          "CVSS": {
+            "nvd": {"V3Score": 2.1}
+          }
+        },
+        {
+          "VulnerabilityID": "CVE-2024-5678",
+          "Severity": "MEDIUM",
+          "PkgName": "openssl",
+          "InstalledVersion": "3.0.13",
+          "FixedVersion": "3.0.14",
+          "Description": "OpenSSL vulnerability"
+        }
+      ]
+    }
+  ]
+}

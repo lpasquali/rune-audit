@@ -1,0 +1,47 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:12345678-1234-1234-1234-123456789abc",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-04-01T12:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "name": "syft",
+          "version": "1.4.0",
+          "author": "Anchore"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/pydantic@2.7.0",
+      "type": "library",
+      "name": "pydantic",
+      "version": "2.7.0",
+      "purl": "pkg:pypi/pydantic@2.7.0",
+      "licenses": [
+        {"license": {"id": "MIT"}}
+      ]
+    },
+    {
+      "bom-ref": "pkg:pypi/httpx@0.27.0",
+      "type": "library",
+      "name": "httpx",
+      "version": "0.27.0",
+      "purl": "pkg:pypi/httpx@0.27.0",
+      "licenses": [
+        {"license": {"name": "BSD-3-Clause"}}
+      ]
+    },
+    {
+      "bom-ref": "pkg:deb/debian/tar@1.35",
+      "type": "library",
+      "name": "tar",
+      "version": "1.35",
+      "purl": "pkg:deb/debian/tar@1.35"
+    }
+  ]
+}

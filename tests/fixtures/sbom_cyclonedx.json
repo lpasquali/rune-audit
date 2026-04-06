@@ -1,0 +1,50 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:12345678-1234-1234-1234-123456789012",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-04-01T12:00:00Z",
+    "tools": {
+      "components": [
+        {
+          "vendor": "anchore",
+          "name": "syft",
+          "version": "1.17.0"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/typer@0.9.0",
+      "type": "library",
+      "name": "typer",
+      "version": "0.9.0",
+      "purl": "pkg:pypi/typer@0.9.0",
+      "licenses": [
+        {"license": {"id": "MIT"}}
+      ]
+    },
+    {
+      "bom-ref": "pkg:pypi/rich@13.7.0",
+      "type": "library",
+      "name": "rich",
+      "version": "13.7.0",
+      "purl": "pkg:pypi/rich@13.7.0",
+      "licenses": [
+        {"license": {"id": "MIT"}}
+      ]
+    },
+    {
+      "bom-ref": "pkg:pypi/pydantic@2.5.0",
+      "type": "library",
+      "name": "pydantic",
+      "version": "2.5.0",
+      "purl": "pkg:pypi/pydantic@2.5.0",
+      "licenses": [
+        {"license": {"id": "MIT"}}
+      ]
+    }
+  ]
+}
