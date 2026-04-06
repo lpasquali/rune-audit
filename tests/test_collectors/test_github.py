@@ -32,17 +32,21 @@ class TestGetGithubToken:
             assert get_github_token() == "tok456"
 
     def test_from_gh_cli(self) -> None:
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "", "RUNE_AUDIT_GITHUB_TOKEN": ""}, clear=False):
-            with patch("subprocess.run") as mock_run:
-                mock_run.return_value.stdout = "gh-token\n"
-                mock_run.return_value.returncode = 0
-                token = get_github_token()
-                assert token == "gh-token"
+        with (
+            patch.dict("os.environ", {"GITHUB_TOKEN": "", "RUNE_AUDIT_GITHUB_TOKEN": ""}, clear=False),
+            patch("subprocess.run") as mock_run,
+        ):
+            mock_run.return_value.stdout = "gh-token\n"
+            mock_run.return_value.returncode = 0
+            token = get_github_token()
+            assert token == "gh-token"
 
     def test_no_token_available(self) -> None:
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "", "RUNE_AUDIT_GITHUB_TOKEN": ""}, clear=False):
-            with patch("subprocess.run", side_effect=FileNotFoundError):
-                assert get_github_token() == ""
+        with (
+            patch.dict("os.environ", {"GITHUB_TOKEN": "", "RUNE_AUDIT_GITHUB_TOKEN": ""}, clear=False),
+            patch("subprocess.run", side_effect=FileNotFoundError),
+        ):
+            assert get_github_token() == ""
 
 
 class TestGitHubCollector:

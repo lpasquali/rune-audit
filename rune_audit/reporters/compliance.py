@@ -8,11 +8,14 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
+from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, Field
 
-from rune_audit.models.evidence import EvidenceBundle
 from rune_audit.models.gate import GateStatus
+
+if TYPE_CHECKING:
+    from rune_audit.models.evidence import EvidenceBundle
 
 
 class ComplianceStatus(str, Enum):

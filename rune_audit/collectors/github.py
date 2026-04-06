@@ -36,8 +36,6 @@ RUNE_REPOS: list[str] = [
 GITHUB_API_BASE = "https://api.github.com"
 SBOM_ARTIFACT_NAME = "sbom-security-outputs"
 QUALITY_GATES_WORKFLOW = "quality-gates.yml"
-
-
 def get_github_token() -> str:
     """Retrieve GitHub token from env or gh CLI."""
     token = os.environ.get("GITHUB_TOKEN", "")
@@ -57,8 +55,6 @@ def get_github_token() -> str:
         return result.stdout.strip()
     except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
         return ""
-
-
 class GitHubCollector:
     """Collect evidence artifacts from GitHub Actions across RUNE repos."""
 
@@ -162,10 +158,7 @@ class GitHubCollector:
         return sbom, grype, trivy
 
     def collect_attestations(self, repo: str, subject_digest: str = "") -> list[SLSAAttestation]:
-        if subject_digest:
-            url = f"/repos/{repo}/attestations/sha256:{subject_digest}"
-        else:
-            url = f"/repos/{repo}/attestations"
+        url = f"/repos/{repo}/attestations/sha256:{subject_digest}" if subject_digest else f"/repos/{repo}/attestations"
         resp = self._client.get(url)
         if resp.status_code != 200:
             return []
