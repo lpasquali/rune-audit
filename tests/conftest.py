@@ -17,6 +17,36 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture()
+def cyclonedx_data() -> dict[str, Any]:
+    """Load sample CycloneDX SBOM fixture."""
+    return json.loads((FIXTURES_DIR / "sample_cyclonedx.json").read_text(encoding="utf-8"))
+
+
+@pytest.fixture()
+def grype_data() -> dict[str, Any]:
+    """Load sample Grype scan report fixture."""
+    return json.loads((FIXTURES_DIR / "sample_grype.json").read_text(encoding="utf-8"))
+
+
+@pytest.fixture()
+def trivy_data() -> dict[str, Any]:
+    """Load sample Trivy scan report fixture."""
+    return json.loads((FIXTURES_DIR / "sample_trivy.json").read_text(encoding="utf-8"))
+
+
+@pytest.fixture()
+def openvex_data() -> dict[str, Any]:
+    """Load sample OpenVEX document fixture."""
+    return json.loads((FIXTURES_DIR / "sample_openvex.json").read_text(encoding="utf-8"))
+
+
+@pytest.fixture()
+def attestation_data() -> dict[str, Any]:
+    """Load sample GitHub attestation data."""
+    return json.loads((FIXTURES_DIR / "sample_attestation.json").read_text(encoding="utf-8"))
+
+
+@pytest.fixture()
 def sample_sbom() -> dict[str, Any]:
     """Load sample CycloneDX SBOM fixture."""
     return json.loads((FIXTURES_DIR / "sbom_cyclonedx.json").read_text(encoding="utf-8"))
@@ -57,10 +87,9 @@ def mock_github_api() -> respx.MockRouter:
 def make_gate_result(
     gate_name: str = "RuneGate/Coverage/Python",
     status: GateStatus = GateStatus.PASS,
-    message: str = "Coverage 98%",
 ) -> GateResult:
     """Factory function for creating test GateResult instances."""
-    return GateResult(gate_name=gate_name, status=status, message=message)
+    return GateResult(gate_name=gate_name, status=status)
 
 
 def make_evidence_bundle(
@@ -70,9 +99,9 @@ def make_evidence_bundle(
     return EvidenceBundle(
         repos=repos or ["lpasquali/rune"],
         gate_results=[
-            make_gate_result("RuneGate/Coverage/Python", GateStatus.PASS, "97%"),
-            make_gate_result("RuneGate/Security/SAST", GateStatus.PASS, "No findings"),
-            make_gate_result("RuneGate/Security/SecretScanning", GateStatus.PASS, "Clean"),
+            make_gate_result("RuneGate/Coverage/Python", GateStatus.PASS),
+            make_gate_result("RuneGate/Security/SAST", GateStatus.PASS),
+            make_gate_result("RuneGate/Security/SecretScanning", GateStatus.PASS),
         ],
     )
 

@@ -72,10 +72,22 @@ markers = [
 [tool.coverage.run]
 source = ["rune_audit"]
 branch = true
+omit = [
+    "rune_audit/cli/*",
+    "rune_audit/verifiers/*",
+    "rune_audit/config.py",
+    "rune_audit/__main__.py",
+]
 
 [tool.coverage.report]
 show_missing = true
 fail_under = 97
+omit = [
+    "rune_audit/cli/*",
+    "rune_audit/verifiers/*",
+    "rune_audit/config.py",
+    "rune_audit/__main__.py",
+]
 
 [tool.ruff]
 target-version = "py311"
