@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 from datetime import datetime
 from enum import Enum
 from typing import Any
@@ -60,10 +61,8 @@ class VEXStatement(BaseModel):
         justification = None
         just_str = data.get("justification")
         if just_str:
-            try:
+            with contextlib.suppress(ValueError):
                 justification = VEXJustification(just_str)
-            except ValueError:
-                pass
         return cls(
             vulnerability_name=vuln_name,
             products=products,

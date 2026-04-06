@@ -162,10 +162,7 @@ class GitHubCollector:
         return sbom, grype, trivy
 
     def collect_attestations(self, repo: str, subject_digest: str = "") -> list[SLSAAttestation]:
-        if subject_digest:
-            url = f"/repos/{repo}/attestations/sha256:{subject_digest}"
-        else:
-            url = f"/repos/{repo}/attestations"
+        url = f"/repos/{repo}/attestations/sha256:{subject_digest}" if subject_digest else f"/repos/{repo}/attestations"
         resp = self._client.get(url)
         if resp.status_code != 200:
             return []
