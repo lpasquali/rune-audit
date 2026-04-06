@@ -1,0 +1,9 @@
+{
+  "bundle": {
+    "dsseEnvelope": {
+      "payloadType": "application/vnd.in-toto+json",
+      "payload": "eyJfdHlwZSI6Imh0dHBzOi8vaW4tdG90by5pby9TdGF0ZW1lbnQvdjEiLCJzdWJqZWN0IjpbeyJuYW1lIjoiZ2hjci5pby9scGFzcXVhbGkvcnVuZSIsImRpZ2VzdCI6eyJzaGEyNTYiOiJhYmNkZWYxMjM0NTY3ODkwIn19XSwicHJlZGljYXRlVHlwZSI6Imh0dHBzOi8vc2xzYS5kZXYvcHJvdmVuYW5jZS92MSIsInByZWRpY2F0ZSI6eyJidWlsZERlZmluaXRpb24iOnsiYnVpbGRUeXBlIjoiaHR0cHM6Ly9hY3Rpb25zLmdpdGh1Yi5pby9idWlsZHR5cGVzL3dvcmtmbG93L3YxIiwicmVzb2x2ZWREZXBlbmRlbmNpZXMiOlt7InVyaSI6Imh0dHBzOi8vZ2l0aHViLmNvbS9scGFzcXVhbGkvcnVuZSIsImRpZ2VzdCI6eyJnaXRDb21taXQiOiJhYmMxMjM0NTY3ODkwIn19XX0sInJ1bkRldGFpbHMiOnsiYnVpbGRlciI6eyJpZCI6Imh0dHBzOi8vZ2l0aHViLmNvbS9hY3Rpb25zL3J1bm5lci8ifSwibWV0YWRhdGEiOnsiYnVpbGRTdGFydGVkT24iOiIyMDI2LTA0LTAxVDEyOjAwOjAwWiJ9fX19"
+    }
+  },
+  "repositoryId": "https://github.com/lpasquali/rune"
+}

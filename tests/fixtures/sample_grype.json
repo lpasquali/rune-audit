@@ -1,0 +1,48 @@
+{
+  "matches": [
+    {
+      "vulnerability": {
+        "id": "CVE-2005-2541",
+        "severity": "Low",
+        "description": "Tar archive vulnerability",
+        "cvss": [
+          {"metrics": {"baseScore": 2.1}}
+        ],
+        "fix": {
+          "versions": []
+        }
+      },
+      "artifact": {
+        "name": "tar",
+        "version": "1.35"
+      }
+    },
+    {
+      "vulnerability": {
+        "id": "CVE-2024-1234",
+        "severity": "High",
+        "description": "Test high vulnerability",
+        "cvss": [
+          {"metrics": {"baseScore": 8.8}}
+        ],
+        "fix": {
+          "versions": ["2.0.1"]
+        }
+      },
+      "artifact": {
+        "name": "test-pkg",
+        "version": "1.0.0"
+      }
+    }
+  ],
+  "source": {
+    "target": {
+      "userInput": "ghcr.io/lpasquali/rune:latest"
+    }
+  },
+  "descriptor": {
+    "name": "grype",
+    "version": "0.80.0",
+    "timestamp": "2026-04-01T12:00:00Z"
+  }
+}
