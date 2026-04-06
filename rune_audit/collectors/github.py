@@ -108,7 +108,7 @@ class GitHubCollector:
         artifacts = data.get("artifacts", [])
         if not artifacts:
             return None
-        return artifacts[0]
+        return dict(artifacts[0])  # type: ignore[arg-type]
 
     def _download_artifact(self, repo: str, artifact_id: int) -> bytes | None:
         resp = self._client.get(
@@ -132,7 +132,8 @@ class GitHubCollector:
                 if target is None:
                     return None
                 raw = zf.read(target)
-                return json.loads(raw)
+                result: dict[str, Any] = json.loads(raw)
+                return result
         except (zipfile.BadZipFile, json.JSONDecodeError, KeyError) as exc:
             logger.warning("Failed to extract %s from zip: %s", filename, exc)
             return None
