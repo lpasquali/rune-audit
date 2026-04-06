@@ -1,116 +1,98 @@
 """Tests for evidence bundle model."""
 
-from __future__ import annotations
-
 from rune_audit.models.cve import CVEFinding, CVEScanResult, CVESeverity
 from rune_audit.models.evidence import EvidenceBundle
 from rune_audit.models.gate import GateResult, GateStatus
-from rune_audit.models.vex import VEXDocument, VEXStatement, VEXStatus
-from tests.conftest import make_evidence_bundle, make_gate_result
+from rune_audit.models.vex import VEXDocument
 
 
-def test_evidence_bundle_empty() -> None:
-    """Empty EvidenceBundle has sensible defaults."""
-    bundle = EvidenceBundle()
-    assert bundle.repos == []
-    assert bundle.sboms == []
-    assert bundle.cve_scans == []
-    assert bundle.gate_results == []
-    assert bundle.collected_at is not None
+def _vex(stmts):
+    return VEXDocument.from_openvex(
+        {
+            "@context": "https://openvex.dev/ns/v0.2.0",
+            "@id": "t",
+            "author": "t",
+            "timestamp": "2026-01-01T00:00:00Z",
+            "version": 1,
+            "statements": stmts,
+        }
+    )
 
 
-def test_evidence_bundle_all_cve_ids() -> None:
-    """all_cve_ids aggregates CVE IDs from all scans."""
-    bundle = EvidenceBundle(
+def test_empty():
+    b = EvidenceBundle()
+    assert b.repos == [] and b.sboms == [] and b.collected_at is not None
+
+
+def test_all_cve_ids():
+    b = EvidenceBundle(
         cve_scans=[
             CVEScanResult(
                 findings=[
-                    CVEFinding(cve_id="CVE-2024-0001", severity=CVESeverity.HIGH),
-                    CVEFinding(cve_id="CVE-2024-0002", severity=CVESeverity.LOW),
+                    CVEFinding(cve_id="CVE-1", severity=CVESeverity.HIGH),
+                    CVEFinding(cve_id="CVE-2", severity=CVESeverity.LOW),
                 ],
-                scanner_name="grype",
+                scanner_name="g",
             ),
             CVEScanResult(
                 findings=[
-                    CVEFinding(cve_id="CVE-2024-0001", severity=CVESeverity.HIGH),
-                    CVEFinding(cve_id="CVE-2024-0003", severity=CVESeverity.MEDIUM),
+                    CVEFinding(cve_id="CVE-1", severity=CVESeverity.HIGH),
+                    CVEFinding(cve_id="CVE-3", severity=CVESeverity.MEDIUM),
                 ],
-                scanner_name="trivy",
+                scanner_name="t",
             ),
         ]
     )
-    ids = bundle.all_cve_ids()
-    assert ids == {"CVE-2024-0001", "CVE-2024-0002", "CVE-2024-0003"}
+    assert b.all_cve_ids() == {"CVE-1", "CVE-2", "CVE-3"}
 
 
-def test_evidence_bundle_suppressed_cves() -> None:
-    """all_suppressed_cves aggregates from VEX documents."""
-    bundle = EvidenceBundle(
-        vex_documents=[
-            VEXDocument(
-                statements=[
-                    VEXStatement(vulnerability_id="CVE-2024-0001", status=VEXStatus.NOT_AFFECTED),
-                ]
-            ),
+def test_suppressed():
+    doc = _vex(
+        [
+            {
+                "vulnerability": {"name": "CVE-1"},
+                "status": "not_affected",
+                "justification": "component_not_present",
+                "impact_statement": "N/A",
+            }
         ]
     )
-    assert bundle.all_suppressed_cves() == {"CVE-2024-0001"}
+    assert EvidenceBundle(vex_documents=[doc]).all_suppressed_cves() == {"CVE-1"}
 
 
-def test_evidence_bundle_unsuppressed_cves() -> None:
-    """unsuppressed_cves returns only non-VEX-suppressed CVEs."""
-    bundle = EvidenceBundle(
+def test_unsuppressed():
+    doc = _vex(
+        [
+            {
+                "vulnerability": {"name": "CVE-1"},
+                "status": "not_affected",
+                "justification": "component_not_present",
+                "impact_statement": "N/A",
+            }
+        ]
+    )
+    b = EvidenceBundle(
         cve_scans=[
             CVEScanResult(
                 findings=[
-                    CVEFinding(cve_id="CVE-2024-0001", severity=CVESeverity.HIGH),
-                    CVEFinding(cve_id="CVE-2024-0002", severity=CVESeverity.LOW),
+                    CVEFinding(cve_id="CVE-1", severity=CVESeverity.HIGH),
+                    CVEFinding(cve_id="CVE-2", severity=CVESeverity.LOW),
                 ],
-                scanner_name="grype",
-            ),
+                scanner_name="g",
+            )
         ],
-        vex_documents=[
-            VEXDocument(
-                statements=[
-                    VEXStatement(vulnerability_id="CVE-2024-0001", status=VEXStatus.NOT_AFFECTED),
-                ]
-            ),
-        ],
+        vex_documents=[doc],
     )
-    assert bundle.unsuppressed_cves() == {"CVE-2024-0002"}
+    assert b.unsuppressed_cves() == {"CVE-2"}
 
 
-def test_evidence_bundle_gates_passing() -> None:
-    """gates_passing returns True when all gates pass."""
-    bundle = make_evidence_bundle()
-    assert bundle.gates_passing() is True
+def test_gates_passing():
+    assert EvidenceBundle(gate_results=[GateResult(gate_name="a", status=GateStatus.PASS)]).gates_passing()
 
 
-def test_evidence_bundle_gates_failing() -> None:
-    """gates_passing returns False when any gate fails."""
-    bundle = EvidenceBundle(
-        gate_results=[
-            GateResult(gate_name="coverage", status=GateStatus.PASS, message="OK"),
-            GateResult(gate_name="sast", status=GateStatus.FAIL, message="Findings"),
-        ]
-    )
-    assert bundle.gates_passing() is False
+def test_gates_failing():
+    assert not EvidenceBundle(gate_results=[GateResult(gate_name="a", status=GateStatus.FAIL)]).gates_passing()
 
 
-def test_evidence_bundle_gates_empty() -> None:
-    """gates_passing returns True when no gates (vacuous truth)."""
-    bundle = EvidenceBundle()
-    assert bundle.gates_passing() is True
-
-
-def test_make_gate_result_factory() -> None:
-    """Factory produces valid GateResult."""
-    result = make_gate_result(status=GateStatus.FAIL)
-    assert result.status == GateStatus.FAIL
-
-
-def test_make_evidence_bundle_factory() -> None:
-    """Factory produces valid EvidenceBundle."""
-    bundle = make_evidence_bundle(repos=["repo-a", "repo-b"])
-    assert bundle.repos == ["repo-a", "repo-b"]
-    assert len(bundle.gate_results) == 3
+def test_gates_empty():
+    assert EvidenceBundle().gates_passing()

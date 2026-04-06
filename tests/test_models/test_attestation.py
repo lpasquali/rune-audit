@@ -1,24 +1,23 @@
 """Tests for TPM2 attestation result models."""
 
-from __future__ import annotations
-
 from rune_audit.models.attestation import AttestationResult
 
 
-def test_attestation_result_defaults() -> None:
-    """AttestationResult has sensible defaults."""
-    result = AttestationResult()
-    assert result.device_id == ""
-    assert result.verified is False
-    assert result.message == ""
+def test_create_passed():
+    r = AttestationResult(passed=True, pcr_digest="abc", message="OK")
+    assert r.passed is True and r.pcr_digest == "abc"
 
 
-def test_attestation_result_creation() -> None:
-    """AttestationResult can be created with all fields."""
-    result = AttestationResult(
-        device_id="tpm-001",
-        verified=True,
-        message="Attestation verified",
-    )
-    assert result.device_id == "tpm-001"
-    assert result.verified is True
+def test_create_failed():
+    r = AttestationResult(passed=False, message="PCR mismatch")
+    assert r.passed is False and r.pcr_digest == ""
+
+
+def test_serialization():
+    r = AttestationResult(passed=True, pcr_digest="xyz", message="v")
+    assert AttestationResult.model_validate(r.model_dump()) == r
+
+
+def test_defaults():
+    r = AttestationResult(passed=False)
+    assert r.pcr_digest == "" and r.message == ""
