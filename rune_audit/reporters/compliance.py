@@ -84,8 +84,10 @@ class ComplianceMatrixGenerator:
                 req_evidence = self._evaluate_vex_requirement(req_def, evidence)
             else:
                 req_evidence = RequirementEvidence(
-                    requirement_id=req_def["id"], description=req_def["description"],
-                    status=ComplianceStatus.NOT_MET, gaps=[f"Unknown evidence type: {evidence_type}"],
+                    requirement_id=req_def["id"],
+                    description=req_def["description"],
+                    status=ComplianceStatus.NOT_MET,
+                    gaps=[f"Unknown evidence type: {evidence_type}"],
                 )
             requirements.append(req_evidence)
         return ComplianceMatrix(requirements=requirements, repos_covered=list(evidence.repos))
@@ -96,9 +98,10 @@ class ComplianceMatrixGenerator:
         matching_gates = [g for g in evidence.gate_results if gate_name_pattern in g.gate_name.lower()]
         if not matching_gates:
             return RequirementEvidence(
-                requirement_id=req_id, description=req_def["description"],
+                requirement_id=req_id,
+                description=req_def["description"],
                 status=ComplianceStatus.NOT_MET,
-                gaps=[f"No gate results found matching \'{gate_name_pattern}\'"],
+                gaps=[f"No gate results found matching '{gate_name_pattern}'"],
             )
         passing = [g for g in matching_gates if g.status == GateStatus.PASS]
         failing = [g for g in matching_gates if g.status == GateStatus.FAIL]
@@ -116,17 +119,22 @@ class ComplianceMatrixGenerator:
             status = ComplianceStatus.MET
             gaps = []
         return RequirementEvidence(
-            requirement_id=req_id, description=req_def["description"],
-            status=status, evidence_sources=evidence_sources,
-            last_verified=latest_ts, gaps=gaps,
+            requirement_id=req_id,
+            description=req_def["description"],
+            status=status,
+            evidence_sources=evidence_sources,
+            last_verified=latest_ts,
+            gaps=gaps,
         )
 
     def _evaluate_sbom_requirement(self, req_def: dict[str, str], evidence: EvidenceBundle) -> RequirementEvidence:
         req_id = req_def["id"]
         if not evidence.sboms:
             return RequirementEvidence(
-                requirement_id=req_id, description=req_def["description"],
-                status=ComplianceStatus.NOT_MET, gaps=["No SBOMs collected"],
+                requirement_id=req_id,
+                description=req_def["description"],
+                status=ComplianceStatus.NOT_MET,
+                gaps=["No SBOMs collected"],
             )
         evidence_sources = []
         for sbom in evidence.sboms:
@@ -146,16 +154,20 @@ class ComplianceMatrixGenerator:
                 status = ComplianceStatus.PARTIALLY_MET
             gaps.append("No SLSA attestations found for provenance verification")
         return RequirementEvidence(
-            requirement_id=req_id, description=req_def["description"],
-            status=status, evidence_sources=evidence_sources,
-            last_verified=latest_ts, gaps=gaps,
+            requirement_id=req_id,
+            description=req_def["description"],
+            status=status,
+            evidence_sources=evidence_sources,
+            last_verified=latest_ts,
+            gaps=gaps,
         )
 
     def _evaluate_vex_requirement(self, req_def: dict[str, str], evidence: EvidenceBundle) -> RequirementEvidence:
         req_id = req_def["id"]
         if not evidence.cve_scans and not evidence.vex_documents:
             return RequirementEvidence(
-                requirement_id=req_id, description=req_def["description"],
+                requirement_id=req_id,
+                description=req_def["description"],
                 status=ComplianceStatus.NOT_MET,
                 gaps=["No CVE scans or VEX documents collected"],
             )
@@ -179,8 +191,11 @@ class ComplianceMatrixGenerator:
         else:
             status = ComplianceStatus.MET
         return RequirementEvidence(
-            requirement_id=req_id, description=req_def["description"],
-            status=status, evidence_sources=evidence_sources, gaps=gaps,
+            requirement_id=req_id,
+            description=req_def["description"],
+            status=status,
+            evidence_sources=evidence_sources,
+            gaps=gaps,
         )
 
     def render_markdown(self, matrix: ComplianceMatrix) -> str:
@@ -197,8 +212,7 @@ class ComplianceMatrixGenerator:
             evidence_str = "; ".join(req.evidence_sources) if req.evidence_sources else "None"
             gaps_str = "; ".join(req.gaps) if req.gaps else "None"
             lines.append(
-                f"| {req.requirement_id} | {req.description} "
-                f"| **{req.status.value}** | {evidence_str} | {gaps_str} |"
+                f"| {req.requirement_id} | {req.description} | **{req.status.value}** | {evidence_str} | {gaps_str} |"
             )
         lines.append("")
         return "\n".join(lines)
@@ -217,8 +231,10 @@ class ComplianceMatrixGenerator:
             evidence_str = "<br>".join(req.evidence_sources) if req.evidence_sources else "None"
             gaps_str = "<br>".join(req.gaps) if req.gaps else "None"
             status_map = {
-                "Met": "met", "Partially Met": "partial",
-                "Not Met": "not-met", "Not Applicable": "na",
+                "Met": "met",
+                "Partially Met": "partial",
+                "Not Met": "not-met",
+                "Not Applicable": "na",
             }
             status_class = status_map.get(req.status.value, "unknown")
             rows.append("<tr>")
