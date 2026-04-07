@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Tests for all CLI command groups."""
 
 from __future__ import annotations

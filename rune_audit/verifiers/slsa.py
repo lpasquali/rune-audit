@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """SLSA Level 3 provenance verifier.
 
 Verifies that build attestations meet all five SLSA L3 requirements:

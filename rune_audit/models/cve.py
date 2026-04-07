@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """CVE (Common Vulnerabilities and Exposures) scan result models.
 
 Parses Grype and Trivy JSON output formats.

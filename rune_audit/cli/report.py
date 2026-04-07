@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """CLI commands for report generation."""
 
 from __future__ import annotations

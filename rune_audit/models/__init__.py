@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Evidence data models for RUNE audit."""
 
 from rune_audit.models.attestation import AttestationResult

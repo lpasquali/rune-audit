@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Tests for evidence bundle model."""
 
 from rune_audit.models.cve import CVEFinding, CVEScanResult, CVESeverity
