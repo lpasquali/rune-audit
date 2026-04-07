@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Unified evidence bundle that aggregates all evidence types.
 
 The EvidenceBundle is the central data structure consumed by the compliance

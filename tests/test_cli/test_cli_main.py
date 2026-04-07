@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Tests for rune-audit CLI."""
 
 from __future__ import annotations

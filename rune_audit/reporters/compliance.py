@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """IEC 62443 ML4 compliance evidence matrix generator.
 
 Maps evidence artifacts to IEC 62443-4-1 ML4 requirements and generates

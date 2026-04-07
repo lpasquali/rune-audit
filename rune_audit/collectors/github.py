@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """GitHub Actions artifact collector.
 
 Collects SBOM, CVE scans, SLSA attestations, and gate results from

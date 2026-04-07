@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """SBOM (Software Bill of Materials) evidence models.
 
 Parses CycloneDX JSON format as produced by Syft.

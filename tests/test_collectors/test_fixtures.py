@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Tests verifying test fixtures load correctly."""
 
 from __future__ import annotations

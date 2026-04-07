@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Tests for the SLSA Level 3 provenance verifier."""
 
 from __future__ import annotations

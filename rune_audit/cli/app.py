@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Main Typer application for rune-audit CLI.
 
 Registers all command groups and provides the ``rune-audit`` entry point.

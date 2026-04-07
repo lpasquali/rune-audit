@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """SLSA (Supply-chain Levels for Software Artifacts) attestation models.
 
 Models for SLSA L3 build provenance attestations as produced by

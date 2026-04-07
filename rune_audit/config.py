@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Configuration loading for rune-audit.
 
 Reads settings from environment variables and optional ``rune-audit.yaml`` file.

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """TPM2 attestation result models."""
 
 from __future__ import annotations

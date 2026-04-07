@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Entry point for ``rune-audit`` console script."""
 
 from __future__ import annotations

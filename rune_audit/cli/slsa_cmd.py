@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """CLI commands for SLSA verification."""
 
 from __future__ import annotations

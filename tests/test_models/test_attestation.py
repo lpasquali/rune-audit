@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Tests for TPM2 attestation result models."""
 
 from rune_audit.models.attestation import AttestationResult

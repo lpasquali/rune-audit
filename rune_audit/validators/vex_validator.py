@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """VEX document validator.
 
 Validates OpenVEX documents for structural correctness, cross-references

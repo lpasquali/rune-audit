@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Tests for GitHub Actions artifact collector."""
 
 from __future__ import annotations
