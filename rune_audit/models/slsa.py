@@ -10,6 +10,7 @@ import base64
 import json
 from datetime import datetime
 from typing import Any
+from urllib.parse import urlparse
 
 from pydantic import BaseModel, Field
 
@@ -87,7 +88,7 @@ class SLSAAttestation(BaseModel):
         resolved = build_def.get("resolvedDependencies", [])
         for dep in resolved:
             uri = dep.get("uri", "")
-            if "github.com" in uri:
+            if urlparse(uri).hostname in ("github.com", "www.github.com"):
                 digest = dep.get("digest", {})
                 source_ref = digest.get("gitCommit", "")
                 break
