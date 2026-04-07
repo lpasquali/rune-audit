@@ -13,6 +13,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   # ─── Path-change detection ──────────────────────────────────────────────────
   # Skips expensive jobs when irrelevant files change (e.g. README-only edits).
@@ -25,7 +28,7 @@ jobs:
       config: ${{ steps.diff.outputs.config }}
       python: ${{ steps.diff.outputs.python }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Compute changed paths
@@ -64,7 +67,7 @@ jobs:
     name: RuneGate/Security/SecretScanning
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: gitleaks — hardcoded credential detection (IEC 62443 4-1 ML4 SM-8)
@@ -105,7 +108,7 @@ jobs:
     if: needs.changes.outputs.config == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       - name: Validate YAML files
         run: |
           set -euo pipefail
@@ -183,7 +186,7 @@ jobs:
     needs: [changes, security-secrets]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       - name: Verify LICENSE — Apache-2.0 (IEC 62443 4-1 ML4 SM-2)
         run: |
           set -euo pipefail
@@ -206,7 +209,7 @@ jobs:
     if: needs.changes.outputs.python == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
@@ -226,7 +229,7 @@ jobs:
     if: needs.changes.outputs.python == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
@@ -248,7 +251,7 @@ jobs:
     if: needs.changes.outputs.python == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
