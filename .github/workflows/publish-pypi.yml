@@ -1,0 +1,109 @@
+# Publish rune-audit to PyPI on version tags.
+#
+# Trigger: push of a tag matching v* (e.g. v0.2.0, v1.0.0-rc1)
+#
+# ─── TAGGING PROCESS ────────────────────────────────────────────────────────
+#  Tags MUST only be pushed AFTER the PR has been merged to main and all
+#  quality gates (RuneGate Grouped) have passed.
+#
+#  Correct flow:
+#    1. Open PR → quality gates pass → merge to main
+#    2. git pull origin main
+#    3. git tag v<version>   (version must match pyproject.toml exactly)
+#    4. git push origin v<version>
+#
+#  NEVER push a tag on an unmerged branch or before quality gates pass.
+#  The guard step below will reject tags not reachable from origin/main.
+# ────────────────────────────────────────────────────────────────────────────
+#
+# Authentication: OIDC Trusted Publisher (no long-lived credentials).
+#   id-token: write is scoped to the publish job only (principle of least privilege).
+#
+# ┌─────────────────────────────────────────────────────────────────────────────┐
+# │  ONE-TIME SETUP REQUIRED on PyPI (pypi.org)                                 │
+# │                                                                             │
+# │  1. Go to https://pypi.org/manage/project/rune-audit/settings/publishing/   │
+# │  2. Add a new GitHub publisher with these exact values:                     │
+# │       Owner:       lpasquali                                                │
+# │       Repository:  rune-audit                                               │
+# │       Workflow:    publish-pypi.yml                                         │
+# │       Environment: pypi                                                     │
+# │  3. Save — no API token or secret is needed after this.                     │
+# └─────────────────────────────────────────────────────────────────────────────┘
+
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  publish:
+    name: Build and publish to PyPI
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/rune-audit/
+
+    permissions:
+      id-token: write   # Required for OIDC token exchange with PyPI
+      contents: write   # Required to create GitHub Releases
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.14"
+          cache: "pip"
+
+      - name: Verify tag is on main and version matches pyproject.toml
+        run: |
+          git fetch origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "ERROR: Tagged commit is not reachable from origin/main." >&2
+            echo "Tags must only be pushed AFTER merging to main." >&2
+            exit 1
+          fi
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PKG_VERSION=$(python3 - <<'EOF'
+          import tomllib, pathlib
+          data = tomllib.loads(pathlib.Path('pyproject.toml').read_text())
+          print(data['project']['version'])
+          EOF
+          )
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "ERROR: Tag version ($TAG_VERSION) does not match pyproject.toml ($PKG_VERSION)" >&2
+            exit 1
+          fi
+
+      - name: Install build tools
+        run: pip install --upgrade pip build twine
+
+      - name: Build sdist and wheel
+        run: python3 -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # release/v1
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            dist/* \
+            --title "${{ github.ref_name }}" \
+            --generate-notes \
+            --verify-tag
