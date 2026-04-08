@@ -171,7 +171,7 @@ class RekorClient:
         if not hashes:
             # Single-node tree: body hash should match root hash
             body_hash = hashlib.sha256(entry.body.encode()).hexdigest()
-            return body_hash == root_hash
+            return bool(body_hash == root_hash)
 
         # Verify Merkle proof chain
         leaf_hash = hashlib.sha256(entry.body.encode()).hexdigest()
@@ -183,4 +183,4 @@ class RekorClient:
             computed = hashlib.sha256(combined.encode()).hexdigest()
             index //= 2
 
-        return computed == root_hash
+        return bool(computed == root_hash)
