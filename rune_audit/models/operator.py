@@ -17,8 +17,8 @@ class RunRecord(BaseModel):
     agent: str = Field(default="", description="Agent name used for the run")
     model: str = Field(default="", description="LLM model used")
     backend_type: str = Field(default="ollama", description="Backend type (ollama, openai, etc.)")
-    result: dict | None = Field(default=None, description="Raw result data from the run")
-    cost_estimation: dict | None = Field(default=None, description="Cost estimation data")
+    result: dict[str, object] | None = Field(default=None, description="Raw result data from the run")
+    cost_estimation: dict[str, object] | None = Field(default=None, description="Cost estimation data")
     created_at: datetime = Field(description="Resource creation timestamp")
     completed_at: datetime | None = Field(default=None, description="Completion timestamp")
 
@@ -29,7 +29,7 @@ class AuditEvent(BaseModel):
     timestamp: datetime = Field(description="Event timestamp")
     event_type: str = Field(description="Event type (e.g., Created, Running, Completed, Failed)")
     message: str = Field(default="", description="Human-readable event message")
-    details: dict | None = Field(default=None, description="Additional event details")
+    details: dict[str, object] | None = Field(default=None, description="Additional event details")
 
 
 class AuditTrail(BaseModel):
