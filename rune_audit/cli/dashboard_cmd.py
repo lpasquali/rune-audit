@@ -16,7 +16,7 @@ console = Console()
 
 @dashboard_app.callback(invoke_without_command=True)
 def dashboard(
-    format: str = typer.Option("terminal", "--format", "-f", help="Output format: terminal, markdown, json."),
+    output_format: str = typer.Option("terminal", "--format", "-f", help="Output format: terminal, markdown, json."),
     output: str | None = typer.Option(None, "--output", "-o", help="Output file path."),
 ) -> None:
     """Show cross-repo quality gate dashboard."""
@@ -24,9 +24,9 @@ def dashboard(
     data = collector.collect_all()
     renderer = DashboardRenderer()
 
-    if format == "json":
+    if output_format == "json":
         content = renderer.render_json(data)
-    elif format == "markdown":
+    elif output_format == "markdown":
         content = renderer.render_markdown(data)
     else:
         content = renderer.render_terminal(data)
