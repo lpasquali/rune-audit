@@ -12,10 +12,9 @@ from rune_audit import __version__
 from rune_audit.cli.collect import collect_app
 from rune_audit.cli.compliance import compliance_app
 from rune_audit.cli.config_cmd import config_app
-<<<<<<< HEAD
 from rune_audit.cli.formal_cmd import formal_app
+from rune_audit.cli.dashboard_cmd import dashboard_app
 from rune_audit.cli.report import report_app
-=======
 >>>>>>> 653f1a1 (fix: resolve ruff/mypy linting errors)
 from rune_audit.cli.operator_cmd import operator_app
 from rune_audit.cli.report import report_app
@@ -61,7 +60,10 @@ app.add_typer(report_app, name="report", help="Generate reports.")
 app.add_typer(config_app, name="config", help="Show configuration.")
 app.add_typer(tpm2_app, name="tpm2", help="TPM2 attestation collection.")
 app.add_typer(formal_app, name="formal", help="TLA+ formal verification.")
+<<<<<<< HEAD
 app.add_typer(operator_app, name="operator", help="Operator audit trail.")
+=======
+app.add_typer(dashboard_app, name="dashboard", help="Cross-repo quality dashboard.")
 
 
 @app.command()
