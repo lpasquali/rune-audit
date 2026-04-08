@@ -104,7 +104,9 @@ class TestParseEvents:
         assert result[1].event_type == "Running"
 
     def test_parse_events_empty_timestamp(self) -> None:
-        events_data = [{"involvedObject": {"name": "bench-1"}, "reason": "X", "lastTimestamp": "", "firstTimestamp": ""}]
+        events_data = [
+            {"involvedObject": {"name": "bench-1"}, "reason": "X", "lastTimestamp": "", "firstTimestamp": ""},
+        ]
         result = _parse_events(events_data, "bench-1")
         assert len(result) == 0
 
