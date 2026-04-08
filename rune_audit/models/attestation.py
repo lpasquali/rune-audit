@@ -3,12 +3,9 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from datetime import datetime  # noqa: TC003 — Pydantic needs datetime at runtime
 
 from pydantic import BaseModel, Field
-
-if TYPE_CHECKING:
-    from datetime import datetime
 
 
 class PCRBank(BaseModel):
