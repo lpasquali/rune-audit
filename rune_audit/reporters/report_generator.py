@@ -5,11 +5,13 @@ from __future__ import annotations
 
 import json
 from collections import Counter
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from rune_audit.models.cve import CVESeverity
-from rune_audit.models.evidence import EvidenceBundle
 from rune_audit.reporters.compliance import ComplianceMatrixGenerator
+
+if TYPE_CHECKING:
+    from rune_audit.models.evidence import EvidenceBundle
 
 
 class ReportGenerator:

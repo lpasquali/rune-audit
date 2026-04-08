@@ -1,10 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0
 """CLI commands for report generation."""
 from __future__ import annotations
+
 from pathlib import Path
+
 import typer
 from rich.console import Console
 from rich.panel import Panel
+
 from rune_audit.config import AuditConfig
 from rune_audit.models.evidence import EvidenceBundle
 from rune_audit.reporters.report_generator import ReportGenerator

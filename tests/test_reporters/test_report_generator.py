@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: Apache-2.0
 """Tests for ReportGenerator -- full, summary, and delta reports."""
 from __future__ import annotations
+
 import json
+
 from rune_audit.models.cve import CVEFinding, CVEScanResult, CVESeverity
 from rune_audit.models.evidence import EvidenceBundle
 from rune_audit.models.gate import GateResult, GateStatus
@@ -9,6 +11,7 @@ from rune_audit.models.sbom import SBOMComponent, SBOMDocument, SBOMToolMetadata
 from rune_audit.models.slsa import SLSAAttestation
 from rune_audit.models.vex import VEXDocument, VEXStatement, VEXStatus
 from rune_audit.reporters.report_generator import ReportGenerator
+
 
 def _make_sbom(repo="lpasquali/rune", components=None):
     return SBOMDocument(bomFormat="CycloneDX", specVersion="1.5",
