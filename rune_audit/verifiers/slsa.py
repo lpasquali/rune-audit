@@ -248,7 +248,7 @@ def _check_builder_trusted(bundle: AttestationBundle) -> SLSACheckResult:
         if isinstance(build_def, dict):
             build_type = str(build_def.get("buildType", ""))
 
-    if builder_id and any(trusted in builder_id for trusted in TRUSTED_BUILDERS):
+    if builder_id and any(builder_id == trusted or builder_id.startswith(trusted + "/") for trusted in TRUSTED_BUILDERS):
         return SLSACheckResult(
             requirement=SLSARequirement.BUILDER_TRUSTED,
             status=VerificationStatus.PASS,
