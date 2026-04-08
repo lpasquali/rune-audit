@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 name: Release
 
 on:
@@ -7,41 +8,12 @@ on:
 
 permissions:
   contents: write
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  packages: write
+  id-token: write
+  attestations: write
 
 jobs:
-  verify-tag:
-    name: Verify tag is on main
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          fetch-depth: 0
-      - name: Verify tag is on main
-        run: |
-          git fetch origin main
-          COMMIT_SHA=$(git rev-parse "${GITHUB_SHA}^{commit}" 2>/dev/null || echo "$GITHUB_SHA")
-          if ! git merge-base --is-ancestor "$COMMIT_SHA" origin/main; then
-            echo "ERROR: Tagged commit is not reachable from origin/main." >&2
-            echo "Tags must only be pushed AFTER merging to main." >&2
-            exit 1
-          fi
-
-  publish:
-    name: Create GitHub Release
-    needs: [verify-tag]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Create GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create "${{ github.ref_name }}" \
-            --title "${{ github.ref_name }}" \
-            --generate-notes \
-            --verify-tag
+  release:
+    uses: lpasquali/rune-ci/.github/workflows/release.yml@v0.1.0
+    with:
+      build-container: false
