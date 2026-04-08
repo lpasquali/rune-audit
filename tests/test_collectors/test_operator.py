@@ -5,10 +5,8 @@ from __future__ import annotations
 
 import json
 import subprocess
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import MagicMock
-
-import pytest
 
 from rune_audit.collectors.operator import (
     OperatorCollector,
@@ -210,13 +208,13 @@ class TestOperatorCollector:
             RunRecord(
                 name="bench-1", namespace="default", status="Complete",
                 agent="k8sgpt", model="llama3.1:8b",
-                created_at=datetime(2026, 4, 1, tzinfo=timezone.utc),
-                completed_at=datetime(2026, 4, 1, 0, 5, tzinfo=timezone.utc),
+                created_at=datetime(2026, 4, 1, tzinfo=UTC),
+                completed_at=datetime(2026, 4, 1, 0, 5, tzinfo=UTC),
             ),
             RunRecord(
                 name="bench-2", namespace="default", status="Failed",
                 agent="holmes", model="llama3.1:8b",
-                created_at=datetime(2026, 4, 1, tzinfo=timezone.utc),
+                created_at=datetime(2026, 4, 1, tzinfo=UTC),
             ),
         ]
         collector = OperatorCollector()
@@ -230,7 +228,7 @@ class TestOperatorCollector:
         records = [
             RunRecord(
                 name="bench-3", namespace="default", status="Pending",
-                created_at=datetime(2026, 4, 1, tzinfo=timezone.utc),
+                created_at=datetime(2026, 4, 1, tzinfo=UTC),
             ),
         ]
         collector = OperatorCollector()
@@ -242,7 +240,7 @@ class TestOperatorCollector:
         records = [
             RunRecord(
                 name="bench-4", namespace="default", status="WeirdStatus",
-                created_at=datetime(2026, 4, 1, tzinfo=timezone.utc),
+                created_at=datetime(2026, 4, 1, tzinfo=UTC),
             ),
         ]
         collector = OperatorCollector()
@@ -255,7 +253,7 @@ class TestRunRecordModel:
         record = RunRecord(
             name="bench-1", namespace="test",
             status="Complete", agent="k8sgpt", model="llama3.1:8b",
-            created_at=datetime(2026, 4, 1, tzinfo=timezone.utc),
+            created_at=datetime(2026, 4, 1, tzinfo=UTC),
         )
         data = record.model_dump()
         assert data["name"] == "bench-1"
@@ -264,7 +262,7 @@ class TestRunRecordModel:
 
     def test_json_roundtrip(self) -> None:
         record = RunRecord(
-            name="x", created_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+            name="x", created_at=datetime(2026, 1, 1, tzinfo=UTC),
         )
         restored = RunRecord.model_validate_json(record.model_dump_json())
         assert restored.name == "x"
@@ -275,7 +273,7 @@ class TestAuditTrailModel:
         trail = AuditTrail(
             run_name="bench-1",
             events=[AuditEvent(
-                timestamp=datetime(2026, 4, 1, tzinfo=timezone.utc),
+                timestamp=datetime(2026, 4, 1, tzinfo=UTC),
                 event_type="Created", message="test",
             )],
         )

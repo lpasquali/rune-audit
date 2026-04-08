@@ -11,10 +11,12 @@ import json
 import logging
 import subprocess
 from datetime import datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-from rune_audit.models.evidence import EvidenceBundle
 from rune_audit.models.operator import AuditEvent, AuditTrail, RunRecord
+
+if TYPE_CHECKING:
+    from rune_audit.models.evidence import EvidenceBundle
 
 logger = logging.getLogger(__name__)
 
