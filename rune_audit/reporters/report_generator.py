@@ -21,21 +21,21 @@ class ReportGenerator:
         self._evidence = evidence
         self._compliance_gen = ComplianceMatrixGenerator()
 
-    def generate_full(self, format: str = "markdown") -> str:
+    def generate_full(self, output_format: str = "markdown") -> str:
         data = self._build_full_data()
-        if format == "json":
+        if output_format == "json":
             return json.dumps(data, indent=2, default=str)
         return self._render_full_markdown(data)
 
-    def generate_summary(self, format: str = "markdown") -> str:
+    def generate_summary(self, output_format: str = "markdown") -> str:
         data = self._build_summary_data()
-        if format == "json":
+        if output_format == "json":
             return json.dumps(data, indent=2, default=str)
         return self._render_summary_markdown(data)
 
-    def generate_delta(self, previous: EvidenceBundle, format: str = "markdown") -> str:
+    def generate_delta(self, previous: EvidenceBundle, output_format: str = "markdown") -> str:
         data = self._build_delta_data(previous)
-        if format == "json":
+        if output_format == "json":
             return json.dumps(data, indent=2, default=str)
         return self._render_delta_markdown(data)
 
@@ -190,168 +190,168 @@ class ReportGenerator:
         return recs
 
     def _render_full_markdown(self, data: dict[str, Any]) -> str:
-        L = []
-        L.append(f"# {data['title']}")
-        L.append("")
-        L.append(f"Generated: {data['generated_at']}")
-        L.append(f"Repositories: {', '.join(data['repos'])}")
-        L.append("")
+        lines = []
+        lines.append(f"# {data['title']}")
+        lines.append("")
+        lines.append(f"Generated: {data['generated_at']}")
+        lines.append(f"Repositories: {', '.join(data['repos'])}")
+        lines.append("")
         es = data["executive_summary"]
-        L.append("## Executive Summary")
-        L.append("")
-        L.append(f"- **Repos covered**: {es['total_repos']}")
-        L.append("- **Gates passing**: " + ("Yes" if es["gates_passing"] else "No"))
-        L.append(f"- **Total CVEs**: {es['total_cves']}")
-        L.append(f"- **Critical CVEs**: {es['critical_cves']}")
-        L.append(f"- **High CVEs**: {es['high_cves']}")
-        L.append(f"- **Compliance**: {es['compliance_met']}/{es['compliance_total']} requirements met")
-        L.append("")
+        lines.append("## Executive Summary")
+        lines.append("")
+        lines.append(f"- **Repos covered**: {es['total_repos']}")
+        lines.append("- **Gates passing**: " + ("Yes" if es["gates_passing"] else "No"))
+        lines.append(f"- **Total CVEs**: {es['total_cves']}")
+        lines.append(f"- **Critical CVEs**: {es['critical_cves']}")
+        lines.append(f"- **High CVEs**: {es['high_cves']}")
+        lines.append(f"- **Compliance**: {es['compliance_met']}/{es['compliance_total']} requirements met")
+        lines.append("")
         sb = data["sbom_analysis"]
-        L.append("## SBOM Analysis")
-        L.append("")
-        L.append(f"- **Total components**: {sb['total_components']}")
-        L.append(f"- **SBOMs collected**: {sb['sbom_count']}")
+        lines.append("## SBOM Analysis")
+        lines.append("")
+        lines.append(f"- **Total components**: {sb['total_components']}")
+        lines.append(f"- **SBOMs collected**: {sb['sbom_count']}")
         if sb["license_breakdown"]:
-            L.append("- **License breakdown**:")
+            lines.append("- **License breakdown**:")
             for lic, count in sb["license_breakdown"].items():
-                L.append(f"  - {lic}: {count}")
-        L.append("")
+                lines.append(f"  - {lic}: {count}")
+        lines.append("")
         cv = data["cve_findings"]
-        L.append("## CVE Findings")
-        L.append("")
-        L.append(f"Total findings: {cv['total']}")
+        lines.append("## CVE Findings")
+        lines.append("")
+        lines.append(f"Total findings: {cv['total']}")
         if cv["by_severity"]:
-            L.append("")
-            L.append("| Severity | Count |")
-            L.append("|---|---|")
+            lines.append("")
+            lines.append("| Severity | Count |")
+            lines.append("|---|---|")
             for sev, cnt in cv["by_severity"].items():
-                L.append(f"| {sev} | {cnt} |")
+                lines.append(f"| {sev} | {cnt} |")
         if cv["findings"]:
-            L.append("")
-            L.append("| CVE | Severity | CVSS | Package | Version | Fix |")
-            L.append("|---|---|---|---|---|---|")
+            lines.append("")
+            lines.append("| CVE | Severity | CVSS | Package | Version | Fix |")
+            lines.append("|---|---|---|---|---|---|")
             for f in cv["findings"]:
                 cs = f["cvss_score"] if f["cvss_score"] is not None else "N/A"
                 fx = f["fixed_version"] or "None"
-                L.append(f"| {f['cve_id']} | {f['severity']} | {cs} | {f['package']} | {f['version']} | {fx} |")
-        L.append("")
+                lines.append(f"| {f['cve_id']} | {f['severity']} | {cs} | {f['package']} | {f['version']} | {fx} |")
+        lines.append("")
         vx = data["vex_status"]
-        L.append("## VEX Status")
-        L.append("")
-        L.append(f"- **VEX documents**: {vx['total_documents']}")
-        L.append(f"- **Total statements**: {vx['total_statements']}")
-        L.append(f"- **Suppressed CVEs**: {len(vx['suppressed_cves'])}")
-        L.append(f"- **Unsuppressed CVEs**: {len(vx['unsuppressed_cves'])}")
-        L.append("")
+        lines.append("## VEX Status")
+        lines.append("")
+        lines.append(f"- **VEX documents**: {vx['total_documents']}")
+        lines.append(f"- **Total statements**: {vx['total_statements']}")
+        lines.append(f"- **Suppressed CVEs**: {len(vx['suppressed_cves'])}")
+        lines.append(f"- **Unsuppressed CVEs**: {len(vx['unsuppressed_cves'])}")
+        lines.append("")
         sl = data["slsa_verification"]
-        L.append("## SLSA Verification")
-        L.append("")
+        lines.append("## SLSA Verification")
+        lines.append("")
         if sl:
-            L.append("| Repository | Verified | Builder |")
-            L.append("|---|---|---|")
+            lines.append("| Repository | Verified | Builder |")
+            lines.append("|---|---|---|")
             for repo, info in sl.items():
                 v = "Yes" if info["verified"] else "No"
-                L.append(f"| {repo} | {v} | {info['builder_id']} |")
+                lines.append(f"| {repo} | {v} | {info['builder_id']} |")
         else:
-            L.append("No SLSA attestations collected.")
-        L.append("")
+            lines.append("No SLSA attestations collected.")
+        lines.append("")
         cm = data["compliance_matrix"]
-        L.append("## Compliance Matrix")
-        L.append("")
-        L.append(f"Summary: {cm['met']}/{cm['total']} requirements met")
-        L.append("")
-        L.append("| Requirement | Description | Status | Gaps |")
-        L.append("|---|---|---|---|")
+        lines.append("## Compliance Matrix")
+        lines.append("")
+        lines.append(f"Summary: {cm['met']}/{cm['total']} requirements met")
+        lines.append("")
+        lines.append("| Requirement | Description | Status | Gaps |")
+        lines.append("|---|---|---|---|")
         for req in cm["requirements"]:
             gs = "; ".join(req["gaps"]) if req["gaps"] else "None"
-            L.append(f"| {req['id']} | {req['description']} | **{req['status']}** | {gs} |")
-        L.append("")
-        L.append("## Recommendations")
-        L.append("")
+            lines.append(f"| {req['id']} | {req['description']} | **{req['status']}** | {gs} |")
+        lines.append("")
+        lines.append("## Recommendations")
+        lines.append("")
         for rec in data["recommendations"]:
-            L.append(f"- {rec}")
-        L.append("")
-        return "\n".join(L)
+            lines.append(f"- {rec}")
+        lines.append("")
+        return "\n".join(lines)
 
     def _render_summary_markdown(self, data: dict[str, Any]) -> str:
-        L = []
-        L.append(f"# {data['title']}")
-        L.append("")
-        L.append(f"Generated: {data['generated_at']}")
-        L.append(f"Overall status: **{data['overall_status']}**")
-        L.append("")
+        lines = []
+        lines.append(f"# {data['title']}")
+        lines.append("")
+        lines.append(f"Generated: {data['generated_at']}")
+        lines.append(f"Overall status: **{data['overall_status']}**")
+        lines.append("")
         km = data["key_metrics"]
-        L.append("## Key Metrics")
-        L.append("")
-        L.append(f"- **Repos covered**: {km['repos_covered']}")
-        L.append("- **Gates passing**: " + ("Yes" if km["gates_passing"] else "No"))
-        L.append(f"- **Total CVEs**: {km['total_cves']}")
-        L.append(f"- **Critical CVEs**: {km['critical_cves']}")
-        L.append(f"- **High CVEs**: {km['high_cves']}")
-        L.append(f"- **Compliance**: {km['compliance_met']}/{km['compliance_total']} requirements met")
-        L.append(f"- **SLSA verified**: {km['slsa_verified']}")
-        L.append("")
+        lines.append("## Key Metrics")
+        lines.append("")
+        lines.append(f"- **Repos covered**: {km['repos_covered']}")
+        lines.append("- **Gates passing**: " + ("Yes" if km["gates_passing"] else "No"))
+        lines.append(f"- **Total CVEs**: {km['total_cves']}")
+        lines.append(f"- **Critical CVEs**: {km['critical_cves']}")
+        lines.append(f"- **High CVEs**: {km['high_cves']}")
+        lines.append(f"- **Compliance**: {km['compliance_met']}/{km['compliance_total']} requirements met")
+        lines.append(f"- **SLSA verified**: {km['slsa_verified']}")
+        lines.append("")
         if data["critical_findings"]:
-            L.append("## Critical Findings")
-            L.append("")
-            L.append("| CVE | Severity | CVSS | Package |")
-            L.append("|---|---|---|---|")
+            lines.append("## Critical Findings")
+            lines.append("")
+            lines.append("| CVE | Severity | CVSS | Package |")
+            lines.append("|---|---|---|---|")
             for f in data["critical_findings"]:
                 cs = f["cvss_score"] if f["cvss_score"] is not None else "N/A"
-                L.append(f"| {f['cve_id']} | {f['severity']} | {cs} | {f['package']} |")
-            L.append("")
-        return "\n".join(L)
+                lines.append(f"| {f['cve_id']} | {f['severity']} | {cs} | {f['package']} |")
+            lines.append("")
+        return "\n".join(lines)
 
     def _render_delta_markdown(self, data: dict[str, Any]) -> str:
-        L = []
-        L.append(f"# {data['title']}")
-        L.append("")
-        L.append(f"Generated: {data['generated_at']}")
-        L.append(f"Comparing against: {data['previous_collected_at']}")
-        L.append("")
+        lines = []
+        lines.append(f"# {data['title']}")
+        lines.append("")
+        lines.append(f"Generated: {data['generated_at']}")
+        lines.append(f"Comparing against: {data['previous_collected_at']}")
+        lines.append("")
         cc = data["cve_changes"]
-        L.append("## CVE Changes")
-        L.append("")
+        lines.append("## CVE Changes")
+        lines.append("")
         if cc["new_cves"]:
-            L.append("**New CVEs:**")
+            lines.append("**New CVEs:**")
             for cid in cc["new_cves"]:
-                L.append(f"- {cid}")
+                lines.append(f"- {cid}")
         else:
-            L.append("No new CVEs.")
-        L.append("")
+            lines.append("No new CVEs.")
+        lines.append("")
         if cc["resolved_cves"]:
-            L.append("**Resolved CVEs:**")
+            lines.append("**Resolved CVEs:**")
             for cid in cc["resolved_cves"]:
-                L.append(f"- {cid}")
+                lines.append(f"- {cid}")
         else:
-            L.append("No resolved CVEs.")
-        L.append("")
+            lines.append("No resolved CVEs.")
+        lines.append("")
         cp = data["component_changes"]
-        L.append("## Component Changes")
-        L.append("")
+        lines.append("## Component Changes")
+        lines.append("")
         if cp["new_components"]:
-            L.append("**New components:**")
+            lines.append("**New components:**")
             for c in cp["new_components"]:
-                L.append(f"- {c}")
+                lines.append(f"- {c}")
         else:
-            L.append("No new components.")
-        L.append("")
+            lines.append("No new components.")
+        lines.append("")
         if cp["removed_components"]:
-            L.append("**Removed components:**")
+            lines.append("**Removed components:**")
             for c in cp["removed_components"]:
-                L.append(f"- {c}")
+                lines.append(f"- {c}")
         else:
-            L.append("No removed components.")
-        L.append("")
+            lines.append("No removed components.")
+        lines.append("")
         cch = data["compliance_changes"]
-        L.append("## Compliance Changes")
-        L.append("")
+        lines.append("## Compliance Changes")
+        lines.append("")
         if cch:
-            L.append("| Requirement | Previous | Current |")
-            L.append("|---|---|---|")
+            lines.append("| Requirement | Previous | Current |")
+            lines.append("|---|---|---|")
             for ch in cch:
-                L.append(f"| {ch['requirement']} | {ch['previous']} | {ch['current']} |")
+                lines.append(f"| {ch['requirement']} | {ch['previous']} | {ch['current']} |")
         else:
-            L.append("No compliance status changes.")
-        L.append("")
-        return "\n".join(L)
+            lines.append("No compliance status changes.")
+        lines.append("")
+        return "\n".join(lines)

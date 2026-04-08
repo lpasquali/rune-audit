@@ -38,7 +38,7 @@ def report_full(
     """Generate a complete audit report."""
     cfg = AuditConfig.load(config_file)
     evidence = _load_evidence(cfg)
-    content = ReportGenerator(evidence).generate_full(format=output_format)
+    content = ReportGenerator(evidence).generate_full(output_format=output_format)
     _write_output(content, output, "Full Audit Report")
 
 @report_app.command("summary")
@@ -50,7 +50,7 @@ def report_summary(
     """Generate an executive summary."""
     cfg = AuditConfig.load(config_file)
     evidence = _load_evidence(cfg)
-    content = ReportGenerator(evidence).generate_summary(format=output_format)
+    content = ReportGenerator(evidence).generate_summary(output_format=output_format)
     _write_output(content, output, "Audit Summary")
 
 @report_app.command("delta")
@@ -64,5 +64,5 @@ def report_delta(
     cfg = AuditConfig.load(config_file)
     evidence = _load_evidence(cfg)
     previous = EvidenceBundle(repos=cfg.repos)
-    content = ReportGenerator(evidence).generate_delta(previous, format=output_format)
+    content = ReportGenerator(evidence).generate_delta(previous, output_format=output_format)
     _write_output(content, output, "Delta Report (since " + (since or "last audit") + ")")
