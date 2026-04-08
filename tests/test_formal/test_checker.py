@@ -200,7 +200,9 @@ class TestTLACheckerListSpecs:
 
 class TestModelSerialization:
     def test_check_result_serialization(self) -> None:
-        result = CheckResult(spec="AuditChain", passed=True, states_found=42, distinct_states=15, duration_seconds=1.234)
+        result = CheckResult(
+            spec="AuditChain", passed=True, states_found=42, distinct_states=15, duration_seconds=1.234,
+        )
         data = result.model_dump()
         assert data["spec"] == "AuditChain"
         assert data["passed"] is True

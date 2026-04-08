@@ -50,13 +50,13 @@ def parse_tlc_output(stdout: str) -> tuple[bool, int, int, list[str]]:
         if violation_msg not in violations:
             violations.append(violation_msg)
 
-    match = _STATES_FOUND_RE.search(stdout)
-    if match:
-        states_found = int(match.group(1))
+    states_match = _STATES_FOUND_RE.search(stdout)
+    if states_match:
+        states_found = int(states_match.group(1))
 
-    match = _DISTINCT_STATES_RE.search(stdout)
-    if match:
-        distinct_states = int(match.group(1))
+    distinct_match = _DISTINCT_STATES_RE.search(stdout)
+    if distinct_match:
+        distinct_states = int(distinct_match.group(1))
 
     passed = len(violations) == 0 and "Model checking completed" in stdout
     return passed, states_found, distinct_states, violations
