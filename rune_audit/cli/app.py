@@ -12,7 +12,6 @@ from rune_audit import __version__
 from rune_audit.cli.collect import collect_app
 from rune_audit.cli.compliance import compliance_app
 from rune_audit.cli.config_cmd import config_app
-from rune_audit.cli.rekor_cmd import rekor_app
 from rune_audit.cli.report import report_app
 from rune_audit.cli.slsa_cmd import slsa_app
 from rune_audit.cli.tpm2_cmd import tpm2_app
