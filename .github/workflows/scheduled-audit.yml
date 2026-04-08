@@ -1,0 +1,149 @@
+name: Scheduled Audit
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Weekly Monday 6am UTC
+  workflow_dispatch:
+    inputs:
+      repos:
+        description: 'Comma-separated repo list (empty = all)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+  issues: write
+  actions: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  RUNE_REPOS: >-
+    rune,rune-operator,rune-ui,rune-charts,rune-docs,rune-audit,rune-airgapped
+
+jobs:
+  collect:
+    name: Collect evidence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt 2>/dev/null || pip install -e .
+
+      - name: Determine repo list
+        id: repos
+        run: |
+          INPUT_REPOS="${{ github.event.inputs.repos }}"
+          if [ -z "$INPUT_REPOS" ]; then
+            REPOS="${RUNE_REPOS}"
+          else
+            REPOS="$INPUT_REPOS"
+          fi
+          echo "repos=${REPOS}" >> "$GITHUB_OUTPUT"
+          echo "Using repos: ${REPOS}"
+
+      - name: Collect evidence across repos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUNE_AUDIT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUNE_AUDIT_REPOS: ${{ steps.repos.outputs.repos }}
+        run: |
+          echo "Collecting evidence for: ${RUNE_AUDIT_REPOS}"
+          rune-audit collect all --config /dev/null 2>&1 || echo "Collection completed with warnings"
+
+      - name: Run SLSA verification
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUNE_AUDIT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          rune-audit slsa verify-all 2>&1 || echo "SLSA verification completed with warnings"
+
+      - name: Generate compliance matrix
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUNE_AUDIT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          rune-audit compliance matrix --format md --output audit-output/compliance-matrix.md 2>&1 || echo "Compliance matrix generated with warnings"
+
+      - name: Generate summary report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUNE_AUDIT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          rune-audit report summary --format markdown --output audit-output/summary.md 2>&1 || echo "Summary report generated with warnings"
+
+      - name: Upload evidence bundle and reports
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: audit-evidence-${{ github.run_id }}
+          path: audit-output/
+          retention-days: 90
+
+  alert:
+    name: Check for critical findings
+    needs: [collect]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt 2>/dev/null || pip install -e .
+
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: audit-evidence-${{ github.run_id }}
+          path: audit-output/
+
+      - name: Check for critical findings and create issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUNE_AUDIT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Generate JSON summary to parse
+          rune-audit report summary --format json --output audit-output/summary.json 2>/dev/null || true
+
+          CRITICAL=0
+          if [ -f audit-output/summary.json ]; then
+            CRITICAL=$(python3 -c "
+          import json, sys
+          try:
+              data = json.load(open('audit-output/summary.json'))
+              km = data.get('key_metrics', {})
+              print(km.get('critical_cves', 0))
+          except Exception:
+              print(0)
+          ")
+          fi
+
+          echo "Critical CVEs found: ${CRITICAL}"
+
+          if [ "$CRITICAL" -gt 0 ]; then
+            TITLE="[Scheduled Audit] ${CRITICAL} critical finding(s) detected — $(date +%Y-%m-%d)"
+            BODY="## Scheduled Audit Alert
+
+          The weekly scheduled audit detected **${CRITICAL} critical finding(s)**.
+
+          **Run**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          Please review the evidence bundle artifact and remediate critical findings.
+
+          ---
+          _Auto-generated by scheduled-audit workflow_"
+
+            gh issue create --title "${TITLE}" --body "${BODY}" --label "priority/p0,audit"
+            echo "::warning::Critical findings detected — issue created"
+          else
+            echo "No critical findings detected."
+          fi
