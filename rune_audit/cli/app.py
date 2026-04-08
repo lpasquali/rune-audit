@@ -12,7 +12,6 @@ from rune_audit import __version__
 from rune_audit.cli.collect import collect_app
 from rune_audit.cli.compliance import compliance_app
 from rune_audit.cli.config_cmd import config_app
-from rune_audit.cli.formal_cmd import formal_app
 from rune_audit.cli.report import report_app
 from rune_audit.cli.sign_cmd import sign_app
 from rune_audit.cli.slsa_cmd import slsa_app
