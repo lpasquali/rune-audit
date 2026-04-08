@@ -14,6 +14,7 @@ from rune_audit.cli.compliance import compliance_app
 from rune_audit.cli.config_cmd import config_app
 from rune_audit.cli.report import report_app
 from rune_audit.cli.slsa_cmd import slsa_app
+from rune_audit.cli.tpm2_cmd import tpm2_app
 from rune_audit.cli.vex import vex_app
 
 app = typer.Typer(
@@ -52,6 +53,7 @@ app.add_typer(compliance_app, name="compliance", help="Compliance reporting.")
 app.add_typer(slsa_app, name="slsa", help="SLSA verification.")
 app.add_typer(report_app, name="report", help="Generate reports.")
 app.add_typer(config_app, name="config", help="Show configuration.")
+app.add_typer(tpm2_app, name="tpm2", help="TPM2 attestation collection.")
 
 
 @app.command()
