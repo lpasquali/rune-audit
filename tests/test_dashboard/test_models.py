@@ -1,8 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0
 """Tests for dashboard models."""
 from __future__ import annotations
+
 from datetime import datetime
+
 from rune_audit.dashboard.models import DashboardData, RepoAlerts, RepoCoverage, RepoStatus
+
 
 class TestRepoStatus:
     def test_create(self):

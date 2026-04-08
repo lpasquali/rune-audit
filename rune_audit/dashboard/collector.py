@@ -1,9 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0
 """Dashboard data collector using GitHub REST API."""
 from __future__ import annotations
+
 from datetime import datetime
+
 import httpx
+
 from rune_audit.dashboard.models import DashboardData, RepoAlerts, RepoCoverage, RepoStatus
+
 
 class DashboardCollector:
     """Collect cross-repo quality gate data from GitHub."""

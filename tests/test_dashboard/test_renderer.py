@@ -1,10 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0
 """Tests for dashboard renderer."""
 from __future__ import annotations
+
 import json
 from datetime import datetime
+
 from rune_audit.dashboard.models import DashboardData, RepoAlerts, RepoCoverage, RepoStatus
 from rune_audit.dashboard.renderer import DashboardRenderer
+
 
 def _make_data():
     return DashboardData(

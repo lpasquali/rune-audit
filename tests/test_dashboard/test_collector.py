@@ -1,9 +1,12 @@
 # SPDX-License-Identifier: Apache-2.0
 """Tests for dashboard collector with mocked GitHub API."""
 from __future__ import annotations
+
 import httpx
 import respx
+
 from rune_audit.dashboard.collector import DashboardCollector
+
 
 class TestCollectWorkflowStatus:
     def test_success_run(self):

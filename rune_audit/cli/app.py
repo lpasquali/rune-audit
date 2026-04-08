@@ -10,10 +10,10 @@ import typer
 
 from rune_audit import __version__
 from rune_audit.cli.collect import collect_app
-from rune_audit.cli.dashboard_cmd import dashboard_app
 from rune_audit.cli.compliance import compliance_app
 from rune_audit.cli.config_cmd import config_app
 from rune_audit.cli.formal_cmd import formal_app
+from rune_audit.cli.dashboard_cmd import dashboard_app
 from rune_audit.cli.report import report_app
 >>>>>>> 653f1a1 (fix: resolve ruff/mypy linting errors)
 from rune_audit.cli.operator_cmd import operator_app

@@ -1,8 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0
 """Dashboard data models."""
 from __future__ import annotations
+
 from datetime import datetime
+
 from pydantic import BaseModel, Field
+
 
 class RepoStatus(BaseModel):
     """Status of a repository workflow run."""

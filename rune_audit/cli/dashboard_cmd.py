@@ -1,10 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0
 """CLI command for the cross-repo quality gate dashboard."""
 from __future__ import annotations
+
 from pathlib import Path
+
 import typer
 from rich.console import Console
 from rich.panel import Panel
+
 from rune_audit.dashboard.collector import DashboardCollector
 from rune_audit.dashboard.renderer import DashboardRenderer
 

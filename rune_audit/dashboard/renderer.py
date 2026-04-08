@@ -1,8 +1,12 @@
 # SPDX-License-Identifier: Apache-2.0
 """Dashboard rendering in terminal, markdown, and JSON formats."""
 from __future__ import annotations
-import json
-from rune_audit.dashboard.models import DashboardData
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from rune_audit.dashboard.models import DashboardData
+
 
 class DashboardRenderer:
     """Render dashboard data in multiple formats."""
@@ -32,7 +36,7 @@ class DashboardRenderer:
         lines.append("Security Alerts:")
         lines.append("-" * 40)
         for a in data.alerts:
-            total = a.dependabot_open + a.code_scanning_open
+            a.dependabot_open + a.code_scanning_open
             lines.append(f"  {a.repo:20s} dependabot={a.dependabot_open} "
                          f"code-scanning={a.code_scanning_open} critical={a.critical_cves}")
 
