@@ -64,7 +64,11 @@ def _get_github_token() -> str:
             timeout=10,
         )
         return result.stdout.strip()
-    except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
+    except (
+        subprocess.CalledProcessError,
+        FileNotFoundError,
+        subprocess.TimeoutExpired,
+    ):
         return ""
 
 
@@ -248,7 +252,10 @@ def _check_builder_trusted(bundle: AttestationBundle) -> SLSACheckResult:
         if isinstance(build_def, dict):
             build_type = str(build_def.get("buildType", ""))
 
-    if builder_id and any(builder_id == trusted or builder_id.startswith(trusted + "/") for trusted in TRUSTED_BUILDERS):
+    if builder_id and any(
+        builder_id == trusted or builder_id.startswith(trusted + "/")
+        for trusted in TRUSTED_BUILDERS
+    ):
         return SLSACheckResult(
             requirement=SLSARequirement.BUILDER_TRUSTED,
             status=VerificationStatus.PASS,
@@ -373,7 +380,9 @@ def _check_build_isolated(bundle: AttestationBundle) -> SLSACheckResult:
 # -- Public API ----------------------------------------------------------------
 
 
-def verify_slsa(repo: str, tag: str, bundle: AttestationBundle | None = None) -> SLSAVerificationReport:
+def verify_slsa(
+    repo: str, tag: str, bundle: AttestationBundle | None = None
+) -> SLSAVerificationReport:
     """Verify SLSA Level 3 compliance for a single repo+tag."""
     if bundle is None:
         bundle = collect_attestations(repo, tag)
