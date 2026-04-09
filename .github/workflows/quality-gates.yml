@@ -41,3 +41,11 @@ jobs:
     uses: lpasquali/rune-ci/.github/workflows/pr-compliance.yml@95f0b3fd7c0cdbab72a42e71343c27125997bca5 # main
     with:
       needs-json: ${{ toJson(needs) }}
+
+  merge-gate:
+    name: Merge Gate
+    needs: [compliance]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Merge Gate Satisfied"
