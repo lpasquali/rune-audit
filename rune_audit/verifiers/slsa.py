@@ -17,6 +17,7 @@ import os
 import subprocess
 from dataclasses import dataclass, field
 from enum import Enum
+from urllib.parse import urlparse
 
 from rune_audit.config import DEFAULT_REPOS, AuditConfig
 
@@ -29,7 +30,58 @@ TRUSTED_BUILDERS: frozenset[str] = frozenset(
     }
 )
 
+# Pre-computed trusted origins (scheme + netloc) for URL validation.
+TRUSTED_ORIGINS: frozenset[str] = frozenset(
+    f"{urlparse(u).scheme}://{urlparse(u).netloc}" for u in TRUSTED_BUILDERS
+)
+
 GITHUB_ACTIONS_BUILD_TYPE = "https://actions.github.io/buildtypes/workflow/v1"
+
+
+def _is_trusted_url(candidate: str, trusted_urls: frozenset[str]) -> bool:
+    """Validate a URL against a set of trusted URLs using origin + path comparison.
+
+    This avoids incomplete substring sanitization (CodeQL
+    py/incomplete-url-substring-sanitization) by parsing URLs and comparing
+    scheme, host, and path components rather than using ``in`` or ``startswith``
+    on raw strings.
+
+    A candidate matches if:
+    - Its origin (scheme://netloc) matches a trusted URL's origin, AND
+    - Its path equals or is a sub-path of the trusted URL's path.
+    """
+    parsed = urlparse(candidate)
+    candidate_origin = f"{parsed.scheme}://{parsed.netloc}"
+    if not parsed.scheme or not parsed.netloc:
+        return False
+    if candidate_origin not in TRUSTED_ORIGINS:
+        return False
+    candidate_path = parsed.path.rstrip("/")
+    for trusted in trusted_urls:
+        tp = urlparse(trusted)
+        trusted_origin = f"{tp.scheme}://{tp.netloc}"
+        if candidate_origin != trusted_origin:
+            continue
+        trusted_path = tp.path.rstrip("/")
+        if candidate_path == trusted_path or candidate_path.startswith(trusted_path + "/"):
+            return True
+    return False
+
+
+def _is_trusted_build_type(build_type: str) -> bool:
+    """Validate a build type URL against the known GitHub Actions build type.
+
+    Uses origin + path comparison instead of substring matching.
+    """
+    parsed = urlparse(build_type)
+    expected = urlparse(GITHUB_ACTIONS_BUILD_TYPE)
+    if not parsed.scheme or not parsed.netloc:
+        return False
+    return (
+        parsed.scheme == expected.scheme
+        and parsed.netloc == expected.netloc
+        and parsed.path.rstrip("/") == expected.path.rstrip("/")
+    )
 
 
 # -- Attestation bundle --------------------------------------------------------
@@ -248,14 +300,14 @@ def _check_builder_trusted(bundle: AttestationBundle) -> SLSACheckResult:
         if isinstance(build_def, dict):
             build_type = str(build_def.get("buildType", ""))
 
-    if builder_id and any(trusted in builder_id for trusted in TRUSTED_BUILDERS):
+    if builder_id and _is_trusted_url(builder_id, TRUSTED_BUILDERS):
         return SLSACheckResult(
             requirement=SLSARequirement.BUILDER_TRUSTED,
             status=VerificationStatus.PASS,
             message=f"Builder is trusted: {builder_id}",
             details={"builder_id": builder_id, "build_type": build_type},
         )
-    if GITHUB_ACTIONS_BUILD_TYPE in build_type:
+    if _is_trusted_build_type(build_type):
         return SLSACheckResult(
             requirement=SLSARequirement.BUILDER_TRUSTED,
             status=VerificationStatus.PASS,
@@ -344,7 +396,7 @@ def _check_build_isolated(bundle: AttestationBundle) -> SLSACheckResult:
         if build_finished_on:
             is_ephemeral = True
 
-    if GITHUB_ACTIONS_BUILD_TYPE in build_type:
+    if _is_trusted_build_type(build_type):
         is_ephemeral = True
 
     run_details = predicate.get("runDetails", {})
@@ -352,7 +404,7 @@ def _check_build_isolated(bundle: AttestationBundle) -> SLSACheckResult:
         builder_info = run_details.get("builder", {})
         if isinstance(builder_info, dict):
             builder_id_val = str(builder_info.get("id", ""))
-            if "github" in builder_id_val.lower():
+            if _is_trusted_url(builder_id_val, TRUSTED_BUILDERS):
                 is_ephemeral = True
 
     if is_ephemeral:

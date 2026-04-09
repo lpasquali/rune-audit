@@ -7,6 +7,7 @@ from unittest.mock import MagicMock, patch
 
 from rune_audit.config import AuditConfig
 from rune_audit.verifiers.slsa import (
+    TRUSTED_BUILDERS,
     AttestationBundle,
     SLSACheckResult,
     SLSARequirement,
@@ -19,10 +20,83 @@ from rune_audit.verifiers.slsa import (
     _check_source_version_controlled,
     _extract_predicate,
     _get_github_token,
+    _is_trusted_build_type,
+    _is_trusted_url,
     collect_attestations,
     verify_slsa,
     verify_slsa_all,
 )
+
+
+class TestIsTrustedUrl:
+    """Tests for _is_trusted_url to prevent incomplete URL substring sanitization."""
+
+    def test_exact_match(self) -> None:
+        assert _is_trusted_url("https://github.com/actions/runner", TRUSTED_BUILDERS)
+
+    def test_subpath_match(self) -> None:
+        assert _is_trusted_url("https://github.com/actions/runner/github-hosted", TRUSTED_BUILDERS)
+
+    def test_slsa_generator_match(self) -> None:
+        assert _is_trusted_url("https://github.com/slsa-framework/slsa-github-generator", TRUSTED_BUILDERS)
+
+    def test_attest_provenance_match(self) -> None:
+        assert _is_trusted_url("https://github.com/actions/attest-build-provenance", TRUSTED_BUILDERS)
+
+    def test_rejects_spoofed_subdomain(self) -> None:
+        """A malicious URL with a trusted path but different host must be rejected."""
+        assert not _is_trusted_url("https://evil-github.com/actions/runner", TRUSTED_BUILDERS)
+
+    def test_rejects_spoofed_prefix(self) -> None:
+        """A URL that embeds a trusted URL as a substring must be rejected."""
+        assert not _is_trusted_url(
+            "https://evil.com/https://github.com/actions/runner", TRUSTED_BUILDERS
+        )
+
+    def test_rejects_different_scheme(self) -> None:
+        assert not _is_trusted_url("http://github.com/actions/runner", TRUSTED_BUILDERS)
+
+    def test_rejects_unknown_builder(self) -> None:
+        assert not _is_trusted_url("https://github.com/evil/builder", TRUSTED_BUILDERS)
+
+    def test_rejects_empty_string(self) -> None:
+        assert not _is_trusted_url("", TRUSTED_BUILDERS)
+
+    def test_rejects_no_scheme(self) -> None:
+        assert not _is_trusted_url("github.com/actions/runner", TRUSTED_BUILDERS)
+
+    def test_rejects_partial_path_overlap(self) -> None:
+        """Path must match exactly or be a proper sub-path (after /)."""
+        assert not _is_trusted_url("https://github.com/actions/runner-evil", TRUSTED_BUILDERS)
+
+
+class TestIsTrustedBuildType:
+    """Tests for _is_trusted_build_type."""
+
+    def test_exact_match(self) -> None:
+        assert _is_trusted_build_type("https://actions.github.io/buildtypes/workflow/v1")
+
+    def test_trailing_slash(self) -> None:
+        assert _is_trusted_build_type("https://actions.github.io/buildtypes/workflow/v1/")
+
+    def test_rejects_spoofed_host(self) -> None:
+        assert not _is_trusted_build_type(
+            "https://evil-actions.github.io/buildtypes/workflow/v1"
+        )
+
+    def test_rejects_substring_embed(self) -> None:
+        assert not _is_trusted_build_type(
+            "https://evil.com/https://actions.github.io/buildtypes/workflow/v1"
+        )
+
+    def test_rejects_different_scheme(self) -> None:
+        assert not _is_trusted_build_type("http://actions.github.io/buildtypes/workflow/v1")
+
+    def test_rejects_empty(self) -> None:
+        assert not _is_trusted_build_type("")
+
+    def test_rejects_different_path(self) -> None:
+        assert not _is_trusted_build_type("https://actions.github.io/buildtypes/workflow/v2")
 
 
 class TestAttestationBundle:
@@ -101,6 +175,21 @@ class TestChecks:
     def test_builder_fail(self) -> None:
         b = AttestationBundle(
             repo="t", tag="v", found=True, payload={"predicate": {"builder": {"id": "evil"}, "buildType": "c"}}
+        )
+        assert _check_builder_trusted(b).status == VerificationStatus.FAIL
+
+    def test_builder_rejects_spoofed_url(self) -> None:
+        """Regression: spoofed URL must not pass builder trust check."""
+        b = AttestationBundle(
+            repo="t",
+            tag="v",
+            found=True,
+            payload={
+                "predicate": {
+                    "builder": {"id": "https://evil.com/https://github.com/actions/runner"},
+                    "buildType": "c",
+                }
+            },
         )
         assert _check_builder_trusted(b).status == VerificationStatus.FAIL
 
