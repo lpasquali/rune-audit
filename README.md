@@ -67,6 +67,12 @@ rune-audit report full
 rune-audit config show
 ```
 
+## External OSS projects (compliance-config & packs)
+
+For non-RUNE repositories, use `compliance-config.yaml` and builtin packs (`rune-audit init`, `rune-audit sr2 verify --pack …`). Documentation lives in **[rune-docs: External projects](https://github.com/lpasquali/rune-docs/blob/main/docs/external-projects/index.md)** ([rune-docs#227](https://github.com/lpasquali/rune-docs/issues/227)–[#232](https://github.com/lpasquali/rune-docs/issues/232)).
+
+Multi-repo SR-2 matrix (HTML / JSON / Markdown): `rune-audit sr2 dashboard --base-path ..` (see [rune-docs#212](https://github.com/lpasquali/rune-docs/issues/212)).
+
 ## Supported Evidence Types
 
 | Type | Description | Source |
@@ -82,7 +88,7 @@ rune-audit config show
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `RUNE_AUDIT_GITHUB_TOKEN` | GitHub API token (fallback: `gh auth token`) | -- |
-| `RUNE_AUDIT_REPOS` | Comma-separated repo list | All 6 RUNE repos |
+| `RUNE_AUDIT_REPOS` | Comma-separated repo list | All 8 RUNE program repos |
 | `RUNE_AUDIT_OUTPUT_DIR` | Report output directory | `./audit-output/` |
 
 Optional YAML config file: `rune-audit.yaml`

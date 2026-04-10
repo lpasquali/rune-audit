@@ -19,6 +19,8 @@ DEFAULT_REPOS: list[str] = [
     "rune-charts",
     "rune-docs",
     "rune-audit",
+    "rune-airgapped",
+    "rune-ci",
 ]
 
 DEFAULT_OUTPUT_DIR = "./audit-output"
@@ -59,5 +61,15 @@ class AuditConfig:
                     cfg.output_dir = data["output_dir"]
                 if "output_format" in data and isinstance(data["output_format"], str):
                     cfg.output_format = data["output_format"]
+
+        # Optional compliance-config.yaml (rune-docs#227) — overrides repo list when present
+        comp_path = Path("compliance-config.yaml")
+        if comp_path.exists():
+            from rune_audit.sr2.compliance_config import load_compliance_config
+
+            cc = load_compliance_config(comp_path)
+            names = [r.name for r in cc.project.repos if r.name]
+            if names:
+                cfg.repos = names
 
         return cfg

@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: Apache-2.0
+# IEC 62443-4-1 ML4 oriented pack (subset; full SR-Q catalog lives in code).
+pack:
+  name: "IEC 62443-4-1 ML4"
+  standard: "iec-62443-4-1"
+  version: "1.0"
+requirements:
+  - id: "SR-Q-004"
+    title: "Request body size limit"
+    category: "API"
+    priority: "P0"
+    inspector: "builtin://stub"
+  - id: "SR-Q-008"
+    title: "HTTP server timeout"
+    category: "API"
+    priority: "P1"
+    inspector: "builtin://stub"

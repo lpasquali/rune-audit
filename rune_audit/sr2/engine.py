@@ -6,8 +6,34 @@ from __future__ import annotations
 from pathlib import Path
 
 from rune_audit.sr2.catalog import iter_requirements
-from rune_audit.sr2.inspectors import InspectContext, run_all
-from rune_audit.sr2.models import InspectStatus, Priority, VerifyReport
+from rune_audit.sr2.inspectors import InspectContext, run_all, stub_inspector
+from rune_audit.sr2.models import InspectStatus, Priority, RequirementSpec, VerifyReport
+from rune_audit.sr2.packs import load_builtin_pack
+from rune_audit.sr2.registry import default_registry
+
+
+def run_pack_verification(*, root: Path, pack_stem: str) -> VerifyReport:
+    """Run inspectors defined in a builtin YAML pack (non–SR-Q ids allowed)."""
+    doc = load_builtin_pack(pack_stem)
+    ctx_root = root.resolve()
+    ctx = InspectContext(root=ctx_root)
+    reg = default_registry()
+    results = []
+    for row in doc.requirements:
+        try:
+            prio = Priority(row.priority.upper())
+        except ValueError:
+            prio = Priority.P2
+        spec = RequirementSpec(id=row.id, title=row.title, priority=prio, threshold=row.threshold)
+        key = row.inspector.strip()
+        if key in ("builtin://stub", "builtin://") or key.startswith("builtin://stub"):
+            fn = stub_inspector
+        elif key.startswith("stdlib."):
+            fn = reg.get(key)
+        else:
+            fn = reg.get(row.id)
+        results.append(fn(ctx, spec))
+    return VerifyReport(results=results, root=str(ctx_root))
 
 
 def run_verification(

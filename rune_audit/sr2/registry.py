@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Pluggable inspector registry (foundation for EPIC #228)."""
+"""Pluggable inspector registry (rune-docs#228)."""
 
 from __future__ import annotations
 
@@ -13,6 +13,9 @@ if TYPE_CHECKING:
     from rune_audit.sr2.inspectors import InspectContext
 
 InspectorFn = Callable[["InspectContext", RequirementSpec], InspectResult]
+
+_GLOBAL: InspectorRegistry | None = None
+_STDLIB_REGISTERED = False
 
 
 class InspectorRegistry:
@@ -31,6 +34,37 @@ class InspectorRegistry:
         yield from sorted(self._by_id)
 
 
+def _ensure_stdlib(reg: InspectorRegistry) -> None:
+    global _STDLIB_REGISTERED
+    if _STDLIB_REGISTERED:
+        return
+    from rune_audit.sr2.inspectors.stdlib import register_stdlib_inspectors
+
+    register_stdlib_inspectors(reg)
+    _STDLIB_REGISTERED = True
+
+
 def default_registry() -> InspectorRegistry:
-    """Registry used by the CLI until real inspectors land (#211)."""
-    return InspectorRegistry()
+    """Singleton registry with built-in standard inspectors loaded once."""
+    global _GLOBAL
+    if _GLOBAL is None:
+        _GLOBAL = InspectorRegistry()
+    _ensure_stdlib(_GLOBAL)
+    return _GLOBAL
+
+
+def inspector(requirement_id: str) -> Callable[[InspectorFn], InspectorFn]:
+    """Decorator: register *fn* under *requirement_id* on the default registry."""
+
+    def deco(fn: InspectorFn) -> InspectorFn:
+        default_registry().register(requirement_id, fn)
+        return fn
+
+    return deco
+
+
+def reset_registry_for_tests() -> None:
+    """Clear singleton (tests only)."""
+    global _GLOBAL, _STDLIB_REGISTERED
+    _GLOBAL = None
+    _STDLIB_REGISTERED = False

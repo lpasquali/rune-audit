@@ -68,6 +68,7 @@ def test_packs_ids_for_pack() -> None:
     from rune_audit.sr2 import packs
 
     assert packs.ids_for_pack("custom") == packs.IEC_62443_SR2
+    assert packs.ids_for_pack("slsa-l3") == frozenset({"SLSA-BUILD", "SLSA-SIGN"})
 
 
 def test_registry_register(tmp_path) -> None:

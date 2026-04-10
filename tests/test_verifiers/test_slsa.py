@@ -304,4 +304,4 @@ class TestVerifyAll:
 
     def test_defaults(self, passing_bundle: AttestationBundle) -> None:
         with patch("rune_audit.verifiers.slsa.collect_attestations", return_value=passing_bundle):
-            assert len(verify_slsa_all("v")) == 6
+            assert len(verify_slsa_all("v")) == 8

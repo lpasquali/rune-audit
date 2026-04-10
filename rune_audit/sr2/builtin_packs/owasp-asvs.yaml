@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: Apache-2.0
+pack:
+  name: "OWASP ASVS Level 2 (hints)"
+  standard: "owasp-asvs"
+  version: "1.0"
+requirements:
+  - id: "ASVS-SECRET"
+    title: "Secret scanning automation"
+    category: "ASVS"
+    priority: "P1"
+    inspector: "stdlib.secret_scanning"
+  - id: "ASVS-LIC"
+    title: "License declaration"
+    category: "ASVS"
+    priority: "P2"
+    inspector: "stdlib.license_compliance"

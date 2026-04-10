@@ -2,7 +2,7 @@
 """SR-2 quantitative security requirement checks (IEC 62443-4-1 ML4)."""
 
 from rune_audit.sr2.catalog import iter_requirements
-from rune_audit.sr2.engine import exit_code_for, run_verification, summarize
+from rune_audit.sr2.engine import exit_code_for, run_pack_verification, run_verification, summarize
 from rune_audit.sr2.models import InspectResult, InspectStatus, Priority, RequirementSpec, VerifyReport
 
 __all__ = [
@@ -13,6 +13,7 @@ __all__ = [
     "VerifyReport",
     "exit_code_for",
     "iter_requirements",
+    "run_pack_verification",
     "run_verification",
     "summarize",
 ]
