@@ -73,6 +73,16 @@ def load_compliance_config(path: Path) -> ComplianceConfigFile:
     return ComplianceConfigFile.model_validate(raw)
 
 
+def resolve_project_repo_paths(cfg: ComplianceConfigFile, base: Path) -> list[tuple[str, Path]]:
+    """Map ``project.repos[].name`` to ``base / name`` (rune-docs#212 matrix)."""
+    out: list[tuple[str, Path]] = []
+    for r in cfg.project.repos:
+        if not r.name:
+            continue
+        out.append((r.name, (base / r.name).resolve()))
+    return out
+
+
 def try_load_compliance_config(path: Path | None = None) -> ComplianceConfigFile:
     """Load from *path* or ``./compliance-config.yaml``; fall back to RUNE defaults."""
     candidate = path or Path("compliance-config.yaml")

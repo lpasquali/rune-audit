@@ -8,6 +8,13 @@ from pathlib import Path
 from typer.testing import CliRunner
 
 from rune_audit.cli.app import app
+from rune_audit.cli.init_cmd import suggest_pack_for_root
+
+
+def test_suggest_pack_for_root(tmp_path: Path) -> None:
+    assert suggest_pack_for_root(tmp_path) == "iec-62443-ml4"
+    (tmp_path / "Chart.yaml").write_text("apiVersion: v2\nname: x\n", encoding="utf-8")
+    assert suggest_pack_for_root(tmp_path) == "cis-kubernetes"
 
 
 def test_init_noninteractive_writes_compliance_config(tmp_path: Path) -> None:

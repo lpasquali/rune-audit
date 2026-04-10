@@ -19,6 +19,8 @@ DEFAULT_REPOS: list[str] = [
     "rune-charts",
     "rune-docs",
     "rune-audit",
+    "rune-airgapped",
+    "rune-ci",
 ]
 
 DEFAULT_OUTPUT_DIR = "./audit-output"

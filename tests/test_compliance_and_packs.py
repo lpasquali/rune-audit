@@ -33,6 +33,9 @@ def test_default_compliance_config_rune_defaults() -> None:
     names = {r.name for r in d.project.repos}
     assert "rune" in names
     assert "rune-audit" in names
+    assert "rune-ci" in names
+    assert "rune-airgapped" in names
+    assert len(names) == 8
 
 
 def test_compliance_config_roundtrip(tmp_path: Path) -> None:
