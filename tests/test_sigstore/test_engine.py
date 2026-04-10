@@ -8,7 +8,6 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
-
 from rune_audit.sigstore.engine import SigstoreEngine
 from rune_audit.sigstore.models import SigningResult, VerificationResult
 
