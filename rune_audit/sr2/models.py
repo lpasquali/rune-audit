@@ -18,6 +18,7 @@ class InspectStatus(StrEnum):
     PASS = "pass"
     FAIL = "fail"
     NOT_IMPLEMENTED = "not_implemented"
+    NOT_APPLICABLE = "not_applicable"
     SKIPPED = "skipped"
 
 

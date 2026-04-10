@@ -67,6 +67,10 @@ rune-audit report full
 rune-audit config show
 ```
 
+## External OSS projects (compliance-config & packs)
+
+For non-RUNE repositories, use `compliance-config.yaml` and builtin packs (`rune-audit init`, `rune-audit sr2 verify --pack …`). See **[docs/external-projects/quickstart.md](docs/external-projects/quickstart.md)** (covers [rune-docs#227](https://github.com/lpasquali/rune-docs/issues/227)–[#232](https://github.com/lpasquali/rune-docs/issues/232)).
+
 ## Supported Evidence Types
 
 | Type | Description | Source |

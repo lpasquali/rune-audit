@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: Apache-2.0
+pack:
+  name: "CIS Kubernetes Benchmark (hints)"
+  standard: "cis-kubernetes"
+  version: "1.0"
+requirements:
+  - id: "CIS-NETPOL"
+    title: "NetworkPolicy defined"
+    category: "Kubernetes"
+    priority: "P1"
+    inspector: "stdlib.network_policy_presence"
+  - id: "CIS-RBAC"
+    title: "RBAC Role manifests"
+    category: "Kubernetes"
+    priority: "P1"
+    inspector: "stdlib.rbac_least_privilege"

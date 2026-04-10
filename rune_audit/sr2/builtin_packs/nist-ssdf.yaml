@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: Apache-2.0
+pack:
+  name: "NIST SSDF (hints)"
+  standard: "nist-ssdf"
+  version: "1.0"
+requirements:
+  - id: "SSDF-SAST"
+    title: "Static analysis in CI"
+    category: "SSDF"
+    priority: "P1"
+    inspector: "stdlib.sast_coverage"
+  - id: "SSDF-SCAN"
+    title: "Vulnerability scanning"
+    category: "SSDF"
+    priority: "P1"
+    inspector: "stdlib.vulnerability_scanning"

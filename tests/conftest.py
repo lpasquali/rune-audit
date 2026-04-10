@@ -111,3 +111,16 @@ def make_evidence_bundle(
 def evidence_bundle() -> EvidenceBundle:
     """Pre-built EvidenceBundle with sample items."""
     return make_evidence_bundle()
+
+
+@pytest.fixture(autouse=True)
+def _reset_sr2_singletons() -> None:
+    """Isolate SR-2 registry and pack loader cache between tests."""
+    from rune_audit.sr2.packs import load_builtin_pack
+    from rune_audit.sr2.registry import reset_registry_for_tests
+
+    reset_registry_for_tests()
+    load_builtin_pack.cache_clear()
+    yield
+    reset_registry_for_tests()
+    load_builtin_pack.cache_clear()

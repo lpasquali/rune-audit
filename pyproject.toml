@@ -60,6 +60,7 @@ include = ["rune_audit*"]
 
 [tool.setuptools.package-data]
 "*" = ["py.typed"]
+"rune_audit.sr2.builtin_packs" = ["*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -77,6 +78,7 @@ omit = [
     "rune_audit/verifiers/*",
     "rune_audit/config.py",
     "rune_audit/__main__.py",
+    "rune_audit/sr2/inspector_stdlib/*",
 ]
 
 [tool.coverage.report]
@@ -87,6 +89,7 @@ omit = [
     "rune_audit/verifiers/*",
     "rune_audit/config.py",
     "rune_audit/__main__.py",
+    "rune_audit/sr2/inspector_stdlib/*",
 ]
 
 [tool.ruff]
@@ -103,6 +106,9 @@ ignore = ["UP042"]
 "rune_audit/models/*.py" = ["TCH001"]
 "rune_audit/rekor/models.py" = ["TCH001", "TC003"]
 "rune_audit/collectors/base.py" = ["TCH001"]
+"rune_audit/sr2/inspector_stdlib/*.py" = ["TC001"]
+"rune_audit/sr2/inspector_stdlib/_util.py" = ["TC001", "TC003"]
+"rune_audit/sr2/packs.py" = ["TC001"]
 "tests/**/*.py" = ["TCH003"]
 
 [tool.mypy]

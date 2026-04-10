@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: Apache-2.0
+pack:
+  name: "SLSA Level 3"
+  standard: "slsa"
+  version: "1.0"
+requirements:
+  - id: "SLSA-BUILD"
+    title: "Build provenance present"
+    category: "Supply chain"
+    priority: "P0"
+    inspector: "stdlib.slsa_verification"
+  - id: "SLSA-SIGN"
+    title: "Container signing"
+    category: "Supply chain"
+    priority: "P1"
+    inspector: "stdlib.container_signing"
