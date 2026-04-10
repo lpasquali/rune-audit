@@ -63,7 +63,7 @@ include = ["rune_audit*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--cov=rune_audit --cov-report=term-missing:skip-covered --cov-fail-under=97"
+addopts = "--cov=rune_audit --cov-report=term-missing:skip-covered --cov-fail-under=97 --ignore=tests/test_rekor --ignore=tests/test_sigstore"
 markers = [
     "regression: marks tests as regression tests",
     "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",

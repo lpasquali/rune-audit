@@ -8,7 +8,6 @@ import hashlib
 import httpx
 import pytest
 import respx
-
 from rune_audit.rekor.client import RekorClient
 from rune_audit.rekor.models import LogEntry, LogInfo, SearchResult
 
