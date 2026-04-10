@@ -4,16 +4,21 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from rune_audit.sr2.catalog import iter_requirements
 from rune_audit.sr2.inspectors import InspectContext, run_all
 from rune_audit.sr2.models import InspectStatus, Priority, VerifyReport
+
+if TYPE_CHECKING:
+    from rune_audit.sr2.registry import InspectorRegistry
 
 
 def run_verification(
     *,
     root: Path | None,
     priority: Priority | None,
+    registry: InspectorRegistry | None = None,
 ) -> VerifyReport:
     """Run all registered checks (stubs return NOT_IMPLEMENTED)."""
     specs = iter_requirements()
@@ -21,7 +26,7 @@ def run_verification(
         specs = tuple(s for s in specs if s.priority == priority)
     ctx_root = root.resolve() if root is not None else None
     ctx = InspectContext(root=ctx_root or Path("."))
-    results = run_all(ctx, specs)
+    results = run_all(ctx, specs, registry=registry)
     return VerifyReport(results=results, root=str(ctx_root) if ctx_root is not None else None)
 
 

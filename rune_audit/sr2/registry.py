@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Pluggable inspector registry (foundation for EPIC #228)."""
+"""Pluggable inspector registry (EPIC #228)."""
 
 from __future__ import annotations
 
@@ -13,6 +13,23 @@ if TYPE_CHECKING:
     from rune_audit.sr2.inspectors import InspectContext
 
 InspectorFn = Callable[["InspectContext", RequirementSpec], InspectResult]
+
+_BUILTIN_INSPECTORS: list[tuple[str, InspectorFn]] = []
+
+
+def register_inspector(requirement_id: str) -> Callable[[InspectorFn], InspectorFn]:
+    """Decorator to register a built-in inspector (runs at import time).
+
+    Register modules under ``rune_audit.sr2`` (or import them before
+    :func:`default_registry` is called) so decorators execute and populate
+    ``_BUILTIN_INSPECTORS``.
+    """
+
+    def decorator(fn: InspectorFn) -> InspectorFn:
+        _BUILTIN_INSPECTORS.append((requirement_id, fn))
+        return fn
+
+    return decorator
 
 
 class InspectorRegistry:
@@ -32,5 +49,14 @@ class InspectorRegistry:
 
 
 def default_registry() -> InspectorRegistry:
-    """Registry used by the CLI until real inspectors land (#211)."""
-    return InspectorRegistry()
+    """Registry used by the CLI: built-ins from decorators + empty shell.
+
+    Imports :mod:`rune_audit.sr2.standard_inspectors` for side effects (future
+    ``@register_inspector`` entries).
+    """
+    import rune_audit.sr2.standard_inspectors  # noqa: F401
+
+    reg = InspectorRegistry()
+    for rid, fn in _BUILTIN_INSPECTORS:
+        reg.register(rid, fn)
+    return reg

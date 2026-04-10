@@ -95,3 +95,41 @@ def test_standard_inspectors_reexport() -> None:
     import rune_audit.sr2.standard_inspectors as si
 
     assert si.stub_inspector is not None
+    assert si.register_inspector is not None
+
+
+def test_register_inspector_decorator(monkeypatch, tmp_path) -> None:
+    from pathlib import Path
+
+    import rune_audit.sr2.registry as reg_mod
+    from rune_audit.sr2.inspectors import InspectContext
+    from rune_audit.sr2.models import InspectResult, InspectStatus, RequirementSpec
+
+    monkeypatch.setattr(reg_mod, "_BUILTIN_INSPECTORS", [])
+
+    @reg_mod.register_inspector("SR-Q-036")
+    def _bump(_ctx, spec: RequirementSpec) -> InspectResult:
+        return InspectResult(requirement_id=spec.id, status=InspectStatus.PASS, detail="decorator-test")
+
+    r = reg_mod.default_registry()
+    ctx = InspectContext(root=Path(tmp_path))
+    spec = RequirementSpec(id="SR-Q-036", title="t", priority=Priority.P2)
+    assert r.get("SR-Q-036")(ctx, spec).status == InspectStatus.PASS
+
+
+def test_run_verification_with_custom_registry(tmp_path) -> None:
+    from pathlib import Path
+
+    from rune_audit.sr2.models import InspectResult, InspectStatus, RequirementSpec
+    from rune_audit.sr2.registry import InspectorRegistry
+
+    reg = InspectorRegistry()
+
+    def always_pass(_ctx, spec: RequirementSpec) -> InspectResult:
+        return InspectResult(requirement_id=spec.id, status=InspectStatus.PASS, detail="custom")
+
+    reg.register("SR-Q-001", always_pass)
+    report = run_verification(root=Path(tmp_path), priority=None, registry=reg)
+    by_id = {r.requirement_id: r for r in report.results}
+    assert by_id["SR-Q-001"].status == InspectStatus.PASS
+    assert by_id["SR-Q-002"].status == InspectStatus.NOT_IMPLEMENTED
