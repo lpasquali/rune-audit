@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: Apache-2.0
+"""SR-2 verify engine."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+from rune_audit.sr2.catalog import iter_requirements
+from rune_audit.sr2.inspectors import InspectContext, run_all
+from rune_audit.sr2.models import InspectStatus, Priority, VerifyReport
+
+
+def run_verification(
+    *,
+    root: Path | None,
+    priority: Priority | None,
+) -> VerifyReport:
+    """Run all registered checks (stubs return NOT_IMPLEMENTED)."""
+    specs = iter_requirements()
+    if priority is not None:
+        specs = tuple(s for s in specs if s.priority == priority)
+    ctx_root = root.resolve() if root is not None else None
+    ctx = InspectContext(root=ctx_root or Path("."))
+    results = run_all(ctx, specs)
+    return VerifyReport(results=results, root=str(ctx_root) if ctx_root is not None else None)
+
+
+def exit_code_for(report: VerifyReport, *, strict: bool) -> int:
+    """0 = all pass, 1 = any fail, 2 = not implemented (only if strict)."""
+    if any(r.status == InspectStatus.FAIL for r in report.results):
+        return 1
+    if strict and any(r.status == InspectStatus.NOT_IMPLEMENTED for r in report.results):
+        return 2
+    return 0
+
+
+def summarize(report: VerifyReport) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for r in report.results:
+        key = r.status.value
+        counts[key] = counts.get(key, 0) + 1
+    return counts
