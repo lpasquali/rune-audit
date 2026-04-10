@@ -38,7 +38,7 @@ def _ensure_stdlib(reg: InspectorRegistry) -> None:
     global _STDLIB_REGISTERED
     if _STDLIB_REGISTERED:
         return
-    from rune_audit.sr2.inspector_stdlib import register_stdlib_inspectors
+    from rune_audit.sr2.inspectors.stdlib import register_stdlib_inspectors
 
     register_stdlib_inspectors(reg)
     _STDLIB_REGISTERED = True

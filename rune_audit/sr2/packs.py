@@ -31,6 +31,7 @@ class PackRequirementRow(BaseModel):
     category: str = ""
     priority: str = "P2"
     inspector: str = "builtin://stub"
+    threshold: dict[str, object] | None = None
 
 
 class PackDocument(BaseModel):

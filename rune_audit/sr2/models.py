@@ -28,6 +28,10 @@ class RequirementSpec(BaseModel):
     id: str = Field(..., description="Identifier e.g. SR-Q-004")
     title: str
     priority: Priority
+    threshold: dict[str, object] | None = Field(
+        default=None,
+        description="Optional thresholds for stdlib.* inspectors (e.g. from pack YAML).",
+    )
 
 
 class InspectResult(BaseModel):

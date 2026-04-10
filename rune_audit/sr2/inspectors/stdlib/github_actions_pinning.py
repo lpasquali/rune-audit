@@ -5,12 +5,13 @@ from __future__ import annotations
 
 import re
 
-from rune_audit.sr2.inspector_stdlib._util import fail, na, ok, read_text_safe
 from rune_audit.sr2.inspectors import InspectContext
+from rune_audit.sr2.inspectors.stdlib._util import fail, na, ok, read_text_safe
 from rune_audit.sr2.models import RequirementSpec
 from rune_audit.sr2.registry import InspectorRegistry
 
-_USE_LINE = re.compile(r"^\s*uses:\s*([^#]+)", re.MULTILINE)
+# Match both top-level and list-item steps: "uses:" and "- uses:"
+_USE_LINE = re.compile(r"^\s*(?:-\s*)?uses:\s*([^#]+)", re.MULTILINE)
 _PINNED = re.compile(r"@([0-9a-f]{40}|v\d)")
 
 

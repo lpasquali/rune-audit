@@ -3,8 +3,8 @@
 
 from __future__ import annotations
 
-from rune_audit.sr2.inspector_stdlib._util import na, ok, read_text_safe
 from rune_audit.sr2.inspectors import InspectContext
+from rune_audit.sr2.inspectors.stdlib._util import na, ok, read_text_safe
 from rune_audit.sr2.models import RequirementSpec
 from rune_audit.sr2.registry import InspectorRegistry
 

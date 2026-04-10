@@ -10,7 +10,7 @@ import pytest
 from rune_audit.sr2.compliance_config import load_compliance_config
 from rune_audit.sr2.engine import exit_code_for, run_pack_verification, run_verification, summarize
 from rune_audit.sr2.models import InspectResult, InspectStatus, Priority, VerifyReport
-from rune_audit.sr2.packs import load_builtin_pack
+from rune_audit.sr2.packs import PackDocument, PackMeta, PackRequirementRow, load_builtin_pack
 
 
 def test_run_verification_p0_subset() -> None:
@@ -54,6 +54,43 @@ def test_run_pack_iec_stub(tmp_path: Path) -> None:
     r = run_pack_verification(root=tmp_path, pack_stem="iec-62443-ml4")
     assert len(r.results) == 2
     assert all(x.status == InspectStatus.NOT_IMPLEMENTED for x in r.results)
+
+
+def test_run_pack_invalid_priority_defaults_to_p2(tmp_path: Path, monkeypatch) -> None:
+    fake = PackDocument(
+        pack=PackMeta(name="t", standard="x"),
+        requirements=[
+            PackRequirementRow(
+                id="stdlib.license_compliance",
+                title="L",
+                priority="not-a-valid-priority",
+                inspector="stdlib.license_compliance",
+            ),
+        ],
+    )
+    monkeypatch.setattr("rune_audit.sr2.engine.load_builtin_pack", lambda _stem: fake)
+    (tmp_path / "LICENSE").write_text("Apache-2.0\n" + ("z" * 40), encoding="utf-8")
+    r = run_pack_verification(root=tmp_path, pack_stem="slsa-l3")
+    assert len(r.results) == 1
+    assert r.results[0].status == InspectStatus.PASS
+
+
+def test_run_pack_non_stdlib_inspector_uses_row_id_lookup(tmp_path: Path, monkeypatch) -> None:
+    fake = PackDocument(
+        pack=PackMeta(name="t", standard="x"),
+        requirements=[
+            PackRequirementRow(
+                id="UNREGISTERED-PACK-ROW",
+                title="t",
+                priority="P2",
+                inspector="vendor://probe",
+            ),
+        ],
+    )
+    monkeypatch.setattr("rune_audit.sr2.engine.load_builtin_pack", lambda _stem: fake)
+    r = run_pack_verification(root=tmp_path, pack_stem="slsa-l3")
+    assert len(r.results) == 1
+    assert r.results[0].status == InspectStatus.NOT_IMPLEMENTED
 
 
 def test_inspector_decorator_registers() -> None:

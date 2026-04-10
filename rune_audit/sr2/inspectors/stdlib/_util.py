@@ -29,3 +29,16 @@ def read_text_safe(path: Path, limit: int = 400_000) -> str:
         return path.read_text(encoding="utf-8", errors="replace")[:limit]
     except OSError:
         return ""
+
+
+def threshold_int(spec: RequirementSpec, key: str, default: int) -> int:
+    """Read an integer threshold from *spec.threshold*; invalid values fall back to *default*."""
+    raw = (spec.threshold or {}).get(key, default)
+    if isinstance(raw, bool):
+        return default
+    if isinstance(raw, int):
+        return raw
+    try:
+        return int(raw)
+    except TypeError, ValueError:
+        return default

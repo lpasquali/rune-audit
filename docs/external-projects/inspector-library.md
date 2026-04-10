@@ -2,7 +2,9 @@
 
 ## Builtin `stdlib.*` inspectors
 
-These ship under `rune_audit/sr2/inspector_stdlib/` and register on the default `InspectorRegistry`. They are **heuristic** (filesystem / workflow text checks), not full compliance proof.
+These ship under `rune_audit/sr2/inspectors/stdlib/` (per rune-docs#230) and register on the default `InspectorRegistry`. They are **heuristic** (filesystem / workflow text checks), not full compliance proof.
+
+Per-inspector behavior, `NOT_APPLICABLE` rules, and **threshold** keys are documented in [stdlib-inspectors.md](stdlib-inspectors.md).
 
 | Id | Intent |
 | --- | --- |

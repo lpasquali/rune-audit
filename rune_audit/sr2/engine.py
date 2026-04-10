@@ -24,7 +24,7 @@ def run_pack_verification(*, root: Path, pack_stem: str) -> VerifyReport:
             prio = Priority(row.priority.upper())
         except ValueError:
             prio = Priority.P2
-        spec = RequirementSpec(id=row.id, title=row.title, priority=prio)
+        spec = RequirementSpec(id=row.id, title=row.title, priority=prio, threshold=row.threshold)
         key = row.inspector.strip()
         if key in ("builtin://stub", "builtin://") or key.startswith("builtin://stub"):
             fn = stub_inspector
