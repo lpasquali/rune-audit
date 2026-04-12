@@ -16,36 +16,28 @@ permissions:
 
 jobs:
   security:
-    uses: lpasquali/rune-ci/.github/workflows/security-scan.yml@95f0b3fd7c0cdbab72a42e71343c27125997bca5 # main
+    uses: lpasquali/rune-ci/.github/workflows/security-scan.yml@eae13830420fe3b9d558edb081c01c90bdc01d03 # main
 
   python:
-    uses: lpasquali/rune-ci/.github/workflows/python-quality.yml@95f0b3fd7c0cdbab72a42e71343c27125997bca5 # main
+    uses: lpasquali/rune-ci/.github/workflows/python-quality.yml@eae13830420fe3b9d558edb081c01c90bdc01d03 # main
     with:
       source-dirs: "rune_audit"
       path-filter: "^(rune_audit/|tests/|requirements\\.txt|pyproject\\.toml)"
       allowed-license-exceptions: "bashlex,borb"
 
   integration:
-    uses: lpasquali/rune-ci/.github/workflows/python-integration.yml@95f0b3fd7c0cdbab72a42e71343c27125997bca5 # main
+    uses: lpasquali/rune-ci/.github/workflows/python-integration.yml@eae13830420fe3b9d558edb081c01c90bdc01d03 # main
     with:
       path-filter: "^(rune_audit/|tests/|requirements\\.txt|pyproject\\.toml)"
 
   container:
-    uses: lpasquali/rune-ci/.github/workflows/container-build.yml@95f0b3fd7c0cdbab72a42e71343c27125997bca5 # main
+    uses: lpasquali/rune-ci/.github/workflows/container-build.yml@eae13830420fe3b9d558edb081c01c90bdc01d03 # main
     with:
       image-name: "rune-audit"
 
   compliance:
     needs: [security, python, integration, container]
     if: always()
-    uses: lpasquali/rune-ci/.github/workflows/pr-compliance.yml@95f0b3fd7c0cdbab72a42e71343c27125997bca5 # main
+    uses: lpasquali/rune-ci/.github/workflows/pr-compliance.yml@eae13830420fe3b9d558edb081c01c90bdc01d03 # main
     with:
       needs-json: ${{ toJson(needs) }}
-
-  merge-gate:
-    name: Merge Gate
-    needs: [compliance]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Merge Gate Satisfied"
