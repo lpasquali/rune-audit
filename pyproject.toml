@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rune-audit"
-version = "0.0.0a1"
+version = "0.0.0a2"
 description = "RUNE Audit — compliance evidence collection and verification for IEC 62443 / SLSA"
 readme = "README.md"
 license = { file = "LICENSE" }
