@@ -26,7 +26,7 @@ jobs:
       allowed-license-exceptions: "bashlex,borb"
 
   integration:
-    uses: lpasquali/rune-ci/.github/workflows/python-integration.yml@9f939b2c28317b6f55c1913c6a6485bd91e1bda5 # main
+    uses: lpasquali/rune-ci/.github/workflows/python-integration.yml@7e931bedd26d4e03bd9e6bd4f810e4d4c916ea5f # main
     with:
       path-filter: "^(rune_audit/|tests/|requirements\\.txt|pyproject\\.toml)"
       ollama-enabled: false
