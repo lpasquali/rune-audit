@@ -1,10 +1,15 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Placeholder tests for full SR-2 automation (rune-docs #211 / #215)."""
+"""Placeholder for full SR-2 automation (rune-docs #211 / #215).
+
+Previously marked xfail, the body still ran ``run_verification`` on every CI
+pass (expensive for no signal). Skip until inspectors land; keep the body for
+when the skip is removed.
+"""
 
 import pytest
 
 
-@pytest.mark.xfail(reason="Real per-requirement inspectors not merged yet (lpasquali/rune-docs#211).", strict=False)
+@pytest.mark.skip(reason="SR-Q inspectors not complete yet (lpasquali/rune-docs#211); avoids heavy run_verification each CI pass.")
 def test_all_sr2_inspectors_implemented() -> None:
     from rune_audit.sr2.engine import run_verification
 
