@@ -4,8 +4,9 @@ Auditing and compliance tracking for the
 [RUNE](https://github.com/lpasquali/rune) platform.
 
 rune-audit collects, verifies, and reports on security and compliance evidence
-across the RUNE ecosystem. It verifies SLSA Level 3 build provenance, manages
-VEX (Vulnerability Exploitability eXchange) documents, and generates IEC 62443
+across the RUNE ecosystem. It verifies [SLSA Level 3](https://slsa.dev/spec/v1.0/)
+build provenance, manages [VEX (Vulnerability Exploitability eXchange)](https://github.com/openvex/spec)
+documents, and generates [IEC 62443](https://webstore.iec.ch/publication/33615)
 evidence matrices.
 
 ## Architecture
@@ -77,11 +78,11 @@ Multi-repo SR-2 matrix (HTML / JSON / Markdown): `rune-audit sr2 dashboard --bas
 
 | Type | Description | Source |
 |------|-------------|--------|
-| SLSA Provenance | Build attestation verification | GitHub Attestations API |
-| SBOM | Software Bill of Materials | CycloneDX / SPDX |
-| CVE Scans | Vulnerability scan results | pip-audit, grype |
-| VEX | Vulnerability Exploitability eXchange | OpenVEX documents |
-| License | License compliance status | SPDX headers, LICENSE files |
+| [SLSA Provenance](https://slsa.dev/spec/v1.0/provenance) | Build attestation verification | GitHub Attestations API |
+| SBOM | Software Bill of Materials | [CycloneDX](https://cyclonedx.org/specification/overview/) / [SPDX](https://spdx.dev/) |
+| CVE Scans | Vulnerability scan results | [pip-audit](https://pypi.org/project/pip-audit/), [grype](https://github.com/anchore/grype) |
+| VEX | Vulnerability Exploitability eXchange | [OpenVEX](https://github.com/openvex/spec) documents |
+| License | License compliance status | [SPDX](https://spdx.dev/) headers, LICENSE files |
 
 ## Configuration
 
@@ -95,9 +96,9 @@ Optional YAML config file: `rune-audit.yaml`
 
 ## Compliance Context
 
-- **IEC 62443-4-1 ML4**: This repository aligns with IEC 62443-4-1 Maturity
-  Level 4 secure development requirements.
-- **SLSA Level 3**: Build provenance is verified against all five SLSA L3
+- **[IEC 62443-4-1](https://webstore.iec.ch/publication/33615) ML4**: This repository aligns with IEC 62443-4-1 Maturity
+  Level 4 secure development requirements. ([ISA overview](https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards))
+- **[SLSA Level 3](https://slsa.dev/spec/v1.0/)**: Build provenance is verified against all five SLSA L3
   requirements (provenance exists, signed, trusted builder, version-controlled
   source, isolated build).
 
