@@ -18,3 +18,4 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec):
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.sbom_completeness", _inspect)
+    reg.register("SR-Q-025", _inspect)

@@ -22,3 +22,4 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec):
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.dependabot_config", _inspect)
+    reg.register("SR-Q-020", _inspect)

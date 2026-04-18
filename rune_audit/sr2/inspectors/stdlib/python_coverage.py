@@ -30,3 +30,4 @@ def _pyproject_mentions(root, needle: str) -> bool:
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.python_coverage", _inspect)
+    reg.register("SR-Q-017", _inspect)

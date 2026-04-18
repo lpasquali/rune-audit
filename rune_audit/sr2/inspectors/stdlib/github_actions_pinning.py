@@ -40,3 +40,4 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec):
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.github_actions_pinning", _inspect)
+    reg.register("SR-Q-027", _inspect)

@@ -36,3 +36,5 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec):
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.helm_security_context", _inspect)
+    reg.register("SR-Q-021", _inspect)
+    reg.register("SR-Q-022", _inspect)

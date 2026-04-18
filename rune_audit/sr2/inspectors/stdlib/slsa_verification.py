@@ -23,3 +23,4 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec):
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.slsa_verification", _inspect)
+    reg.register("SR-Q-026", _inspect)
