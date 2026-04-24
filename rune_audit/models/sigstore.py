@@ -42,3 +42,4 @@ class VerificationResult(BaseModel):
     issuer: str | None = Field(default=None, description="OIDC issuer URL")
     log_entry: dict[str, Any] | None = Field(default=None, description="Rekor log entry details")
     errors: list[str] = Field(default_factory=list, description="Verification error messages")
+    raw_output: str = ""

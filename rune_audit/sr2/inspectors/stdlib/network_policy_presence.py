@@ -34,3 +34,5 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.network_policy_presence", _inspect)
+    reg.register("SR-Q-028", _inspect)
+    reg.register("SR-Q-029", _inspect)

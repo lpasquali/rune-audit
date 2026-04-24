@@ -70,10 +70,71 @@ def _inspect_api_server(ctx: InspectContext, spec: RequirementSpec) -> InspectRe
             return ok(spec, "API token minimum length 32 enforced")
         return fail(spec, "token length enforcement not found")
 
-    if spec.id == "SR-Q-024":
-        if "class JsonFormatter(logging.Formatter):" in text:
-            return ok(spec, "Structured JSON logging implemented")
-        return fail(spec, "JsonFormatter not found")
+    if spec.id == "SR-Q-003":
+        if "_SESSION_LIFETIME_SECONDS = 3600" in text:
+            return ok(spec, "session token lifetime 1h enforced")
+        return fail(spec, "session lifetime check not found in api_server.py")
+
+    if spec.id == "SR-Q-010":
+        # Check in ollama backend
+        ollama = root / "rune" / "rune_bench" / "backends" / "ollama.py"
+        if not ollama.is_file():
+            ollama = root / "rune_bench" / "backends" / "ollama.py"
+        if not ollama.is_file():
+            return na(spec, "ollama.py not found")
+        o_text = read_text_safe(ollama)
+        if "timeout_seconds: int = 120" in o_text:
+            return ok(spec, "Ollama warmup timeout 120s enforced")
+        return fail(spec, "Ollama warmup timeout 120s not found")
+
+    if spec.id == "SR-Q-012":
+        # Check in vastai instance manager
+        vastai = root / "rune" / "rune_bench" / "resources" / "vastai" / "instance.py"
+        if not vastai.is_file():
+            vastai = root / "rune_bench" / "resources" / "vastai" / "instance.py"
+        if not vastai.is_file():
+            return na(spec, "vastai/instance.py not found")
+        v_text = read_text_safe(vastai)
+        if "timeout_seconds=300" in v_text:
+            return ok(spec, "Vast.ai polling timeout 300s enforced")
+        return fail(spec, "Vast.ai polling timeout 300s not found")
+
+    if spec.id == "SR-Q-030":
+        # Check in costs.py
+        costs = root / "rune" / "rune_bench" / "common" / "costs.py"
+        if not costs.is_file():
+            costs = root / "rune_bench" / "common" / "costs.py"
+        if not costs.is_file():
+            return na(spec, "costs.py not found")
+        c_text = read_text_safe(costs)
+        if "confidence_score=0.8" in c_text:
+            return ok(spec, "Cost estimation confidence threshold 0.8 enforced")
+        return fail(spec, "Cost confidence threshold 0.8 not found")
+
+    if spec.id == "SR-Q-031":
+        if "cost > 20" in text or "cost > 20" in read_text_safe(root / "rune_bench" / "common" / "costs.py"):
+            return ok(spec, "Vast.ai cost ceiling 20 USD enforced")
+        return fail(spec, "Cost ceiling 20 USD not found")
+
+    if spec.id == "SR-Q-032":
+        if "_HEALTH_CHECK_TIMEOUT_S = 5.0" in text:
+            return ok(spec, "Health check timeout 5s enforced")
+        return fail(spec, "Health check timeout 5s not found")
+
+    if spec.id == "SR-Q-033":
+        if "_GRACEFUL_SHUTDOWN_TIMEOUT_S = 10.0" in text:
+            return ok(spec, "Graceful shutdown timeout 10s enforced")
+        return fail(spec, "Graceful shutdown timeout 10s not found")
+
+    if spec.id == "SR-Q-034":
+        if "import jsonschema" in text or "validate(" in text:
+            return ok(spec, "JSON schema validation implemented")
+        return fail(spec, "jsonschema validation not found")
+
+    if spec.id == "SR-Q-036":
+        if "max_workers=10" in text or "ThreadPoolExecutor(max_workers=" in text:
+            return ok(spec, "Thread pool size limits enforced")
+        return fail(spec, "Thread pool size limit not found")
 
     return na(spec, "unsupported SR-Q ID for api_server inspector")
 
@@ -113,14 +174,22 @@ def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.api_contracts_security", _inspect_api_contracts)
     reg.register("stdlib.driver_timeouts", _inspect_driver_timeouts)
 
-    # Map SR-Q IDs
     reg.register("SR-Q-001", _inspect_api_server)
     reg.register("SR-Q-002", _inspect_api_server)
+    reg.register("SR-Q-003", _inspect_api_server)
     reg.register("SR-Q-004", _inspect_api_server)
     reg.register("SR-Q-005", _inspect_api_server)
     reg.register("SR-Q-007", _inspect_api_server)
     reg.register("SR-Q-008", _inspect_api_server)
+    reg.register("SR-Q-010", _inspect_api_server)
     reg.register("SR-Q-011", _inspect_driver_timeouts)
+    reg.register("SR-Q-012", _inspect_api_server)
     reg.register("SR-Q-016", _inspect_api_server)
     reg.register("SR-Q-024", _inspect_api_server)
+    reg.register("SR-Q-030", _inspect_api_server)
+    reg.register("SR-Q-031", _inspect_api_server)
+    reg.register("SR-Q-032", _inspect_api_server)
+    reg.register("SR-Q-033", _inspect_api_server)
+    reg.register("SR-Q-034", _inspect_api_server)
     reg.register("SR-Q-035", _inspect_api_contracts)
+    reg.register("SR-Q-036", _inspect_api_server)
