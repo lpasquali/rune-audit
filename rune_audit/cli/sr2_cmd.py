@@ -63,11 +63,7 @@ def verify_cmd(
     if priority is not None:
         prio = Priority(priority.upper())
     root = path
-    report = (
-        run_pack_verification(root=root, pack_stem=pack)
-        if pack
-        else run_verification(root=root, priority=prio)
-    )
+    report = run_pack_verification(root=root, pack_stem=pack) if pack else run_verification(root=root, priority=prio)
     if json_out:
         console.print_json(data=report.model_dump())
     else:

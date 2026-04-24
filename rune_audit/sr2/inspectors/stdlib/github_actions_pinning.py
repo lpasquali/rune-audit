@@ -3,6 +3,11 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from rune_audit.sr2.models import InspectResult
+
 import re
 
 from rune_audit.sr2.inspectors import InspectContext
@@ -15,7 +20,7 @@ _USE_LINE = re.compile(r"^\s*(?:-\s*)?uses:\s*([^#]+)", re.MULTILINE)
 _PINNED = re.compile(r"@([0-9a-f]{40}|v\d)")
 
 
-def _inspect(ctx: InspectContext, spec: RequirementSpec):
+def _inspect(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
     root = ctx.root
     wf_dir = root / ".github" / "workflows"
     if not wf_dir.is_dir():
@@ -40,3 +45,4 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec):
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.github_actions_pinning", _inspect)
+    reg.register("SR-Q-027", _inspect)

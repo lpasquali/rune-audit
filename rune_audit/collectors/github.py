@@ -56,7 +56,7 @@ def get_github_token() -> str:
             timeout=10,
         )
         return result.stdout.strip()
-    except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
+    except subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired:
         return ""
 
 

@@ -3,13 +3,18 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from rune_audit.sr2.models import InspectResult
+
 from rune_audit.sr2.inspectors import InspectContext
 from rune_audit.sr2.inspectors.stdlib._util import any_file, na, ok
 from rune_audit.sr2.models import RequirementSpec
 from rune_audit.sr2.registry import InspectorRegistry
 
 
-def _inspect(ctx: InspectContext, spec: RequirementSpec):
+def _inspect(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
     root = ctx.root
     if any_file(root, ("**/sbom*.json", "**/*cyclonedx*.json", "**/bom.json")):
         return ok(spec, "SBOM-like JSON present")
@@ -18,3 +23,4 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec):
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.sbom_completeness", _inspect)
+    reg.register("SR-Q-025", _inspect)

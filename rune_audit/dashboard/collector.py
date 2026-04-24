@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 """Dashboard data collector using GitHub REST API."""
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -13,8 +14,13 @@ class DashboardCollector:
     """Collect cross-repo quality gate data from GitHub."""
 
     REPOS = [
-        "rune", "rune-operator", "rune-ui", "rune-charts",
-        "rune-docs", "rune-audit", "rune-airgapped",
+        "rune",
+        "rune-operator",
+        "rune-ui",
+        "rune-charts",
+        "rune-docs",
+        "rune-audit",
+        "rune-airgapped",
     ]
 
     def __init__(self, owner: str = "lpasquali", client: httpx.Client | None = None) -> None:
@@ -46,12 +52,15 @@ class DashboardCollector:
                 updated = None
                 if run.get("updated_at"):
                     updated = datetime.fromisoformat(run["updated_at"].replace("Z", "+00:00"))
-                results.append(RepoStatus(
-                    repo=repo, workflow="quality-gates.yml",
-                    status=run.get("conclusion", "pending"),
-                    run_url=run.get("html_url", ""),
-                    updated_at=updated,
-                ))
+                results.append(
+                    RepoStatus(
+                        repo=repo,
+                        workflow="quality-gates.yml",
+                        status=run.get("conclusion", "pending"),
+                        run_url=run.get("html_url", ""),
+                        updated_at=updated,
+                    )
+                )
             except httpx.HTTPError:
                 results.append(RepoStatus(repo=repo, workflow="quality-gates.yml", status="error"))
         return results
@@ -123,10 +132,14 @@ class DashboardCollector:
                     code_scanning = len(resp.json())
             except httpx.HTTPError:
                 pass
-            results.append(RepoAlerts(
-                repo=repo, dependabot_open=dependabot,
-                code_scanning_open=code_scanning, critical_cves=critical,
-            ))
+            results.append(
+                RepoAlerts(
+                    repo=repo,
+                    dependabot_open=dependabot,
+                    code_scanning_open=code_scanning,
+                    critical_cves=critical,
+                )
+            )
         return results
 
     def collect_all(self) -> DashboardData:

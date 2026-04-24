@@ -49,9 +49,7 @@ class TestIsTrustedUrl:
 
     def test_rejects_spoofed_prefix(self) -> None:
         """A URL that embeds a trusted URL as a substring must be rejected."""
-        assert not _is_trusted_url(
-            "https://evil.com/https://github.com/actions/runner", TRUSTED_BUILDERS
-        )
+        assert not _is_trusted_url("https://evil.com/https://github.com/actions/runner", TRUSTED_BUILDERS)
 
     def test_rejects_different_scheme(self) -> None:
         assert not _is_trusted_url("http://github.com/actions/runner", TRUSTED_BUILDERS)
@@ -80,14 +78,10 @@ class TestIsTrustedBuildType:
         assert _is_trusted_build_type("https://actions.github.io/buildtypes/workflow/v1/")
 
     def test_rejects_spoofed_host(self) -> None:
-        assert not _is_trusted_build_type(
-            "https://evil-actions.github.io/buildtypes/workflow/v1"
-        )
+        assert not _is_trusted_build_type("https://evil-actions.github.io/buildtypes/workflow/v1")
 
     def test_rejects_substring_embed(self) -> None:
-        assert not _is_trusted_build_type(
-            "https://evil.com/https://actions.github.io/buildtypes/workflow/v1"
-        )
+        assert not _is_trusted_build_type("https://evil.com/https://actions.github.io/buildtypes/workflow/v1")
 
     def test_rejects_different_scheme(self) -> None:
         assert not _is_trusted_build_type("http://actions.github.io/buildtypes/workflow/v1")

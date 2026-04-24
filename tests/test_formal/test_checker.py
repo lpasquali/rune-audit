@@ -74,10 +74,7 @@ class TestParseTlcOutput:
 class TestExtractDescription:
     def test_standard_header(self, tmp_path: Path) -> None:
         spec = tmp_path / "Test.tla"
-        spec.write_text(
-            "---- MODULE Test ----\n(*\n"
-            " * TLA+ specification for the test component.\n *)\n"
-        )
+        spec.write_text("---- MODULE Test ----\n(*\n * TLA+ specification for the test component.\n *)\n")
         desc = _extract_description(spec)
         assert "test component" in desc
 
@@ -101,8 +98,7 @@ class TestTLACheckerCheck:
         spec_file.write_text("---- MODULE Test ----\n====\n")
         mock_result = MagicMock()
         mock_result.stdout = (
-            "Model checking completed. No error has been found.\n"
-            "  100 states generated, 50 distinct states found.\n"
+            "Model checking completed. No error has been found.\n  100 states generated, 50 distinct states found.\n"
         )
         mock_result.stderr = ""
         with patch("subprocess.run", return_value=mock_result) as mock_run:
@@ -191,6 +187,7 @@ class TestTLACheckerListSpecs:
 
     def test_list_specs_from_real_specs_dir(self) -> None:
         from rune_audit.formal.checker import DEFAULT_SPECS_DIR
+
         specs = TLAChecker(specs_dir=DEFAULT_SPECS_DIR).list_specs()
         names = [s.name for s in specs]
         assert "AuditChain" in names
@@ -201,7 +198,11 @@ class TestTLACheckerListSpecs:
 class TestModelSerialization:
     def test_check_result_serialization(self) -> None:
         result = CheckResult(
-            spec="AuditChain", passed=True, states_found=42, distinct_states=15, duration_seconds=1.234,
+            spec="AuditChain",
+            passed=True,
+            states_found=42,
+            distinct_states=15,
+            duration_seconds=1.234,
         )
         data = result.model_dump()
         assert data["spec"] == "AuditChain"

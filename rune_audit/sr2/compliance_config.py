@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import yaml
 from pydantic import BaseModel, Field
@@ -25,7 +26,7 @@ class ProjectSection(BaseModel):
 class ComplianceSection(BaseModel):
     standard: str = "iec-62443-4-1"
     pack: str = "builtin://iec-62443-ml4"
-    requirements_override: list[dict[str, object]] = Field(default_factory=list)
+    requirements_override: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class EvidenceGateRef(BaseModel):
@@ -53,6 +54,7 @@ def default_compliance_config() -> ComplianceConfigFile:
     from rune_audit.config import DEFAULT_REPOS
 
     return ComplianceConfigFile(
+        version=1,
         project=ProjectSection(
             name="RUNE",
             github_org="lpasquali",
@@ -103,6 +105,7 @@ def compliance_config_template(
     import yaml
 
     cfg = ComplianceConfigFile(
+        version=1,
         project=ProjectSection(
             name=project_name,
             github_org=github_org,
