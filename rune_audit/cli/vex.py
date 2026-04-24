@@ -44,7 +44,7 @@ def vex_list(
                     stmt.get("justification", ""),
                 )
                 found = True
-        except (json.JSONDecodeError, KeyError):
+        except json.JSONDecodeError, KeyError:
             console.print(f"[yellow]Warning: could not parse {f}[/yellow]")
 
     if not found:
@@ -100,7 +100,7 @@ def vex_cross_check(
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             total += len(data.get("statements", []))
-        except (json.JSONDecodeError, KeyError):
+        except json.JSONDecodeError, KeyError:
             pass
 
     if total == 0:

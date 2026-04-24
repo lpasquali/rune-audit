@@ -9,7 +9,7 @@ from rune_audit.sr2.catalog import iter_requirements
 from rune_audit.sr2.inspectors import InspectContext, run_all, stub_inspector
 from rune_audit.sr2.models import InspectStatus, Priority, RequirementSpec, VerifyReport
 from rune_audit.sr2.packs import load_builtin_pack
-from rune_audit.sr2.registry import default_registry, InspectorFn
+from rune_audit.sr2.registry import InspectorFn, default_registry
 
 
 def run_pack_verification(*, root: Path, pack_stem: str) -> VerifyReport:

@@ -52,7 +52,7 @@ class SLSAAttestation(BaseModel):
             try:
                 decoded = base64.b64decode(payload)
                 statement = json.loads(decoded)
-            except (ValueError, json.JSONDecodeError):
+            except ValueError, json.JSONDecodeError:
                 pass
 
         # Extract subject
