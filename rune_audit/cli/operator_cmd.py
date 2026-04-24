@@ -35,7 +35,11 @@ def operator_runs(
 
     for r in records:
         table.add_row(
-            r.name, r.namespace, r.status, r.agent, r.model,
+            r.name,
+            r.namespace,
+            r.status,
+            r.agent,
+            r.model,
             r.created_at.isoformat() if r.created_at else "",
         )
     console.print(table)

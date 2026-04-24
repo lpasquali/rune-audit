@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 """Dashboard rendering in terminal, markdown, and JSON formats."""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -37,8 +38,10 @@ class DashboardRenderer:
         lines.append("-" * 40)
         for a in data.alerts:
             a.dependabot_open + a.code_scanning_open
-            lines.append(f"  {a.repo:20s} dependabot={a.dependabot_open} "
-                         f"code-scanning={a.code_scanning_open} critical={a.critical_cves}")
+            lines.append(
+                f"  {a.repo:20s} dependabot={a.dependabot_open} "
+                f"code-scanning={a.code_scanning_open} critical={a.critical_cves}"
+            )
 
         return "\n".join(lines)
 

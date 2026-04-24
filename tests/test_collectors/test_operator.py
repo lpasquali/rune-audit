@@ -156,10 +156,12 @@ class TestOperatorCollector:
 
     def test_collect_audit_trail(self) -> None:
         cr = _make_cr("bench-1")
-        events = {"items": [
-            _make_event("bench-1", "Created", "cr created", "2026-04-01T10:00:00Z"),
-            _make_event("bench-1", "Running", "job started", "2026-04-01T10:01:00Z"),
-        ]}
+        events = {
+            "items": [
+                _make_event("bench-1", "Created", "cr created", "2026-04-01T10:00:00Z"),
+                _make_event("bench-1", "Running", "job started", "2026-04-01T10:01:00Z"),
+            ]
+        }
 
         def kubectl_fn(args, timeout=30):
             if "events" in args:
@@ -208,14 +210,20 @@ class TestOperatorCollector:
         bundle = EvidenceBundle()
         records = [
             RunRecord(
-                name="bench-1", namespace="default", status="Complete",
-                agent="k8sgpt", model="llama3.1:8b",
+                name="bench-1",
+                namespace="default",
+                status="Complete",
+                agent="k8sgpt",
+                model="llama3.1:8b",
                 created_at=datetime(2026, 4, 1, tzinfo=UTC),
                 completed_at=datetime(2026, 4, 1, 0, 5, tzinfo=UTC),
             ),
             RunRecord(
-                name="bench-2", namespace="default", status="Failed",
-                agent="holmes", model="llama3.1:8b",
+                name="bench-2",
+                namespace="default",
+                status="Failed",
+                agent="holmes",
+                model="llama3.1:8b",
                 created_at=datetime(2026, 4, 1, tzinfo=UTC),
             ),
         ]
@@ -229,7 +237,9 @@ class TestOperatorCollector:
         bundle = EvidenceBundle()
         records = [
             RunRecord(
-                name="bench-3", namespace="default", status="Pending",
+                name="bench-3",
+                namespace="default",
+                status="Pending",
                 created_at=datetime(2026, 4, 1, tzinfo=UTC),
             ),
         ]
@@ -241,7 +251,9 @@ class TestOperatorCollector:
         bundle = EvidenceBundle()
         records = [
             RunRecord(
-                name="bench-4", namespace="default", status="WeirdStatus",
+                name="bench-4",
+                namespace="default",
+                status="WeirdStatus",
                 created_at=datetime(2026, 4, 1, tzinfo=UTC),
             ),
         ]
@@ -253,8 +265,11 @@ class TestOperatorCollector:
 class TestRunRecordModel:
     def test_serialization(self) -> None:
         record = RunRecord(
-            name="bench-1", namespace="test",
-            status="Complete", agent="k8sgpt", model="llama3.1:8b",
+            name="bench-1",
+            namespace="test",
+            status="Complete",
+            agent="k8sgpt",
+            model="llama3.1:8b",
             created_at=datetime(2026, 4, 1, tzinfo=UTC),
         )
         data = record.model_dump()
@@ -264,7 +279,8 @@ class TestRunRecordModel:
 
     def test_json_roundtrip(self) -> None:
         record = RunRecord(
-            name="x", created_at=datetime(2026, 1, 1, tzinfo=UTC),
+            name="x",
+            created_at=datetime(2026, 1, 1, tzinfo=UTC),
         )
         restored = RunRecord.model_validate_json(record.model_dump_json())
         assert restored.name == "x"
@@ -274,10 +290,13 @@ class TestAuditTrailModel:
     def test_serialization(self) -> None:
         trail = AuditTrail(
             run_name="bench-1",
-            events=[AuditEvent(
-                timestamp=datetime(2026, 4, 1, tzinfo=UTC),
-                event_type="Created", message="test",
-            )],
+            events=[
+                AuditEvent(
+                    timestamp=datetime(2026, 4, 1, tzinfo=UTC),
+                    event_type="Created",
+                    message="test",
+                )
+            ],
         )
         data = trail.model_dump()
         assert data["run_name"] == "bench-1"

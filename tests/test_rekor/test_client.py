@@ -57,9 +57,7 @@ class TestLogInfoModel:
         assert info.tree_size == 1000
 
     def test_serialization(self) -> None:
-        info = LogInfo(
-            tree_size=5, root_hash="h", tree_id="t", signed_tree_head="s"
-        )
+        info = LogInfo(tree_size=5, root_hash="h", tree_id="t", signed_tree_head="s")
         data = info.model_dump()
         restored = LogInfo.model_validate(data)
         assert restored == info
@@ -91,9 +89,7 @@ class TestRekorClientSearchByHash:
 
     @respx.mock
     def test_search_not_found(self) -> None:
-        respx.post(f"{REKOR_BASE}/api/v1/index/retrieve").mock(
-            return_value=httpx.Response(404)
-        )
+        respx.post(f"{REKOR_BASE}/api/v1/index/retrieve").mock(return_value=httpx.Response(404))
         with RekorClient() as client:
             result = client.search_by_hash("nonexistent")
         assert result == []
@@ -121,18 +117,14 @@ class TestRekorClientSearchByEmail:
 
     @respx.mock
     def test_search_found(self) -> None:
-        respx.post(f"{REKOR_BASE}/api/v1/index/retrieve").mock(
-            return_value=httpx.Response(200, json=["uuid3"])
-        )
+        respx.post(f"{REKOR_BASE}/api/v1/index/retrieve").mock(return_value=httpx.Response(200, json=["uuid3"]))
         with RekorClient() as client:
             result = client.search_by_email("user@example.com")
         assert result == ["uuid3"]
 
     @respx.mock
     def test_search_not_found(self) -> None:
-        respx.post(f"{REKOR_BASE}/api/v1/index/retrieve").mock(
-            return_value=httpx.Response(404)
-        )
+        respx.post(f"{REKOR_BASE}/api/v1/index/retrieve").mock(return_value=httpx.Response(404))
         with RekorClient() as client:
             result = client.search_by_email("nobody@example.com")
         assert result == []
@@ -147,9 +139,7 @@ class TestRekorClientSearchByEmail:
 
     @respx.mock
     def test_search_non_list_response(self) -> None:
-        respx.post(f"{REKOR_BASE}/api/v1/index/retrieve").mock(
-            return_value=httpx.Response(200, json="not-a-list")
-        )
+        respx.post(f"{REKOR_BASE}/api/v1/index/retrieve").mock(return_value=httpx.Response(200, json="not-a-list"))
         with RekorClient() as client:
             result = client.search_by_email("user@example.com")
         assert result == []
@@ -175,9 +165,7 @@ class TestRekorClientGetEntry:
                 },
             }
         }
-        respx.get(f"{REKOR_BASE}/api/v1/log/entries/abc123").mock(
-            return_value=httpx.Response(200, json=entry_data)
-        )
+        respx.get(f"{REKOR_BASE}/api/v1/log/entries/abc123").mock(return_value=httpx.Response(200, json=entry_data))
         with RekorClient() as client:
             entry = client.get_entry("abc123")
         assert entry.uuid == "abc123"
@@ -188,33 +176,25 @@ class TestRekorClientGetEntry:
 
     @respx.mock
     def test_get_entry_not_found(self) -> None:
-        respx.get(f"{REKOR_BASE}/api/v1/log/entries/missing").mock(
-            return_value=httpx.Response(404)
-        )
+        respx.get(f"{REKOR_BASE}/api/v1/log/entries/missing").mock(return_value=httpx.Response(404))
         with RekorClient() as client, pytest.raises(RuntimeError, match="not found"):
             client.get_entry("missing")
 
     @respx.mock
     def test_get_entry_server_error(self) -> None:
-        respx.get(f"{REKOR_BASE}/api/v1/log/entries/err").mock(
-            return_value=httpx.Response(500, text="error")
-        )
+        respx.get(f"{REKOR_BASE}/api/v1/log/entries/err").mock(return_value=httpx.Response(500, text="error"))
         with RekorClient() as client, pytest.raises(RuntimeError, match="get_entry failed: 500"):
             client.get_entry("err")
 
     @respx.mock
     def test_get_entry_unexpected_format(self) -> None:
-        respx.get(f"{REKOR_BASE}/api/v1/log/entries/bad").mock(
-            return_value=httpx.Response(200, json=[])
-        )
+        respx.get(f"{REKOR_BASE}/api/v1/log/entries/bad").mock(return_value=httpx.Response(200, json=[]))
         with RekorClient() as client, pytest.raises(RuntimeError, match="Unexpected response"):
             client.get_entry("bad")
 
     @respx.mock
     def test_get_entry_empty_dict(self) -> None:
-        respx.get(f"{REKOR_BASE}/api/v1/log/entries/empty").mock(
-            return_value=httpx.Response(200, json={})
-        )
+        respx.get(f"{REKOR_BASE}/api/v1/log/entries/empty").mock(return_value=httpx.Response(200, json={}))
         with RekorClient() as client, pytest.raises(RuntimeError, match="Unexpected response"):
             client.get_entry("empty")
 
@@ -244,18 +224,14 @@ class TestRekorClientGetLogInfo:
 
     @respx.mock
     def test_get_log_info_error(self) -> None:
-        respx.get(f"{REKOR_BASE}/api/v1/log").mock(
-            return_value=httpx.Response(500, text="down")
-        )
+        respx.get(f"{REKOR_BASE}/api/v1/log").mock(return_value=httpx.Response(500, text="down"))
         with RekorClient() as client, pytest.raises(RuntimeError, match="get_log_info failed"):
             client.get_log_info()
 
     @respx.mock
     def test_get_log_info_missing_fields(self) -> None:
         """Missing fields default to zero/empty values."""
-        respx.get(f"{REKOR_BASE}/api/v1/log").mock(
-            return_value=httpx.Response(200, json={})
-        )
+        respx.get(f"{REKOR_BASE}/api/v1/log").mock(return_value=httpx.Response(200, json={}))
         with RekorClient() as client:
             info = client.get_log_info()
         assert info.tree_size == 0

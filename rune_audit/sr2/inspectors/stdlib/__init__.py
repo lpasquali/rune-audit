@@ -55,7 +55,7 @@ def register_stdlib_inspectors(reg: InspectorRegistry) -> None:
         mod.register(reg)
 
     # SR-Q ID mapping (EPIC #211)
-    _MAPPING = {
+    _mapping = {
         "SR-Q-001": api_server_security._inspect_api_server,
         "SR-Q-002": api_server_security._inspect_api_server,
         "SR-Q-004": api_server_security._inspect_api_server,
@@ -77,5 +77,5 @@ def register_stdlib_inspectors(reg: InspectorRegistry) -> None:
         "SR-Q-027": github_actions_pinning._inspect,
         "SR-Q-035": api_server_security._inspect_api_contracts,
     }
-    for sr_id, fn in _MAPPING.items():
+    for sr_id, fn in _mapping.items():
         reg.register(sr_id, fn)

@@ -3,8 +3,10 @@
 
 from __future__ import annotations
 
-import re
-from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from rune_audit.sr2.models import InspectResult
 
 from rune_audit.sr2.inspectors import InspectContext
 from rune_audit.sr2.inspectors.stdlib._util import fail, na, ok, read_text_safe
@@ -12,13 +14,13 @@ from rune_audit.sr2.models import RequirementSpec
 from rune_audit.sr2.registry import InspectorRegistry
 
 
-def _inspect_api_server(ctx: InspectContext, spec: RequirementSpec):
+def _inspect_api_server(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
     root = ctx.root
     api_server = root / "rune" / "rune_bench" / "api_server.py"
     if not api_server.is_file():
         # Maybe we are in the 'rune' repo itself
         api_server = root / "rune_bench" / "api_server.py"
-    
+
     if not api_server.is_file():
         return na(spec, "api_server.py not found")
 
@@ -39,18 +41,18 @@ def _inspect_api_server(ctx: InspectContext, spec: RequirementSpec):
         postgres_adapter = root / "rune" / "rune_bench" / "storage" / "postgres.py"
         if not postgres_adapter.is_file():
             postgres_adapter = root / "rune_bench" / "storage" / "postgres.py"
-        
+
         if not postgres_adapter.is_file():
             return na(spec, "postgres.py not found")
-        
+
         pg_text = read_text_safe(postgres_adapter)
         if 'get("RUNE_PG_POOL_MAX", "10")' in pg_text:
-             return ok(spec, "PostgreSQL pool max size 10 enforced")
+            return ok(spec, "PostgreSQL pool max size 10 enforced")
         return fail(spec, "PostgreSQL pool max size 10 not found in postgres.py")
 
     if spec.id == "SR-Q-004":
         if "self.rfile.read(length)" in text and "_MAX_BODY_SIZE" in text:
-             return ok(spec, "request body size limit enforced")
+            return ok(spec, "request body size limit enforced")
         return fail(spec, "body size limit not found in api_server.py")
 
     if spec.id == "SR-Q-005":
@@ -76,12 +78,12 @@ def _inspect_api_server(ctx: InspectContext, spec: RequirementSpec):
     return na(spec, "unsupported SR-Q ID for api_server inspector")
 
 
-def _inspect_api_contracts(ctx: InspectContext, spec: RequirementSpec):
+def _inspect_api_contracts(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
     root = ctx.root
     contracts = root / "rune" / "rune_bench" / "api_contracts.py"
     if not contracts.is_file():
         contracts = root / "rune_bench" / "api_contracts.py"
-    
+
     if not contracts.is_file():
         return na(spec, "api_contracts.py not found")
 
@@ -91,7 +93,7 @@ def _inspect_api_contracts(ctx: InspectContext, spec: RequirementSpec):
     return fail(spec, "__post_init__ validation not found in api_contracts.py")
 
 
-def _inspect_driver_timeouts(ctx: InspectContext, spec: RequirementSpec):
+def _inspect_driver_timeouts(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
     root = ctx.root
     http_driver = root / "rune" / "rune_bench" / "drivers" / "http.py"
     if not http_driver.is_file():
@@ -110,7 +112,7 @@ def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.api_server_security", _inspect_api_server)
     reg.register("stdlib.api_contracts_security", _inspect_api_contracts)
     reg.register("stdlib.driver_timeouts", _inspect_driver_timeouts)
-    
+
     # Map SR-Q IDs
     reg.register("SR-Q-001", _inspect_api_server)
     reg.register("SR-Q-002", _inspect_api_server)
