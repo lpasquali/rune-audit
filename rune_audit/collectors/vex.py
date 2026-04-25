@@ -79,13 +79,13 @@ class VEXCollector:
             try:
                 raw = base64.b64decode(content)
                 data = json.loads(raw)
-            except ValueError, json.JSONDecodeError:
+            except (ValueError, json.JSONDecodeError):
                 return None
         else:
             return None
         try:
             return VEXDocument.from_openvex(data, source_repo=repo)
-        except ValueError, KeyError:
+        except (ValueError, KeyError):
             return None
 
     def collect_all(self) -> list[VEXDocument]:

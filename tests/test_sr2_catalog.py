@@ -23,15 +23,15 @@ def test_run_verification_all_not_implemented() -> None:
     report = run_verification(root=None, priority=None)
     assert len(report.results) == 36
     ni = [r for r in report.results if r.status == InspectStatus.NOT_IMPLEMENTED]
-    # 20 are implemented, 16 are not
-    assert len(ni) == 16
+    # All 36 are now implemented
+    assert len(ni) == 0
 
 
 def test_exit_code_strict() -> None:
     report = run_verification(root=None, priority=None)
     assert exit_code_for(report, strict=False) == 0
-    # Since there are still NOT_IMPLEMENTED entries, strict should be 2
-    assert exit_code_for(report, strict=True) == 2
+    # Since there are no longer NOT_IMPLEMENTED entries, strict should be 0
+    assert exit_code_for(report, strict=True) == 0
 
 
 def test_summarize_counts() -> None:
