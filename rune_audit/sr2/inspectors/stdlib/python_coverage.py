@@ -18,7 +18,7 @@ def _inspect(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
     root = ctx.root
     if not any_file(root, ("pyproject.toml", "setup.py", "setup.cfg")):
         return na(spec, "no Python packaging layout")
-    
+
     if spec.id == "SR-Q-018":
         if _pyproject_mentions(root, "hypothesis") or _pyproject_mentions(root, "atheris"):
             return ok(spec, "fuzzing engine (hypothesis/atheris) referenced")

@@ -3,14 +3,11 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 import httpx
 
 from rune_audit.models.sigstore import RekorEntry
-
-if TYPE_CHECKING:
-    from typing import Final
 
 
 class RekorClient:
@@ -30,7 +27,7 @@ class RekorClient:
                 return None
             uuid = list(data.keys())[0]
             entry_data = data[uuid]
-            
+
             return RekorEntry(
                 uuid=uuid,
                 log_index=entry_data.get("logIndex", index),
@@ -50,7 +47,7 @@ class RekorClient:
             if not data:
                 return None
             entry_data = data.get(uuid, data)
-            
+
             return RekorEntry(
                 uuid=uuid,
                 log_index=entry_data.get("logIndex", 0),
@@ -68,7 +65,7 @@ class RekorClient:
             query["hash"] = hash_value if ":" in hash_value else f"sha256:{hash_value}"
         if email:
             query["email"] = email
-            
+
         if not query:
             return []
 

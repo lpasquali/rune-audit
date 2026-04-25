@@ -1,18 +1,17 @@
 # SPDX-License-Identifier: Apache-2.0
-from pathlib import Path
-import json
 from rune_audit.sr2.dashboard_matrix import (
-    collect_verify_reports,
+    _status_css,
     build_matrix,
+    collect_verify_reports,
     combined_summary,
-    trend_delta,
-    render_markdown,
+    load_previous_dashboard,
     render_html,
     render_json_document,
-    load_previous_dashboard,
-    _status_css
+    render_markdown,
+    trend_delta,
 )
-from rune_audit.sr2.models import Priority, VerifyReport, InspectResult, InspectStatus
+from rune_audit.sr2.models import InspectResult, InspectStatus, VerifyReport
+
 
 def test_status_css_unknown():
     assert _status_css("UNKNOWN_STATUS") == "unk"
@@ -38,7 +37,6 @@ def test_trend_delta_prev_invalid():
     assert trend_delta({"total": {"pass": 1}}, {"total": "NOT_A_DICT"}) is None
 
 def test_render_markdown_with_skipped(tmp_path):
-    from rune_audit.sr2.models import VerifyReport
     reports = {"repo1": VerifyReport(results=[], root=str(tmp_path))}
     matrix = build_matrix(reports, skipped_repos=["repo2"])
     summary = combined_summary(reports)
@@ -46,7 +44,6 @@ def test_render_markdown_with_skipped(tmp_path):
     assert "**Skipped (missing path):** `repo2`" in md
 
 def test_render_html_with_trend(tmp_path):
-    from rune_audit.sr2.models import VerifyReport
     reports = {"repo1": VerifyReport(results=[], root=str(tmp_path))}
     matrix = build_matrix(reports, skipped_repos=["repo2"])
     summary = combined_summary(reports)
@@ -65,7 +62,6 @@ def test_load_previous_dashboard_invalid_json(tmp_path):
     assert load_previous_dashboard(f) is None
 
 def test_render_json_document(tmp_path):
-    from rune_audit.sr2.models import VerifyReport
     reports = {"repo1": VerifyReport(results=[], root=str(tmp_path))}
     matrix = build_matrix(reports)
     summary = combined_summary(reports)
@@ -75,7 +71,6 @@ def test_render_json_document(tmp_path):
 
 def test_priority_pass_rates_missing_id():
     from rune_audit.sr2.dashboard_matrix import priority_pass_rates
-    from rune_audit.sr2.models import VerifyReport, InspectResult, InspectStatus
     report = VerifyReport(results=[
         InspectResult(requirement_id="UNKNOWN", status=InspectStatus.PASS, detail="")
     ], root=None)

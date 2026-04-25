@@ -3,16 +3,14 @@
 
 from __future__ import annotations
 
-import base64
 import json
 import subprocess
-from pathlib import Path
 from typing import TYPE_CHECKING
 
-from rune_audit.models.sigstore import SigstoreSignature, SigningResult, VerificationResult
+from rune_audit.models.sigstore import SigningResult, SigstoreSignature, VerificationResult
 
 if TYPE_CHECKING:
-    from typing import Any
+    from pathlib import Path
 
 
 class SigstoreEngine:
@@ -23,7 +21,7 @@ class SigstoreEngine:
 
     def sign(self, path: Path) -> SigningResult:
         """Sign an artifact using cosign keyless mode.
-        
+
         Requires COSIGN_EXPERIMENTAL=1 or modern cosign and valid OIDC environment.
         """
         if not path.is_file():
@@ -38,30 +36,30 @@ class SigstoreEngine:
         ]
 
         try:
-            result = subprocess.run(
+            subprocess.run(
                 cmd,
                 capture_output=True,
                 text=True,
                 check=True,
                 env={"COSIGN_EXPERIMENTAL": "1"}
             )
-            
+
             bundle_path = path.with_suffix(".bundle")
             if not bundle_path.is_file():
                 return SigningResult(success=False, errors=["Bundle file was not created by cosign"])
 
             bundle_data = json.loads(bundle_path.read_text(encoding="utf-8"))
-            
+
             signature_b64 = ""
             cert_pem = ""
             log_index = 0
-            
+
             if "dsseEnvelope" in bundle_data:
                 sig_obj = bundle_data["dsseEnvelope"]["signatures"][0]
                 signature_b64 = sig_obj["sig"]
             elif "messageSignature" in bundle_data:
                 signature_b64 = bundle_data["messageSignature"]["signature"]
-            
+
             if "verificationMaterial" in bundle_data:
                 mat = bundle_data["verificationMaterial"]
                 if "x509CertificateChain" in mat:
@@ -87,7 +85,7 @@ class SigstoreEngine:
             return VerificationResult(verified=False, errors=[f"File not found: {path}"])
 
         cmd = [self.cosign_path, "verify-blob", str(path)]
-        
+
         final_bundle = bundle_path or path.with_suffix(".bundle")
         if final_bundle.is_file():
             cmd.extend(["--bundle", str(final_bundle)])
@@ -96,7 +94,7 @@ class SigstoreEngine:
 
         # For RUNE we usually verify against the known GitHub OIDC issuer
         cmd.extend([
-            "--certificate-identity-regexp", ".*", 
+            "--certificate-identity-regexp", ".*",
             "--certificate-oidc-issuer", "https://token.actions.githubusercontent.com"
         ])
 
