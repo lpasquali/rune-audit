@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-"""RBAC Role manifests presence (rune-docs#230) — shallow check."""
+"""TLS minimum version enforcement (SR-Q-015)."""
 
 from __future__ import annotations
 
@@ -16,16 +16,22 @@ from rune_audit.sr2.registry import InspectorRegistry
 
 def _inspect(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
     root = ctx.root
-    for path in root.rglob("*.yaml"):
+    targets = ["tls1.2", "tls1.3", "tls_1_2", "tls_1_3", "min_version=ssl.tls_1_2"]
+
+    for path in list(root.rglob("*.yaml")) + list(root.rglob("*.yml")) + list(root.rglob("*.py")):
+        rel = path.relative_to(root).as_posix()
+        if "/.venv/" in rel or "/__pycache__/" in rel:
+            continue
         try:
             text = path.read_text(encoding="utf-8", errors="replace").lower()
         except OSError:
             continue
-        if "kind: role" in text or "kind: clusterrole" in text:
-            return ok(spec, f"Role-like manifest in {path.relative_to(root)}")
-    return na(spec, "no Role manifest found")
+        for m in targets:
+            if m in text:
+                return ok(spec, f"TLS 1.2+ minimum version referenced ({rel})")
+    return na(spec, "no explicit TLS minimum version detected")
 
 
 def register(reg: InspectorRegistry) -> None:
-    reg.register("stdlib.rbac_least_privilege", _inspect)
-    reg.register("SR-Q-033", _inspect)
+    reg.register("stdlib.tls_security", _inspect)
+    reg.register("SR-Q-015", _inspect)

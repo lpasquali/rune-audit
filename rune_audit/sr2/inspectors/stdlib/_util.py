@@ -45,5 +45,5 @@ def threshold_int(spec: RequirementSpec, key: str, default: int) -> int:
         return raw
     try:
         return int(raw)
-    except TypeError, ValueError:
+    except (TypeError, ValueError):
         return default
