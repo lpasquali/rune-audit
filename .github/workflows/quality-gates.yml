@@ -37,7 +37,7 @@ jobs:
       image-name: "rune-audit"
 
   guard:
-    uses: lpasquali/rune-ci/.github/workflows/nginx-ingress-guard.yml@144ef855dbf0420e5d9a8de2c8d8f89c2e789265
+    uses: lpasquali/rune-ci/.github/workflows/nginx-ingress-guard.yml@36eba801cb73e7b613ef1ee33bb3f618928a5952
 
   compliance:
     needs: [security, python, integration, container, guard]
