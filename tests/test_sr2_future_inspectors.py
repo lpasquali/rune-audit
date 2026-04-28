@@ -9,7 +9,7 @@ when the skip is removed.
 import pytest
 
 
-@pytest.mark.skip(reason="SR-Q inspectors not complete yet (lpasquali/rune-docs#211); avoids heavy run_verification each CI pass.")
+@pytest.mark.skip(reason="SR-Q inspectors incomplete (rune-docs#211); skip to avoid heavy CI pass.")
 def test_all_sr2_inspectors_implemented() -> None:
     from rune_audit.sr2.engine import run_verification
 

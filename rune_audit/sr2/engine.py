@@ -9,7 +9,7 @@ from rune_audit.sr2.catalog import iter_requirements
 from rune_audit.sr2.inspectors import InspectContext, run_all, stub_inspector
 from rune_audit.sr2.models import InspectStatus, Priority, RequirementSpec, VerifyReport
 from rune_audit.sr2.packs import load_builtin_pack
-from rune_audit.sr2.registry import default_registry
+from rune_audit.sr2.registry import InspectorFn, default_registry
 
 
 def run_pack_verification(*, root: Path, pack_stem: str) -> VerifyReport:
@@ -26,6 +26,7 @@ def run_pack_verification(*, root: Path, pack_stem: str) -> VerifyReport:
             prio = Priority.P2
         spec = RequirementSpec(id=row.id, title=row.title, priority=prio, threshold=row.threshold)
         key = row.inspector.strip()
+        fn: InspectorFn
         if key in ("builtin://stub", "builtin://") or key.startswith("builtin://stub"):
             fn = stub_inspector
         elif key.startswith("stdlib."):

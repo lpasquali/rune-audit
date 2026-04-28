@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 """CLI command for the cross-repo quality gate dashboard."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -13,6 +14,7 @@ from rune_audit.dashboard.renderer import DashboardRenderer
 
 dashboard_app = typer.Typer(no_args_is_help=False, rich_markup_mode="rich")
 console = Console()
+
 
 @dashboard_app.callback(invoke_without_command=True)
 def dashboard(

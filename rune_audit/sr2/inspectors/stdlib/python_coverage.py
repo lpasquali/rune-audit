@@ -3,16 +3,27 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from rune_audit.sr2.models import InspectResult
+
 from rune_audit.sr2.inspectors import InspectContext
 from rune_audit.sr2.inspectors.stdlib._util import any_file, na, ok
 from rune_audit.sr2.models import RequirementSpec
 from rune_audit.sr2.registry import InspectorRegistry
 
 
-def _inspect(ctx: InspectContext, spec: RequirementSpec):
+def _inspect(ctx: InspectContext, spec: RequirementSpec) -> InspectResult:
     root = ctx.root
     if not any_file(root, ("pyproject.toml", "setup.py", "setup.cfg")):
         return na(spec, "no Python packaging layout")
+
+    if spec.id == "SR-Q-018":
+        if _pyproject_mentions(root, "hypothesis") or _pyproject_mentions(root, "atheris"):
+            return ok(spec, "fuzzing engine (hypothesis/atheris) referenced")
+        return na(spec, "no fuzzing engine detected")
+
     if any_file(root, (".coveragerc",)) or _pyproject_mentions(root, "coverage"):
         return ok(spec, "coverage configuration referenced")
     return na(spec, "no coverage configuration detected")
@@ -30,3 +41,5 @@ def _pyproject_mentions(root, needle: str) -> bool:
 
 def register(reg: InspectorRegistry) -> None:
     reg.register("stdlib.python_coverage", _inspect)
+    reg.register("SR-Q-017", _inspect)
+    reg.register("SR-Q-018", _inspect)

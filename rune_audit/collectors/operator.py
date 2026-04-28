@@ -29,7 +29,11 @@ def _run_kubectl(args: list[str], timeout: int = 30) -> str:
     """Run a kubectl command and return stdout."""
     cmd = ["kubectl"] + args
     result = subprocess.run(
-        cmd, capture_output=True, text=True, timeout=timeout, check=True,
+        cmd,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        check=True,
     )
     return result.stdout
 
@@ -41,11 +45,7 @@ def _parse_run_record(item: dict[str, Any]) -> RunRecord:
     status = item.get("status", {})
 
     created_at_str = metadata.get("creationTimestamp", "")
-    created_at = (
-        datetime.fromisoformat(created_at_str.replace("Z", "+00:00"))
-        if created_at_str
-        else datetime.now()
-    )
+    created_at = datetime.fromisoformat(created_at_str.replace("Z", "+00:00")) if created_at_str else datetime.now()
 
     completed_at = None
     completed_str = status.get("completedAt", "")
@@ -77,12 +77,14 @@ def _parse_events(events_data: list[dict[str, Any]], run_name: str) -> list[Audi
         if not timestamp_str:
             continue
         timestamp = datetime.fromisoformat(timestamp_str.replace("Z", "+00:00"))
-        audit_events.append(AuditEvent(
-            timestamp=timestamp,
-            event_type=event.get("reason", "Unknown"),
-            message=event.get("message", ""),
-            details={"type": event.get("type", ""), "count": event.get("count", 1)},
-        ))
+        audit_events.append(
+            AuditEvent(
+                timestamp=timestamp,
+                event_type=event.get("reason", "Unknown"),
+                message=event.get("message", ""),
+                details={"type": event.get("type", ""), "count": event.get("count", 1)},
+            )
+        )
     return sorted(audit_events, key=lambda e: e.timestamp)
 
 
@@ -135,8 +137,7 @@ class OperatorCollector:
             AuditTrail with events and run records.
         """
         # Get the specific CR
-        args = ["get", f"{DEFAULT_CRD_RESOURCE}.{DEFAULT_CRD_GROUP}", run_name,
-                "-n", namespace, "-o", "json"]
+        args = ["get", f"{DEFAULT_CRD_RESOURCE}.{DEFAULT_CRD_GROUP}", run_name, "-n", namespace, "-o", "json"]
         records: list[RunRecord] = []
         try:
             raw = self._kubectl(args, timeout=self._timeout)

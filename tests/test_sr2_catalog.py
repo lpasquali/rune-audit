@@ -22,19 +22,23 @@ def test_p0_overrides() -> None:
 def test_run_verification_all_not_implemented() -> None:
     report = run_verification(root=None, priority=None)
     assert len(report.results) == 36
-    assert all(r.status == InspectStatus.NOT_IMPLEMENTED for r in report.results)
+    ni = [r for r in report.results if r.status == InspectStatus.NOT_IMPLEMENTED]
+    # All 36 are now implemented
+    assert len(ni) == 0
 
 
 def test_exit_code_strict() -> None:
     report = run_verification(root=None, priority=None)
     assert exit_code_for(report, strict=False) == 0
-    assert exit_code_for(report, strict=True) == 2
+    # Since there are no longer NOT_IMPLEMENTED entries, strict should be 0
+    assert exit_code_for(report, strict=True) == 0
 
 
 def test_summarize_counts() -> None:
     report = run_verification(root=None, priority=Priority.P0)
     s = summarize(report)
-    assert s.get("not_implemented") == 4
+    # P0s: SR-Q-004, 005, 016, 024 are all implemented now.
+    assert s.get("not_implemented") is None
 
 
 def test_project_file_roundtrip(tmp_path) -> None:

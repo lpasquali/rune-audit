@@ -62,26 +62,39 @@ class ReportGenerator:
         slsa_by_repo: dict[str, dict[str, Any]] = {}
         for att in ev.slsa_attestations:
             slsa_by_repo[att.source_repo] = {
-                "verified": att.verified, "builder_id": att.builder_id,
+                "verified": att.verified,
+                "builder_id": att.builder_id,
                 "build_type": att.build_type,
                 "build_timestamp": str(att.build_timestamp) if att.build_timestamp else None,
             }
         compliance_data = {
-            "met": matrix.met_count, "gaps": matrix.gap_count, "total": matrix.total,
-            "requirements": [{"id": r.requirement_id, "description": r.description,
-                              "status": r.status.value, "evidence": r.evidence_sources,
-                              "gaps": r.gaps} for r in matrix.requirements],
+            "met": matrix.met_count,
+            "gaps": matrix.gap_count,
+            "total": matrix.total,
+            "requirements": [
+                {
+                    "id": r.requirement_id,
+                    "description": r.description,
+                    "status": r.status.value,
+                    "evidence": r.evidence_sources,
+                    "gaps": r.gaps,
+                }
+                for r in matrix.requirements
+            ],
         }
         recommendations = self._build_recommendations(ev, matrix)
         return {
-            "title": "RUNE Audit Report", "generated_at": str(ev.collected_at),
+            "title": "RUNE Audit Report",
+            "generated_at": str(ev.collected_at),
             "repos": ev.repos,
             "executive_summary": {
-                "total_repos": len(ev.repos), "gates_passing": ev.gates_passing(),
+                "total_repos": len(ev.repos),
+                "gates_passing": ev.gates_passing(),
                 "total_cves": len(all_findings),
                 "critical_cves": severity_counts.get(CVESeverity.CRITICAL.value, 0),
                 "high_cves": severity_counts.get(CVESeverity.HIGH.value, 0),
-                "compliance_met": matrix.met_count, "compliance_total": matrix.total,
+                "compliance_met": matrix.met_count,
+                "compliance_total": matrix.total,
             },
             "sbom_analysis": {
                 "total_components": total_components,
@@ -89,15 +102,25 @@ class ReportGenerator:
                 "sbom_count": len(ev.sboms),
             },
             "cve_findings": {
-                "total": len(all_findings), "by_severity": dict(severity_counts),
-                "findings": [{"cve_id": f.cve_id, "severity": f.severity.value,
-                              "cvss_score": f.cvss_score, "package": f.package_name,
-                              "version": f.package_version, "fixed_version": f.fixed_version}
-                             for f in all_findings],
+                "total": len(all_findings),
+                "by_severity": dict(severity_counts),
+                "findings": [
+                    {
+                        "cve_id": f.cve_id,
+                        "severity": f.severity.value,
+                        "cvss_score": f.cvss_score,
+                        "package": f.package_name,
+                        "version": f.package_version,
+                        "fixed_version": f.fixed_version,
+                    }
+                    for f in all_findings
+                ],
             },
             "vex_status": {
-                "total_documents": len(ev.vex_documents), "total_statements": total_statements,
-                "suppressed_cves": sorted(suppressed), "unsuppressed_cves": sorted(unsuppressed),
+                "total_documents": len(ev.vex_documents),
+                "total_statements": total_statements,
+                "suppressed_cves": sorted(suppressed),
+                "unsuppressed_cves": sorted(unsuppressed),
             },
             "slsa_verification": slsa_by_repo,
             "compliance_matrix": compliance_data,
@@ -115,20 +138,27 @@ class ReportGenerator:
         for scan in ev.cve_scans:
             for finding in scan.findings:
                 if finding.severity in (CVESeverity.CRITICAL, CVESeverity.HIGH):
-                    critical_findings.append({"cve_id": finding.cve_id,
-                                              "severity": finding.severity.value,
-                                              "cvss_score": finding.cvss_score,
-                                              "package": finding.package_name})
+                    critical_findings.append(
+                        {
+                            "cve_id": finding.cve_id,
+                            "severity": finding.severity.value,
+                            "cvss_score": finding.cvss_score,
+                            "package": finding.package_name,
+                        }
+                    )
         overall_status = "PASS" if ev.gates_passing() and matrix.gap_count == 0 else "NEEDS ATTENTION"
         return {
-            "title": "RUNE Audit Summary", "generated_at": str(ev.collected_at),
+            "title": "RUNE Audit Summary",
+            "generated_at": str(ev.collected_at),
             "overall_status": overall_status,
             "key_metrics": {
-                "repos_covered": len(ev.repos), "gates_passing": ev.gates_passing(),
+                "repos_covered": len(ev.repos),
+                "gates_passing": ev.gates_passing(),
                 "total_cves": sum(severity_counts.values()),
                 "critical_cves": severity_counts.get(CVESeverity.CRITICAL.value, 0),
                 "high_cves": severity_counts.get(CVESeverity.HIGH.value, 0),
-                "compliance_met": matrix.met_count, "compliance_total": matrix.total,
+                "compliance_met": matrix.met_count,
+                "compliance_total": matrix.total,
                 "slsa_verified": sum(1 for a in ev.slsa_attestations if a.verified),
             },
             "critical_findings": critical_findings,
@@ -157,15 +187,15 @@ class ReportGenerator:
         for req in current_matrix.requirements:
             prev_val = prev_status_map.get(req.requirement_id, "N/A")
             if req.status.value != prev_val:
-                compliance_changes.append({"requirement": req.requirement_id,
-                                           "previous": prev_val, "current": req.status.value})
+                compliance_changes.append(
+                    {"requirement": req.requirement_id, "previous": prev_val, "current": req.status.value}
+                )
         return {
             "title": "RUNE Audit Delta Report",
             "generated_at": str(current.collected_at),
             "previous_collected_at": str(previous.collected_at),
             "cve_changes": {"new_cves": new_cves, "resolved_cves": resolved_cves},
-            "component_changes": {"new_components": new_components,
-                                  "removed_components": removed_components},
+            "component_changes": {"new_components": new_components, "removed_components": removed_components},
             "compliance_changes": compliance_changes,
         }
 

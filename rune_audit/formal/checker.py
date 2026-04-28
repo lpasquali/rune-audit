@@ -88,28 +88,36 @@ class TLAChecker:
 
         try:
             result = subprocess.run(
-                cmd, capture_output=True, text=True,
-                timeout=self.timeout, check=False,
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=self.timeout,
+                check=False,
             )
             duration = time.monotonic() - start
             stdout = result.stdout + result.stderr
             passed, states_found, distinct_states, violations = parse_tlc_output(stdout)
             return CheckResult(
-                spec=spec_name, passed=passed,
-                states_found=states_found, distinct_states=distinct_states,
-                violations=violations, duration_seconds=round(duration, 3),
+                spec=spec_name,
+                passed=passed,
+                states_found=states_found,
+                distinct_states=distinct_states,
+                violations=violations,
+                duration_seconds=round(duration, 3),
             )
         except subprocess.TimeoutExpired:
             duration = time.monotonic() - start
             return CheckResult(
-                spec=spec_name, passed=False,
+                spec=spec_name,
+                passed=False,
                 violations=[f"TLC timed out after {self.timeout}s"],
                 duration_seconds=round(duration, 3),
             )
         except FileNotFoundError:
             duration = time.monotonic() - start
             return CheckResult(
-                spec=spec_name, passed=False,
+                spec=spec_name,
+                passed=False,
                 violations=["TLC not found. Install tla2tools.jar or set tlc_command."],
                 duration_seconds=round(duration, 3),
             )
@@ -121,7 +129,11 @@ class TLAChecker:
         specs: list[SpecInfo] = []
         for tla_file in sorted(self.specs_dir.glob("*.tla")):
             description = _extract_description(tla_file)
-            specs.append(SpecInfo(
-                name=tla_file.stem, path=tla_file.resolve(), description=description,
-            ))
+            specs.append(
+                SpecInfo(
+                    name=tla_file.stem,
+                    path=tla_file.resolve(),
+                    description=description,
+                )
+            )
         return specs

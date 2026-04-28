@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 """CLI commands for report generation."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -15,9 +16,11 @@ from rune_audit.reporters.report_generator import ReportGenerator
 report_app = typer.Typer(no_args_is_help=True, rich_markup_mode="rich")
 console = Console()
 
+
 def _load_evidence(config: AuditConfig) -> EvidenceBundle:
     """Load evidence bundle (stub -- returns empty bundle)."""
     return EvidenceBundle(repos=config.repos)
+
 
 def _write_output(content: str, output_path: str | None, label: str) -> None:
     """Write report content to file or stdout."""
@@ -28,6 +31,7 @@ def _write_output(content: str, output_path: str | None, label: str) -> None:
         console.print(f"[green]Report written to {output_path}[/green]")
     else:
         console.print(Panel(content, title=label))
+
 
 @report_app.command("full")
 def report_full(
@@ -41,6 +45,7 @@ def report_full(
     content = ReportGenerator(evidence).generate_full(output_format=output_format)
     _write_output(content, output, "Full Audit Report")
 
+
 @report_app.command("summary")
 def report_summary(
     output_format: str = typer.Option("markdown", "--format", "-f", help="Output format: markdown, json."),
@@ -52,6 +57,7 @@ def report_summary(
     evidence = _load_evidence(cfg)
     content = ReportGenerator(evidence).generate_summary(output_format=output_format)
     _write_output(content, output, "Audit Summary")
+
 
 @report_app.command("delta")
 def report_delta(
