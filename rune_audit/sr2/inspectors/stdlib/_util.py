@@ -3,6 +3,11 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from rune_audit.sr2.models import InspectResult
+
 from pathlib import Path
 
 from rune_audit.sr2.models import InspectResult, InspectStatus, RequirementSpec
@@ -40,5 +45,5 @@ def threshold_int(spec: RequirementSpec, key: str, default: int) -> int:
         return raw
     try:
         return int(raw)
-    except TypeError, ValueError:
+    except (TypeError, ValueError):
         return default

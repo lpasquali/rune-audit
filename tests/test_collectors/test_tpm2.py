@@ -389,8 +389,9 @@ class TestTPM2CollectorEventLog:
         mock_result.stdout = ""
         mock_result.stderr = "ERROR: No event log"
 
-        with patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result), patch(
-            "rune_audit.collectors.tpm2.Path.exists", return_value=False
+        with (
+            patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result),
+            patch("rune_audit.collectors.tpm2.Path.exists", return_value=False),
         ):
             c = TPM2Collector()
             with pytest.raises(RuntimeError, match="tpm2_eventlog failed"):
@@ -402,8 +403,9 @@ class TestTPM2CollectorEventLog:
         mock_result.stdout = ""
         mock_result.stderr = ""
 
-        with patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result), patch(
-            "rune_audit.collectors.tpm2.Path.exists", return_value=False
+        with (
+            patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result),
+            patch("rune_audit.collectors.tpm2.Path.exists", return_value=False),
         ):
             c = TPM2Collector()
             log = c.collect_event_log()
@@ -411,14 +413,15 @@ class TestTPM2CollectorEventLog:
 
     def test_parse_pcr_index_entry(self) -> None:
         """Test parsing entry starting with PCRIndex: (no dash)."""
-        output = "PCRIndex: 0\nEventType: EV_NO_ACTION\nDigest: \"abc\"\nEvent: \"init\"\n"
+        output = 'PCRIndex: 0\nEventType: EV_NO_ACTION\nDigest: "abc"\nEvent: "init"\n'
         mock_result = MagicMock()
         mock_result.returncode = 0
         mock_result.stdout = output
         mock_result.stderr = ""
 
-        with patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result), patch(
-            "rune_audit.collectors.tpm2.Path.exists", return_value=False
+        with (
+            patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result),
+            patch("rune_audit.collectors.tpm2.Path.exists", return_value=False),
         ):
             c = TPM2Collector()
             log = c.collect_event_log()
@@ -452,8 +455,9 @@ class TestTPM2CollectorFullPipeline:
                 return quote_result
             return event_result
 
-        with patch("rune_audit.collectors.tpm2.subprocess.run", side_effect=side_effect), patch(
-            "rune_audit.collectors.tpm2.Path.exists", return_value=False
+        with (
+            patch("rune_audit.collectors.tpm2.subprocess.run", side_effect=side_effect),
+            patch("rune_audit.collectors.tpm2.Path.exists", return_value=False),
         ):
             c = TPM2Collector()
             result = c.collect()
@@ -473,8 +477,9 @@ class TestTPM2CollectorFullPipeline:
         mock_result.stdout = ""
         mock_result.stderr = "ERROR"
 
-        with patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result), patch(
-            "rune_audit.collectors.tpm2.Path.exists", return_value=False
+        with (
+            patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result),
+            patch("rune_audit.collectors.tpm2.Path.exists", return_value=False),
         ):
             c = TPM2Collector()
             result = c.collect()
@@ -505,8 +510,9 @@ class TestTPM2CollectorFullPipeline:
                 return pcr_result
             return fail_result
 
-        with patch("rune_audit.collectors.tpm2.subprocess.run", side_effect=side_effect), patch(
-            "rune_audit.collectors.tpm2.Path.exists", return_value=False
+        with (
+            patch("rune_audit.collectors.tpm2.subprocess.run", side_effect=side_effect),
+            patch("rune_audit.collectors.tpm2.Path.exists", return_value=False),
         ):
             c = TPM2Collector()
             result = c.collect()
@@ -524,8 +530,9 @@ class TestTPM2CollectorFullPipeline:
         mock_result.stdout = ""
         mock_result.stderr = "tpm2_pcrread: command not found"
 
-        with patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result), patch(
-            "rune_audit.collectors.tpm2.Path.exists", return_value=False
+        with (
+            patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result),
+            patch("rune_audit.collectors.tpm2.Path.exists", return_value=False),
         ):
             c = TPM2Collector()
             result = c.collect()
@@ -540,8 +547,9 @@ class TestTPM2CollectorFullPipeline:
         mock_result.stdout = ""
         mock_result.stderr = "Permission denied: /dev/tpm0"
 
-        with patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result), patch(
-            "rune_audit.collectors.tpm2.Path.exists", return_value=False
+        with (
+            patch("rune_audit.collectors.tpm2.subprocess.run", return_value=mock_result),
+            patch("rune_audit.collectors.tpm2.Path.exists", return_value=False),
         ):
             c = TPM2Collector()
             result = c.collect()

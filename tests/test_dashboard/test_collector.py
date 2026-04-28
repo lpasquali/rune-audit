@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 """Tests for dashboard collector with mocked GitHub API."""
+
 from __future__ import annotations
 
 import httpx
@@ -13,9 +14,17 @@ class TestCollectWorkflowStatus:
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").respond(
-                    200, json={"workflow_runs": [{"conclusion": "success",
-                        "html_url": f"https://example.com/{repo}/1",
-                        "updated_at": "2026-04-01T12:00:00Z"}]})
+                    200,
+                    json={
+                        "workflow_runs": [
+                            {
+                                "conclusion": "success",
+                                "html_url": f"https://example.com/{repo}/1",
+                                "updated_at": "2026-04-01T12:00:00Z",
+                            }
+                        ]
+                    },
+                )
             client = httpx.Client(base_url="https://api.github.com")
             collector = DashboardCollector(owner="testowner", client=client)
             results = collector.collect_workflow_status()
@@ -27,7 +36,8 @@ class TestCollectWorkflowStatus:
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").respond(
-                    200, json={"workflow_runs": []})
+                    200, json={"workflow_runs": []}
+                )
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_workflow_status()
         assert all(r.status == "no_runs" for r in results)
@@ -44,7 +54,8 @@ class TestCollectWorkflowStatus:
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").mock(
-                    side_effect=httpx.ConnectError("fail"))
+                    side_effect=httpx.ConnectError("fail")
+                )
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_workflow_status()
         assert all(r.status == "error" for r in results)
@@ -53,19 +64,23 @@ class TestCollectWorkflowStatus:
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").respond(
-                    200, json={"workflow_runs": [{"conclusion": "success", "html_url": "", "updated_at": None}]})
+                    200, json={"workflow_runs": [{"conclusion": "success", "html_url": "", "updated_at": None}]}
+                )
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_workflow_status()
         assert results[0].updated_at is None
+
 
 class TestCollectCoverage:
     def test_with_runs(self):
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").respond(
-                    200, json={"workflow_runs": [{"id": 123}]})
+                    200, json={"workflow_runs": [{"id": 123}]}
+                )
                 mock.get(f"/repos/testowner/{repo}/actions/runs/123/jobs").respond(
-                    200, json={"jobs": [{"steps": [{"name": "Run tests"}]}]})
+                    200, json={"jobs": [{"steps": [{"name": "Run tests"}]}]}
+                )
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_coverage()
         assert len(results) == 7
@@ -74,7 +89,8 @@ class TestCollectCoverage:
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").respond(
-                    200, json={"workflow_runs": []})
+                    200, json={"workflow_runs": []}
+                )
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_coverage()
         assert all(r.coverage_pct == 0.0 for r in results)
@@ -91,7 +107,8 @@ class TestCollectCoverage:
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").respond(
-                    200, json={"workflow_runs": [{"id": 123}]})
+                    200, json={"workflow_runs": [{"id": 123}]}
+                )
                 mock.get(f"/repos/testowner/{repo}/actions/runs/123/jobs").respond(500)
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_coverage()
@@ -101,22 +118,30 @@ class TestCollectCoverage:
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").mock(
-                    side_effect=httpx.ConnectError("fail"))
+                    side_effect=httpx.ConnectError("fail")
+                )
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_coverage()
         assert len(results) == 7
+
 
 class TestCollectSecurityAlerts:
     def test_with_alerts(self):
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
-                mock.get(f"/repos/testowner/{repo}/dependabot/alerts").respond(200, json=[
-                    {"security_advisory": {"severity": "critical"}},
-                    {"security_advisory": {"severity": "high"}},
-                ])
-                mock.get(f"/repos/testowner/{repo}/code-scanning/alerts").respond(200, json=[
-                    {"rule": {"severity": "error"}},
-                ])
+                mock.get(f"/repos/testowner/{repo}/dependabot/alerts").respond(
+                    200,
+                    json=[
+                        {"security_advisory": {"severity": "critical"}},
+                        {"security_advisory": {"severity": "high"}},
+                    ],
+                )
+                mock.get(f"/repos/testowner/{repo}/code-scanning/alerts").respond(
+                    200,
+                    json=[
+                        {"rule": {"severity": "error"}},
+                    ],
+                )
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_security_alerts()
         assert len(results) == 7
@@ -145,21 +170,25 @@ class TestCollectSecurityAlerts:
     def test_http_error(self):
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
-                mock.get(f"/repos/testowner/{repo}/dependabot/alerts").mock(
-                    side_effect=httpx.ConnectError("fail"))
-                mock.get(f"/repos/testowner/{repo}/code-scanning/alerts").mock(
-                    side_effect=httpx.ConnectError("fail"))
+                mock.get(f"/repos/testowner/{repo}/dependabot/alerts").mock(side_effect=httpx.ConnectError("fail"))
+                mock.get(f"/repos/testowner/{repo}/code-scanning/alerts").mock(side_effect=httpx.ConnectError("fail"))
             client = httpx.Client(base_url="https://api.github.com")
             results = DashboardCollector(owner="testowner", client=client).collect_security_alerts()
         assert all(a.dependabot_open == 0 for a in results)
+
 
 class TestCollectAll:
     def test_aggregates_all(self):
         with respx.mock(base_url="https://api.github.com") as mock:
             for repo in DashboardCollector.REPOS:
                 mock.get(f"/repos/testowner/{repo}/actions/workflows/quality-gates.yml/runs").respond(
-                    200, json={"workflow_runs": [{"id": 1, "conclusion": "success",
-                        "html_url": "", "updated_at": "2026-04-01T12:00:00Z"}]})
+                    200,
+                    json={
+                        "workflow_runs": [
+                            {"id": 1, "conclusion": "success", "html_url": "", "updated_at": "2026-04-01T12:00:00Z"}
+                        ]
+                    },
+                )
                 mock.get(f"/repos/testowner/{repo}/actions/runs/1/jobs").respond(200, json={"jobs": []})
                 mock.get(f"/repos/testowner/{repo}/dependabot/alerts").respond(200, json=[])
                 mock.get(f"/repos/testowner/{repo}/code-scanning/alerts").respond(200, json=[])

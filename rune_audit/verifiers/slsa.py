@@ -31,9 +31,7 @@ TRUSTED_BUILDERS: frozenset[str] = frozenset(
 )
 
 # Pre-computed trusted origins (scheme + netloc) for URL validation.
-TRUSTED_ORIGINS: frozenset[str] = frozenset(
-    f"{urlparse(u).scheme}://{urlparse(u).netloc}" for u in TRUSTED_BUILDERS
-)
+TRUSTED_ORIGINS: frozenset[str] = frozenset(f"{urlparse(u).scheme}://{urlparse(u).netloc}" for u in TRUSTED_BUILDERS)
 
 GITHUB_ACTIONS_BUILD_TYPE = "https://actions.github.io/buildtypes/workflow/v1"
 
