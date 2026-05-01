@@ -1,0 +1,986 @@
+container / Build image (amd64)	UNKNOWN STEP	﻿2026-05-01T11:24:02.6360989Z Current runner version: '2.334.0'
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6385494Z ##[group]Runner Image Provisioner
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6386352Z Hosted Compute Agent
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6386896Z Version: 20260213.493
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6387449Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6388064Z Build Date: 2026-02-13T00:28:41Z
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6388716Z Worker ID: {7016c375-ae88-456d-aaca-c1a995a2ea46}
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6389321Z Azure Region: centralus
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6389831Z ##[endgroup]
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6391204Z ##[group]Operating System
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6391709Z Ubuntu
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6392137Z 24.04.4
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6392553Z LTS
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6392982Z ##[endgroup]
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6393395Z ##[group]Runner Image
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6393885Z Image: ubuntu-24.04
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6394326Z Version: 20260413.86.1
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6395453Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260413.86/images/ubuntu/Ubuntu2404-Readme.md
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6396879Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260413.86
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6397682Z ##[endgroup]
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6398701Z ##[group]GITHUB_TOKEN Permissions
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6401477Z Contents: read
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6402167Z Metadata: read
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6402975Z Packages: write
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6403642Z ##[endgroup]
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6406593Z Secret source: Actions
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6407733Z Prepare workflow directory
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6769922Z Prepare all required actions
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:02.6813929Z Getting action download info
+container / Build image (amd64)	UNKNOWN STEP	2026-05-01T11:24:03.0599610Z ##[error]Unable to resolve action `docker/build-push-action@7e8517dea467da2c48fdd7d440c8d12f200edccd`, unable to find version `7e8517dea467da2c48fdd7d440c8d12f200edccd`
+container / Build image (arm64)	UNKNOWN STEP	﻿2026-05-01T11:24:03.9027199Z Current runner version: '2.334.0'
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9056820Z ##[group]Runner Image Provisioner
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9057705Z Hosted Compute Agent
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9058407Z Version: 20260213.493
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9059029Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9059690Z Build Date: 2026-02-13T00:28:41Z
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9060424Z Worker ID: {f2fe8041-b3ed-4b6c-906c-1dbe3061d411}
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9061055Z Azure Region: westus2
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9061596Z ##[endgroup]
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9063571Z ##[group]VM Image
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9064461Z - OS: Linux (arm64)
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9065027Z - Source: Partner
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9065615Z - Name: Ubuntu 24.04 by Arm Limited
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9066231Z - Version: 20260318.59.1
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9067155Z - Included Software: https://github.com/actions/partner-runner-images/blob/main/images/arm-ubuntu-24-image.md
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9068200Z ##[endgroup]
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9069499Z ##[group]GITHUB_TOKEN Permissions
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9072484Z Contents: read
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9073090Z Metadata: read
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9073550Z Packages: write
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9074628Z ##[endgroup]
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9077497Z Secret source: Actions
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9078219Z Prepare workflow directory
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9439286Z Prepare all required actions
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:03.9479271Z Getting action download info
+container / Build image (arm64)	UNKNOWN STEP	2026-05-01T11:24:04.4585075Z ##[error]Unable to resolve action `docker/build-push-action@7e8517dea467da2c48fdd7d440c8d12f200edccd`, unable to find version `7e8517dea467da2c48fdd7d440c8d12f200edccd`
+python / RuneGate/Lint/Python	UNKNOWN STEP	﻿2026-05-01T11:24:16.0729807Z Current runner version: '2.334.0'
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0755148Z ##[group]Runner Image Provisioner
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0755982Z Hosted Compute Agent
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0756544Z Version: 20260213.493
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0757105Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0758374Z Build Date: 2026-02-13T00:28:41Z
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0759047Z Worker ID: {96caa5d4-0929-4954-8fe3-1045709d515b}
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0759748Z Azure Region: eastus2
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0760235Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0761828Z ##[group]Operating System
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0762424Z Ubuntu
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0762837Z 24.04.4
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0763372Z LTS
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0763816Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0764291Z ##[group]Runner Image
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0764852Z Image: ubuntu-24.04
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0765348Z Version: 20260413.86.1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0766513Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260413.86/images/ubuntu/Ubuntu2404-Readme.md
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0768152Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260413.86
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0769040Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0770068Z ##[group]GITHUB_TOKEN Permissions
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0772076Z Contents: read
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0772656Z Metadata: read
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0773204Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0775243Z Secret source: Actions
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.0776174Z Prepare workflow directory
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.1106383Z Prepare all required actions
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.1143743Z Getting action download info
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.4461532Z Download action repository 'actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd' (SHA:de0fac2e4500dabe0009e67214ff5f5447ce83dd)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.5687018Z Download action repository 'actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405' (SHA:a309ff8b426b58ec0e2a45f0f869d46889d02405)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7763528Z Uses: lpasquali/rune-ci/.github/workflows/python-quality.yml@93af917436df6540699bdecc3040e857ba6688a9
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7768165Z ##[group] Inputs
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7768634Z   python-version: 3.14
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7769060Z   coverage-threshold: 97
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7769497Z   source-dirs: rune_audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7769959Z   test-deps: pytest pytest-cov pytest-xdist
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7771153Z   lint-enabled: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7771578Z   sast-enabled: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7771987Z   license-check-enabled: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7772478Z   allowed-license-exceptions: bashlex,borb
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7773163Z   path-filter: ^(rune_audit/|tests/|requirements\.txt|pyproject\.toml)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7773809Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.7774232Z Complete job name: python / RuneGate/Lint/Python
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8472503Z ##[group]Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8473493Z with:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8473887Z   repository: lpasquali/rune-audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8474521Z   token: ***
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8474898Z   ssh-strict: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8475299Z   ssh-user: git
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8475701Z   persist-credentials: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8476143Z   clean: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8476586Z   sparse-checkout-cone-mode: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8477044Z   fetch-depth: 1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8477422Z   fetch-tags: false
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8478030Z   show-progress: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8478432Z   lfs: false
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8478798Z   submodules: false
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8479195Z   set-safe-directory: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.8480020Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9466386Z Syncing repository: lpasquali/rune-audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9469276Z ##[group]Getting Git version info
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9470581Z Working directory is '/home/runner/work/rune-audit/rune-audit'
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9472380Z [command]/usr/bin/git version
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9493902Z git version 2.53.0
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9549894Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9565627Z Temporarily overriding HOME='/home/runner/work/_temp/ee03a82c-86be-4930-80e8-b0f110d8e5b7' before making global git config changes
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9568541Z Adding repository directory to the temporary git global config as a safe directory
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9572069Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rune-audit/rune-audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9604218Z Deleting the contents of '/home/runner/work/rune-audit/rune-audit'
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9608271Z ##[group]Initializing the repository
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9612250Z [command]/usr/bin/git init /home/runner/work/rune-audit/rune-audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9685152Z hint: Using 'master' as the name for the initial branch. This default branch name
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9686768Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9688202Z hint: to use in all of your new repositories, which will suppress this warning,
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9688967Z hint: call:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9689344Z hint:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9689980Z hint: 	git config --global init.defaultBranch <name>
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9690588Z hint:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9691150Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9692207Z hint: 'development'. The just-created branch can be renamed via this command:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9693247Z hint:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9693637Z hint: 	git branch -m <name>
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9694088Z hint:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9694680Z hint: Disable this message with "git config set advice.defaultBranchName false"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9696016Z Initialized empty Git repository in /home/runner/work/rune-audit/rune-audit/.git/
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9698566Z [command]/usr/bin/git remote add origin https://github.com/lpasquali/rune-audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9727136Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9728330Z ##[group]Disabling automatic garbage collection
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9730780Z [command]/usr/bin/git config --local gc.auto 0
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9758214Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9759172Z ##[group]Setting up auth
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9759892Z Removing SSH command configuration
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9764845Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:16.9795028Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0064475Z Removing HTTP extra header
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0070470Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0099500Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0305597Z Removing includeIf entries pointing to credentials config files
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0311341Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0341256Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0566079Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0603544Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/rune-audit/rune-audit/.git.path /home/runner/work/_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0634174Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/rune-audit/rune-audit/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0665622Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0704255Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0732896Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0734319Z ##[group]Fetching the repository
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.0741161Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b66acb1e3cc95509397c601aaa2ffe146542ae9e:refs/remotes/pull/124/merge
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4485860Z From https://github.com/lpasquali/rune-audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4489055Z  * [new ref]         b66acb1e3cc95509397c601aaa2ffe146542ae9e -> pull/124/merge
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4523461Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4524576Z ##[group]Determining the checkout info
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4525733Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4532445Z [command]/usr/bin/git sparse-checkout disable
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4573404Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4604286Z ##[group]Checking out the ref
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4609575Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/124/merge
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4732419Z Note: switching to 'refs/remotes/pull/124/merge'.
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4733843Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4734693Z You are in 'detached HEAD' state. You can look around, make experimental
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4736493Z changes and commit them, and you can discard any commits you make in this
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4738111Z state without impacting any branches by switching back to a branch.
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4739168Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4740024Z If you want to create a new branch to retain commits you create, you may
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4741903Z do so (now or later) by using -c with the switch command. Example:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4743039Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4743459Z   git switch -c <new-branch-name>
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4744038Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4744400Z Or undo this operation with:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4744898Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4745147Z   git switch -
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4745554Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4746157Z Turn off this advice by setting config variable advice.detachedHead to false
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4747099Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4748640Z HEAD is now at b66acb1 Merge efc0fd3a4e6a4398bf40b68834694756dbdb8657 into 6239d9d582518da01c77563ae251f741fb6d9ee3
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4752191Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4775939Z [command]/usr/bin/git log -1 --format=%H
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.4798750Z b66acb1e3cc95509397c601aaa2ffe146542ae9e
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5139367Z ##[group]Run actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5140916Z with:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5141619Z   python-version: 3.14
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5142434Z   cache: pip
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5143157Z   check-latest: false
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5144238Z   token: ***
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5144991Z   update-environment: true
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5145926Z   allow-prereleases: false
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5146824Z   freethreaded: false
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.5147614Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.6440054Z ##[group]Installed versions
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.6966815Z Successfully set up CPython (3.14.4)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.6976005Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:17.7584459Z [command]/opt/hostedtoolcache/Python/3.14.4/x64/bin/pip cache dir
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.2917381Z /home/runner/.cache/pip
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.3771700Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.4-pip-55cd5e0ab72b35ead2d8d13930941bea88797da3930dd7d480f9c071340e721b
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.7236308Z Received 34972613 of 34972613 (100.0%), 117.4 MBs/sec
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.7237120Z Cache Size: ~33 MB (34972613 B)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.7268439Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8731298b-7b72-4221-adac-abbd1c4cee33/cache.tzst -P -C /home/runner/work/rune-audit/rune-audit --use-compress-program unzstd
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.7866241Z Cache restored successfully
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.7890542Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.4-pip-55cd5e0ab72b35ead2d8d13930941bea88797da3930dd7d480f9c071340e721b
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8156563Z ##[group]Run python -m venv .venv
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8156951Z [36;1mpython -m venv .venv[0m
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8157218Z [36;1m. .venv/bin/activate[0m
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8157483Z [36;1mpip install --upgrade pip[0m
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8158275Z [36;1mpip install --prefer-binary -r requirements.txt ruff mypy[0m
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8186186Z shell: /usr/bin/bash -e {0}
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8186445Z env:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8186730Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.4/x64
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8187187Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.4/x64/lib/pkgconfig
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8187812Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.4/x64
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8188207Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.4/x64
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8188578Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.4/x64
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8188961Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.4/x64/lib
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:19.8189306Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.4076148Z Requirement already satisfied: pip in ./.venv/lib/python3.14/site-packages (26.0.1)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.5190205Z Collecting pip
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.5902264Z   Downloading pip-26.1-py3-none-any.whl.metadata (4.6 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.6024086Z Downloading pip-26.1-py3-none-any.whl (1.8 MB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.7292126Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 17.1 MB/s  0:00:00
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.7450677Z Installing collected packages: pip
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.7452798Z   Attempting uninstall: pip
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.7477762Z     Found existing installation: pip 26.0.1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.7814130Z     Uninstalling pip-26.0.1:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:24.7869717Z       Successfully uninstalled pip-26.0.1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:25.9311242Z Successfully installed pip-26.1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:26.6715343Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.1058052Z Collecting ruff
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.1713043Z   Downloading ruff-0.15.12-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (26 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.1853429Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.2810791Z Collecting mypy
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.2895017Z   Downloading mypy-1.20.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.2950578Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3119029Z Collecting typer>=0.9 (from -r requirements.txt (line 3))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3186648Z   Downloading typer-0.25.1-py3-none-any.whl.metadata (15 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3259261Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3559894Z Collecting rich>=13.7 (from -r requirements.txt (line 4))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3571068Z   Using cached rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3602862Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3751335Z Collecting httpx>=0.27.0 (from -r requirements.txt (line 5))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3762938Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.3794391Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.4786478Z Collecting pydantic>=2.0 (from -r requirements.txt (line 6))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.4859518Z   Downloading pydantic-2.13.3-py3-none-any.whl.metadata (108 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5074643Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5397390Z Collecting pyyaml>=6.0 (from -r requirements.txt (line 7))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5409463Z   Using cached pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5430734Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5562605Z Collecting respx>=0.21.0 (from -r requirements.txt (line 8))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5573559Z   Using cached respx-0.23.1-py2.py3-none-any.whl.metadata (4.3 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5608678Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5753512Z Collecting typing_extensions>=4.6.0 (from mypy)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5764781Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5786120Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5881921Z Collecting mypy_extensions>=1.0.0 (from mypy)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5893203Z   Using cached mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.5912493Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.6026854Z Collecting pathspec>=1.0.0 (from mypy)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.6094378Z   Downloading pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.6146379Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7066841Z Collecting librt>=0.8.0 (from mypy)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7079166Z   Using cached librt-0.9.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (1.3 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7102434Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7245306Z Collecting click>=8.2.1 (from typer>=0.9->-r requirements.txt (line 3))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7313739Z   Downloading click-8.3.3-py3-none-any.whl.metadata (2.6 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7354370Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7519625Z Collecting shellingham>=1.3.0 (from typer>=0.9->-r requirements.txt (line 3))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7531232Z   Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7568472Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7664437Z Collecting annotated-doc>=0.0.2 (from typer>=0.9->-r requirements.txt (line 3))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7675874Z   Using cached annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7702794Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7830351Z Collecting markdown-it-py>=2.2.0 (from rich>=13.7->-r requirements.txt (line 4))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7841897Z   Using cached markdown_it_py-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.7886968Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8044779Z Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.7->-r requirements.txt (line 4))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8056438Z   Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8084358Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8250978Z Collecting anyio (from httpx>=0.27.0->-r requirements.txt (line 5))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8262645Z   Using cached anyio-4.13.0-py3-none-any.whl.metadata (4.5 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8286734Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8449415Z Collecting certifi (from httpx>=0.27.0->-r requirements.txt (line 5))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8522109Z   Downloading certifi-2026.4.22-py3-none-any.whl.metadata (2.5 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8562173Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8700787Z Collecting httpcore==1.* (from httpx>=0.27.0->-r requirements.txt (line 5))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8712161Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8747717Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8870197Z Collecting idna (from httpx>=0.27.0->-r requirements.txt (line 5))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8937978Z   Downloading idna-3.13-py3-none-any.whl.metadata (8.0 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.8989993Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.9088662Z Collecting h11>=0.16 (from httpcore==1.*->httpx>=0.27.0->-r requirements.txt (line 5))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.9100346Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.9128077Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.9228860Z Collecting annotated-types>=0.6.0 (from pydantic>=2.0->-r requirements.txt (line 6))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.9240380Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:27.9267150Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5308741Z Collecting pydantic-core==2.46.3 (from pydantic>=2.0->-r requirements.txt (line 6))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5380504Z   Downloading pydantic_core-2.46.3-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5431099Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5528246Z Collecting typing-inspection>=0.4.2 (from pydantic>=2.0->-r requirements.txt (line 6))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5539397Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5596150Z WARNING: Cache entry deserialization failed, entry ignored
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5689762Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.7->-r requirements.txt (line 4))
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5700368Z   Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.5827484Z Downloading ruff-0.15.12-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (11.3 MB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.8698457Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.3/11.3 MB 42.6 MB/s  0:00:00
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.8774401Z Downloading mypy-1.20.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (14.7 MB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:28.9951193Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.7/14.7 MB 125.9 MB/s  0:00:00
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0026020Z Downloading typer-0.25.1-py3-none-any.whl (58 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0058751Z Using cached rich-15.0.0-py3-none-any.whl (310 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0072191Z Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0088189Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0099935Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0175123Z Downloading pydantic-2.13.3-py3-none-any.whl (471 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0279098Z Downloading pydantic_core-2.46.3-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0413012Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 169.6 MB/s  0:00:00
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0425354Z Using cached pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (794 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0439699Z Using cached respx-0.23.1-py2.py3-none-any.whl (25 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0451338Z Using cached annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0463221Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0532043Z Downloading click-8.3.3-py3-none-any.whl (110 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0577139Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0588880Z Using cached librt-0.9.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (227 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0600378Z Using cached markdown_it_py-4.0.0-py3-none-any.whl (87 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0611674Z Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0622612Z Using cached mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0691667Z Downloading pathspec-1.1.1-py3-none-any.whl (57 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0727809Z Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0738906Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0749915Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0760970Z Using cached anyio-4.13.0-py3-none-any.whl (114 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0831561Z Downloading idna-3.13-py3-none-any.whl (68 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.0924948Z Downloading certifi-2026.4.22-py3-none-any.whl (135 kB)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:29.2287256Z Installing collected packages: typing_extensions, shellingham, ruff, pyyaml, pygments, pathspec, mypy_extensions, mdurl, librt, idna, h11, click, certifi, annotated-types, annotated-doc, typing-inspection, pydantic-core, mypy, markdown-it-py, httpcore, anyio, rich, pydantic, httpx, typer, respx
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.7647365Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.7677255Z Successfully installed annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.13.0 certifi-2026.4.22 click-8.3.3 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.13 librt-0.9.0 markdown-it-py-4.0.0 mdurl-0.1.2 mypy-1.20.2 mypy_extensions-1.1.0 pathspec-1.1.1 pydantic-2.13.3 pydantic-core-2.46.3 pygments-2.20.0 pyyaml-6.0.3 respx-0.23.1 rich-15.0.0 ruff-0.15.12 shellingham-1.5.4 typer-0.25.1 typing-inspection-0.4.2 typing_extensions-4.15.0
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8799461Z ##[group]Run .venv/bin/ruff check rune_audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8799814Z [36;1m.venv/bin/ruff check rune_audit[0m
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8822117Z shell: /usr/bin/bash -e {0}
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8822353Z env:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8822603Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.4/x64
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8823028Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.4/x64/lib/pkgconfig
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8823441Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.4/x64
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8823791Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.4/x64
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8824147Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.4/x64
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8824513Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.4/x64/lib
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.8824813Z ##[endgroup]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9038905Z F401 [*] `rune_audit.rekor.models.SearchResult` imported but unused
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9039609Z   --> rune_audit/rekor/client.py:11:56
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9040043Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9040377Z  9 | import httpx
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9040658Z 10 |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9041143Z 11 | from rune_audit.rekor.models import LogEntry, LogInfo, SearchResult
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9041808Z    |                                                        ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9042260Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9042706Z help: Remove unused import: `rune_audit.rekor.models.SearchResult`
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9043186Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9043337Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9043831Z   --> rune_audit/rekor/client.py:36:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9044218Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9044565Z 34 |         url = f"{self._base_url}/api/v1/index/retrieve"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9045211Z 35 |         query = {"hash": hash_val if ":" in hash_val else f"sha256:{hash_val}"}
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9045785Z 36 |         
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9045967Z    | ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9046177Z 37 |         resp = self._client.post(url, json=query)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9046720Z 38 |         if resp.status_code == 404:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9047116Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9047419Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9047922Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9048083Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9048552Z   --> rune_audit/rekor/client.py:42:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9048958Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9049248Z 40 |         if not resp.is_success:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9050112Z 41 |             raise RuntimeError(f"Rekor search failed: {resp.status_code}")
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9050521Z 42 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9050698Z    | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9050883Z 43 |         data = resp.json()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9051112Z 44 |         if isinstance(data, list):
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9051344Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9051518Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9051683Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9051775Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9052022Z   --> rune_audit/rekor/client.py:52:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9052263Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9052478Z 50 |         url = f"{self._base_url}/api/v1/index/retrieve"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9052773Z 51 |         query = {"email": email}
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9052991Z 52 |         
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9053150Z    | ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9053352Z 53 |         resp = self._client.post(url, json=query)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9053641Z 54 |         if resp.status_code == 404:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9054080Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9054256Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9054434Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9054519Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9054776Z   --> rune_audit/rekor/client.py:58:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9054998Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9055152Z 56 |         if not resp.is_success:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9055477Z 57 |             raise RuntimeError(f"Rekor search failed: {resp.status_code}")
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9055802Z 58 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9055961Z    | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9056306Z 59 |         data = resp.json()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9056546Z 60 |         if isinstance(data, list):
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9056762Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9056935Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9057098Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9057187Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9057448Z   --> rune_audit/rekor/client.py:67:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9058035Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9058214Z 65 |         """Fetch a log entry by its UUID."""
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9058536Z 66 |         url = f"{self._base_url}/api/v1/log/entries/{uuid}"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9058813Z 67 |         
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9058964Z    | ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9059141Z 68 |         resp = self._client.get(url)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9059394Z 69 |         if resp.status_code == 404:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9059612Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9059784Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9059947Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9060041Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9060286Z   --> rune_audit/rekor/client.py:73:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9060506Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9060671Z 71 |         if not resp.is_success:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9060987Z 72 |             raise RuntimeError(f"get_entry failed: {resp.status_code}")
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9061316Z 73 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9061482Z    | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9061660Z 74 |         data = resp.json()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9061911Z 75 |         if not isinstance(data, dict) or not data:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9062167Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9062338Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9062522Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9062611Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9062865Z   --> rune_audit/rekor/client.py:77:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9063082Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9063275Z 75 |         if not isinstance(data, dict) or not data:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9063586Z 76 |             raise RuntimeError("Unexpected response")
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9063847Z 77 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9064017Z    | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9064282Z 78 |         # The key should be the UUID or similar, but the value is the dict
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9064667Z 79 |         # Typically data = { "uuid_str": { "body": "...", ... } }
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9064955Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9065127Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9065293Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9065385Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9065624Z   --> rune_audit/rekor/client.py:82:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9065842Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9066002Z 80 |         key = list(data.keys())[0]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9066230Z 81 |         entry_data = data[key]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9066444Z 82 |         
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9066601Z    | ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9066765Z 83 |         return LogEntry(
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9066974Z 84 |             uuid=uuid,
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9067159Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9067326Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9067497Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9067585Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9068088Z   --> rune_audit/rekor/client.py:94:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9068312Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9068530Z 92 |         """Get information about the current state of the log."""
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9068859Z 93 |         url = f"{self._base_url}/api/v1/log"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9069103Z 94 |         
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9069255Z    | ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9069588Z 95 |         resp = self._client.get(url)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9069837Z 96 |         if not resp.is_success:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9070047Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9070219Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9070387Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9070476Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9070723Z    --> rune_audit/rekor/client.py:98:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9070943Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9071111Z  96 |         if not resp.is_success:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9071563Z  97 |             raise RuntimeError(f"get_log_info failed: {resp.status_code}")
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9071896Z  98 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9072064Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9072245Z  99 |         data = resp.json()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9072463Z 100 |         return LogInfo(
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9072661Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9072834Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9072998Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9073083Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9073336Z    --> rune_audit/rekor/client.py:111:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9073559Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9073878Z 109 |         if not entry.verification or "inclusionProof" not in entry.verification:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9074246Z 110 |             return False
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9074452Z 111 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9074618Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9074838Z 112 |         proof = entry.verification["inclusionProof"]
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9075155Z 113 |         root_hash = proof.get("rootHash", "")
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9075405Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9075578Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9075748Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9075835Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9076078Z    --> rune_audit/rekor/client.py:117:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9076294Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9076471Z 115 |         hashes = proof.get("hashes", [])
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9076753Z 116 |         log_index = proof.get("logIndex", -1)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9077005Z 117 |         
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9077158Z     | ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9077384Z 118 |         if not root_hash or tree_size <= 0 or log_index < 0:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9077919Z 119 |             return False
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9078119Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9078293Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9078462Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9078554Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9078792Z    --> rune_audit/rekor/client.py:120:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9079013Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9079235Z 118 |         if not root_hash or tree_size <= 0 or log_index < 0:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9079523Z 119 |             return False
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9079711Z 120 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9079877Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9080145Z 121 |         current_hash = hashlib.sha256(entry.body.encode()).hexdigest()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9080470Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9080651Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9080827Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9080917Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9081160Z    --> rune_audit/rekor/client.py:122:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9081382Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9081635Z 121 |         current_hash = hashlib.sha256(entry.body.encode()).hexdigest()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9081952Z 122 |         
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9082112Z     | ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9082291Z 123 |         if tree_size == 1:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9082541Z 124 |             return current_hash == root_hash
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9082787Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9082974Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9083148Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9083242Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9083485Z    --> rune_audit/rekor/client.py:125:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9083713Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9083878Z 123 |         if tree_size == 1:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9084116Z 124 |             return current_hash == root_hash
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9084368Z 125 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9084674Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9084847Z 126 |         for sibling in hashes:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9085085Z 127 |             if log_index % 2 == 0:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9085307Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9085483Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9085648Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9086041Z SIM108 Use ternary operator `combined = current_hash + sibling if log_index % 2 == 0 else sibling + current_hash` instead of `if`-`else`-block
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9086603Z    --> rune_audit/rekor/client.py:127:13
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9086834Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9087094Z 126 |           for sibling in hashes:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9087346Z 127 | /             if log_index % 2 == 0:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9087859Z 128 | |                 combined = current_hash + sibling
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9088147Z 129 | |             else:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9088365Z 130 | |                 combined = sibling + current_hash
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9088647Z     | |_________________________________________________^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9089003Z 131 |               current_hash = hashlib.sha256(combined.encode()).hexdigest()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9089353Z 132 |               log_index //= 2
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9089572Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9089984Z help: Replace `if`-`else`-block with `combined = current_hash + sibling if log_index % 2 == 0 else sibling + current_hash`
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9090409Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9090497Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9090753Z    --> rune_audit/rekor/client.py:133:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9090973Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9091236Z 131 |             current_hash = hashlib.sha256(combined.encode()).hexdigest()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9091575Z 132 |             log_index //= 2
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9091788Z 133 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9091951Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9092143Z 134 |         return current_hash == root_hash
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9092382Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9092549Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9092723Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9092831Z I001 [*] Import block is un-sorted or un-formatted
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9093114Z   --> rune_audit/sigstore/engine.py:4:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9093339Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9093540Z  2 |   """Sigstore signing engine using cosign CLI."""
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9093804Z  3 |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9093974Z  4 | / from __future__ import annotations
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9094205Z  5 | |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9094362Z  6 | | import json
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9094533Z  7 | | import os
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9094707Z  8 | | import subprocess
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9094915Z  9 | | import tempfile
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9095117Z 10 | | from pathlib import Path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9095350Z 11 | | from typing import TYPE_CHECKING
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9095581Z 12 | |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9095871Z 13 | | from rune_audit.sigstore.models import SigningResult, VerificationResult
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9096295Z    | |________________________________________________________________________^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9096592Z 14 |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9096759Z 15 |   class SigstoreEngine:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9096957Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9097116Z help: Organize imports
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9097236Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9097353Z F401 [*] `typing.TYPE_CHECKING` imported but unused
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9097856Z   --> rune_audit/sigstore/engine.py:11:20
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9098281Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9098446Z  9 | import tempfile
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9098651Z 10 | from pathlib import Path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9098875Z 11 | from typing import TYPE_CHECKING
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9099121Z    |                    ^^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9099331Z 12 |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9099602Z 13 | from rune_audit.sigstore.models import SigningResult, VerificationResult
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9099950Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9100144Z help: Remove unused import: `typing.TYPE_CHECKING`
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9100342Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9100544Z SIM105 Use `contextlib.suppress(ValueError)` instead of `try`-`except`-`pass`
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9101157Z   --> rune_audit/sigstore/engine.py:50:17
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9101397Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9101590Z 48 |           for line in result.stderr.splitlines():
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9101900Z 49 |               if "tlog entry created with index:" in line:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9102178Z 50 | /                 try:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9102433Z 51 | |                     log_index = int(line.split(":")[-1].strip())
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9102752Z 52 | |                 except ValueError:  # pragma: no cover
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9103129Z 53 | |                     pass
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9103342Z    | |________________________^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9103525Z 54 |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9103727Z 55 |           # Parse signature and certificate from stdout
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9103989Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9104282Z help: Replace `try`-`except`-`pass` with `with contextlib.suppress(ValueError): ...`
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9104588Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9104673Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9104931Z   --> rune_audit/sigstore/engine.py:84:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9105159Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9105308Z 82 |         os.write(fd, data)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9105521Z 83 |         os.close(fd)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9105709Z 84 |         
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9105864Z    | ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9106039Z 85 |         path = Path(temp_path)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9106258Z 86 |         try:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9106417Z    |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9106589Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9106763Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9106854Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9107114Z    --> rune_audit/sigstore/engine.py:107:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9107347Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9107525Z 105 |             if result.returncode != 0:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9108150Z 106 |                 return VerificationResult(verified=False, errors=[result.stderr])
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9108502Z 107 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9108671Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9108862Z 108 |             signer_identity = None
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9109093Z 109 |             issuer = None
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9109292Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9109467Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9109631Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9109722Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9109966Z    --> rune_audit/sigstore/engine.py:111:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9110208Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9110371Z 109 |             issuer = None
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9110579Z 110 |             log_entry = None
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9110798Z 111 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9110967Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9111183Z 112 |             for line in result.stdout.splitlines():
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9111567Z 113 |                 if line.startswith("Signer: ") or line.startswith("Subject: "):
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9111902Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9112069Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9112246Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9112484Z SIM105 Use `contextlib.suppress(json.JSONDecodeError)` instead of `try`-`except`-`pass`
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9112909Z    --> rune_audit/sigstore/engine.py:118:21
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9113146Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9113342Z 116 |                       issuer = line.split(": ", 1)[-1].strip()
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9113650Z 117 |                   elif line.startswith("{"):
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9113907Z 118 | /                     try:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9114150Z 119 | |                         log_entry = json.loads(line)
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9114486Z 120 | |                     except json.JSONDecodeError:  # pragma: no cover
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9114794Z 121 | |                         pass
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9115013Z     | |____________________________^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9115216Z 122 |               
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9115423Z 123 |               return VerificationResult(
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9115658Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9115980Z help: Replace `try`-`except`-`pass` with `with contextlib.suppress(json.JSONDecodeError): ...`
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9116484Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9116572Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9116829Z    --> rune_audit/sigstore/engine.py:122:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9117057Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9117280Z 120 |                     except json.JSONDecodeError:  # pragma: no cover
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9117583Z 121 |                         pass
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9118041Z 122 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9118205Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9118399Z 123 |             return VerificationResult(
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9118772Z 124 |                 verified=True,
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9118985Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9119159Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9119324Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9119414Z W293 [*] Blank line contains whitespace
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9119662Z    --> rune_audit/sigstore/engine.py:129:1
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9119893Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9120063Z 127 |                 log_entry=log_entry
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9120287Z 128 |             )
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9120455Z 129 |             
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9120619Z     | ^^^^^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9120851Z 130 |         except subprocess.CalledProcessError as exc:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9121234Z 131 |             return VerificationResult(verified=False, errors=[exc.stderr])
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9121564Z     |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9121741Z help: Remove whitespace from blank line
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9121906Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9122113Z TC003 Move standard library import `datetime.datetime` into a type-checking block
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9122512Z  --> rune_audit/sigstore/models.py:6:22
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9122745Z   |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9122912Z 4 | from __future__ import annotations
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9123138Z 5 |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9123305Z 6 | from datetime import datetime
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9123526Z   |                      ^^^^^^^^
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9123743Z 7 | from typing import Any
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9123941Z   |
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9124114Z help: Move into type-checking block
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9124276Z 
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9124343Z Found 28 errors.
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9124713Z [*] 24 fixable with the `--fix` option (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9134724Z ##[error]Process completed with exit code 1.
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:33.9247516Z Post job cleanup.
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0075927Z [command]/usr/bin/git version
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0111010Z git version 2.53.0
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0182962Z Temporarily overriding HOME='/home/runner/work/_temp/ae39b3cc-e70d-421a-bd9a-3c654154fddf' before making global git config changes
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0184329Z Adding repository directory to the temporary git global config as a safe directory
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0189361Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rune-audit/rune-audit
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0219314Z Removing SSH command configuration
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0225079Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0260288Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0480256Z Removing HTTP extra header
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0484615Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0517983Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0731303Z Removing includeIf entries pointing to credentials config files
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0737636Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0764813Z includeif.gitdir:/home/runner/work/rune-audit/rune-audit/.git.path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0766005Z includeif.gitdir:/home/runner/work/rune-audit/rune-audit/.git/worktrees/*.path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0768027Z includeif.gitdir:/github/workspace/.git.path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0769157Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0776056Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/rune-audit/rune-audit/.git.path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0800048Z /home/runner/work/_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0810845Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/rune-audit/rune-audit/.git.path /home/runner/work/_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0848577Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/rune-audit/rune-audit/.git/worktrees/*.path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0871954Z /home/runner/work/_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0893009Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/rune-audit/rune-audit/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0922142Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0945242Z /github/runner_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0955154Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.0990948Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.1013735Z /github/runner_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.1022215Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.1056854Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.1292687Z Removing credentials config '/home/runner/work/_temp/git-credentials-d1c9e06f-015b-42e6-b423-9eee0fff00d5.config'
+python / RuneGate/Lint/Python	UNKNOWN STEP	2026-05-01T11:24:34.1450226Z Cleaning up orphan processes
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	﻿2026-05-01T11:25:01.7203588Z Current runner version: '2.334.0'
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7223669Z ##[group]Runner Image Provisioner
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7224303Z Hosted Compute Agent
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7224741Z Version: 20260213.493
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7225199Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7225813Z Build Date: 2026-02-13T00:28:41Z
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7226359Z Worker ID: {a50ce1a0-ac70-492a-99b7-f766ca77c0b6}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7226909Z Azure Region: northcentralus
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7227400Z ##[endgroup]
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7228500Z ##[group]Operating System
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7228957Z Ubuntu
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7229381Z 24.04.4
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7229784Z LTS
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7230125Z ##[endgroup]
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7230561Z ##[group]Runner Image
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7231178Z Image: ubuntu-24.04
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7231636Z Version: 20260413.86.1
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7232628Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260413.86/images/ubuntu/Ubuntu2404-Readme.md
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7233777Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260413.86
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7234467Z ##[endgroup]
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7235256Z ##[group]GITHUB_TOKEN Permissions
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7237005Z Contents: read
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7237441Z Metadata: read
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7237860Z ##[endgroup]
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7239572Z Secret source: Actions
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7240397Z Prepare workflow directory
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7499742Z Prepare all required actions
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:01.7532228Z Getting action download info
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.0136984Z Download action repository 'lpasquali/rune-ci@6830fbf5bf25bb58a794b5659e9e1f284dcc4ee9' (SHA:6830fbf5bf25bb58a794b5659e9e1f284dcc4ee9)
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5147772Z Uses: lpasquali/rune-ci/.github/workflows/pr-compliance.yml@36eba801cb73e7b613ef1ee33bb3f618928a5952
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5151606Z ##[group] Inputs
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5152954Z   needs-json: {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "security": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "python": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "failure",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "integration": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "container": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "failure",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "guard": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  }
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5154217Z   merge-gate-excludes: guard
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5154583Z   pr-body-profile: consumer
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5154922Z ##[endgroup]
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5155312Z Complete job name: compliance / RuneGate/Merge/UpstreamPolicy
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5647328Z ##[group]Run set -euo pipefail
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5647795Z [36;1mset -euo pipefail[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5648161Z [36;1mcase "success" in[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5648520Z [36;1m  success|skipped) ;;[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5648873Z [36;1m  *)[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5649313Z [36;1m    echo "::error::PR body compliance did not succeed (result=success)."[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5649841Z [36;1m    exit 1[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5650138Z [36;1m    ;;[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5650445Z [36;1mesac[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5671265Z shell: /usr/bin/bash -e {0}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5671889Z ##[endgroup]
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5855465Z ##[group]Run lpasquali/rune-ci/actions/merge-gate-verify@6830fbf5bf25bb58a794b5659e9e1f284dcc4ee9
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5856132Z with:
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5857287Z   needs-json: {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "security": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "python": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "failure",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "integration": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "container": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "failure",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "guard": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  }
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5858532Z   merge-gate-excludes: guard
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5858872Z ##[endgroup]
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5928580Z ##[group]Run set -euo pipefail
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5928980Z [36;1mset -euo pipefail[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5929339Z [36;1mpython3 - <<'PY'[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5929684Z [36;1mimport json, os[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5930008Z [36;1m[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5930517Z [36;1mdata = json.loads(os.environ["NEEDS_JSON"])[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5931204Z [36;1mexcludes = {[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5931522Z [36;1m    x.strip()[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5931921Z [36;1m    for x in os.environ.get("EXCLUDES", "").split(",")[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5932365Z [36;1m    if x.strip()[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5932810Z [36;1m}[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5933094Z [36;1mfailed = [[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5933465Z [36;1m    (k, v.get("result"))[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5933872Z [36;1m    for k, v in data.items()[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5934376Z [36;1m    if v.get("result") not in ("success", "skipped") and k not in excludes[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5934898Z [36;1m][0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5935189Z [36;1mfor k, v in data.items():[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5935584Z [36;1m    print(f"{k}: {v.get('result')}")[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5935985Z [36;1mif failed:[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5936393Z [36;1m    print("Merge blocked due to failing RuneGate checks:")[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5936886Z [36;1m    for item in failed:[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5937266Z [36;1m        print(f"- {item[0]}: {item[1]}")[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5937672Z [36;1m    raise SystemExit(1)[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5938080Z [36;1mprint("All RuneGate upstream checks passed.")[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5938507Z [36;1mPY[0m
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5956811Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5957278Z env:
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5958428Z   NEEDS_JSON: {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "security": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "python": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "failure",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "integration": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "container": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "failure",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  },
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  "guard": {
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "result": "success",
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	    "outputs": {}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	  }
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	}
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5959657Z   EXCLUDES: guard
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.5959947Z ##[endgroup]
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6153799Z security: success
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6154211Z python: failure
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6154544Z integration: success
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6154866Z container: failure
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6155171Z guard: success
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6155520Z Merge blocked due to failing RuneGate checks:
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6155935Z - python: failure
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6156247Z - container: failure
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6180683Z ##[error]Process completed with exit code 1.
+compliance / RuneGate/Merge/UpstreamPolicy	UNKNOWN STEP	2026-05-01T11:25:02.6248415Z Cleaning up orphan processes
+compliance / Merge Gate	UNKNOWN STEP	﻿2026-05-01T11:25:07.5876548Z Current runner version: '2.334.0'
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5900359Z ##[group]Runner Image Provisioner
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5901057Z Hosted Compute Agent
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5901541Z Version: 20260213.493
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5902054Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5902687Z Build Date: 2026-02-13T00:28:41Z
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5903251Z Worker ID: {000d7f73-3e8a-4824-8e6f-bf061790e639}
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5903889Z Azure Region: westcentralus
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5904435Z ##[endgroup]
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5905720Z ##[group]Operating System
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5906263Z Ubuntu
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5906649Z 24.04.4
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5907048Z LTS
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5907406Z ##[endgroup]
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5907896Z ##[group]Runner Image
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5908356Z Image: ubuntu-24.04
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5909049Z Version: 20260413.86.1
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5910111Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260413.86/images/ubuntu/Ubuntu2404-Readme.md
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5911395Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260413.86
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5912149Z ##[endgroup]
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5913049Z ##[group]GITHUB_TOKEN Permissions
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5914904Z Contents: read
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5915326Z Metadata: read
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5915789Z ##[endgroup]
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5917800Z Secret source: Actions
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.5918571Z Prepare workflow directory
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.6247987Z Prepare all required actions
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.6338093Z Uses: lpasquali/rune-ci/.github/workflows/pr-compliance.yml@36eba801cb73e7b613ef1ee33bb3f618928a5952
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.6343087Z ##[group] Inputs
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.6344712Z   needs-json: {
+compliance / Merge Gate	UNKNOWN STEP	  "security": {
+compliance / Merge Gate	UNKNOWN STEP	    "result": "success",
+compliance / Merge Gate	UNKNOWN STEP	    "outputs": {}
+compliance / Merge Gate	UNKNOWN STEP	  },
+compliance / Merge Gate	UNKNOWN STEP	  "python": {
+compliance / Merge Gate	UNKNOWN STEP	    "result": "failure",
+compliance / Merge Gate	UNKNOWN STEP	    "outputs": {}
+compliance / Merge Gate	UNKNOWN STEP	  },
+compliance / Merge Gate	UNKNOWN STEP	  "integration": {
+compliance / Merge Gate	UNKNOWN STEP	    "result": "success",
+compliance / Merge Gate	UNKNOWN STEP	    "outputs": {}
+compliance / Merge Gate	UNKNOWN STEP	  },
+compliance / Merge Gate	UNKNOWN STEP	  "container": {
+compliance / Merge Gate	UNKNOWN STEP	    "result": "failure",
+compliance / Merge Gate	UNKNOWN STEP	    "outputs": {}
+compliance / Merge Gate	UNKNOWN STEP	  },
+compliance / Merge Gate	UNKNOWN STEP	  "guard": {
+compliance / Merge Gate	UNKNOWN STEP	    "result": "success",
+compliance / Merge Gate	UNKNOWN STEP	    "outputs": {}
+compliance / Merge Gate	UNKNOWN STEP	  }
+compliance / Merge Gate	UNKNOWN STEP	}
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.6346477Z   merge-gate-excludes: guard
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.6346999Z   pr-body-profile: consumer
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.6347453Z ##[endgroup]
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.6348083Z Complete job name: compliance / Merge Gate
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7196971Z ##[group]Run set -euo pipefail
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7198070Z [36;1mset -euo pipefail[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7199156Z [36;1mok() {[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7200077Z [36;1m  case "$1" in success|skipped) return 0 ;; *) return 1 ;; esac[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7201238Z [36;1m}[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7201897Z [36;1mbody="success"[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7202785Z [36;1mpolicy="failure"[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7203537Z [36;1mml4="skipped"[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7204388Z [36;1mecho "pr-body-check: ${body}"[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7205400Z [36;1mecho "rune-gate-policy: ${policy}"[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7206394Z [36;1mecho "ml4-peer-review: ${ml4}"[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7207332Z [36;1mif ! ok "${body}"; then[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7208692Z [36;1m  echo "::error::PR body check must be success or skipped (got ${body})."[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7209949Z [36;1m  exit 1[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7210576Z [36;1mfi[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7211581Z [36;1mif [ "${policy}" != "success" ]; then[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7212815Z [36;1m  echo "::error::Upstream policy gate must succeed (got ${policy})."[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7214052Z [36;1m  exit 1[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7214736Z [36;1mfi[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7215426Z [36;1mif ! ok "${ml4}"; then[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7216650Z [36;1m  echo "::error::ML4 review job must be success or skipped (got ${ml4})."[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7217864Z [36;1m  exit 1[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7218716Z [36;1mfi[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7219541Z [36;1mecho "Merge Gate Satisfied"[0m
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7578195Z shell: /usr/bin/bash -e {0}
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7579970Z ##[endgroup]
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7810971Z pr-body-check: success
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7830050Z rune-gate-policy: failure
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7831584Z ml4-peer-review: skipped
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7876063Z ##[error]Upstream policy gate must succeed (got failure).
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.7901519Z ##[error]Process completed with exit code 1.
+compliance / Merge Gate	UNKNOWN STEP	2026-05-01T11:25:07.8072979Z Cleaning up orphan processes
