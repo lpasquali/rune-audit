@@ -3,14 +3,15 @@
 
 from __future__ import annotations
 
+import contextlib
 import json
 import os
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import TYPE_CHECKING
 
 from rune_audit.sigstore.models import SigningResult, VerificationResult
+
 
 class SigstoreEngine:
     """Wrapper around cosign binary for keyless signing and verification."""
@@ -47,10 +48,8 @@ class SigstoreEngine:
         log_index = None
         for line in result.stderr.splitlines():
             if "tlog entry created with index:" in line:
-                try:
+                with contextlib.suppress(ValueError):
                     log_index = int(line.split(":")[-1].strip())
-                except ValueError:  # pragma: no cover
-                    pass
 
         # Parse signature and certificate from stdout
         signature = None
@@ -81,7 +80,7 @@ class SigstoreEngine:
         fd, temp_path = tempfile.mkstemp(suffix=".blob")
         os.write(fd, data)
         os.close(fd)
-        
+
         path = Path(temp_path)
         try:
             result = self.sign(path)
@@ -104,28 +103,26 @@ class SigstoreEngine:
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
             if result.returncode != 0:
                 return VerificationResult(verified=False, errors=[result.stderr])
-            
+
             signer_identity = None
             issuer = None
             log_entry = None
-            
+
             for line in result.stdout.splitlines():
                 if line.startswith("Signer: ") or line.startswith("Subject: "):
                     signer_identity = line.split(": ", 1)[-1].strip()
                 elif line.startswith("Issuer: "):
                     issuer = line.split(": ", 1)[-1].strip()
                 elif line.startswith("{"):
-                    try:
+                    with contextlib.suppress(json.JSONDecodeError):
                         log_entry = json.loads(line)
-                    except json.JSONDecodeError:  # pragma: no cover
-                        pass
-            
+
             return VerificationResult(
                 verified=True,
                 signer_identity=signer_identity,
                 issuer=issuer,
                 log_entry=log_entry
             )
-            
+
         except subprocess.CalledProcessError as exc:
             return VerificationResult(verified=False, errors=[exc.stderr])
