@@ -4,106 +4,128 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
+import tempfile
+from pathlib import Path
 from typing import TYPE_CHECKING
 
-from rune_audit.models.sigstore import SigningResult, SigstoreSignature, VerificationResult
-
-if TYPE_CHECKING:
-    from pathlib import Path
-
+from rune_audit.sigstore.models import SigningResult, VerificationResult
 
 class SigstoreEngine:
     """Wrapper around cosign binary for keyless signing and verification."""
 
     def __init__(self, cosign_path: str = "cosign") -> None:
-        self.cosign_path = cosign_path
+        self._cosign_path = cosign_path
 
     def sign(self, path: Path) -> SigningResult:
-        """Sign an artifact using cosign keyless mode.
-
-        Requires COSIGN_EXPERIMENTAL=1 or modern cosign and valid OIDC environment.
-        """
-        if not path.is_file():
-            return SigningResult(success=False, errors=[f"Artifact not found: {path}"])
-
+        """Sign an artifact using cosign keyless mode."""
+        bundle_path_str = str(path) + ".bundle"
         cmd = [
-            self.cosign_path,
+            self._cosign_path,
             "sign-blob",
             str(path),
-            "--bundle", str(path.with_suffix(".bundle")),
-            "--yes", # Auto-confirm
+            "--bundle", bundle_path_str,
+            "--yes",
         ]
 
         try:
-            subprocess.run(
+            result = subprocess.run(
                 cmd,
                 capture_output=True,
                 text=True,
                 check=True,
-                env={"COSIGN_EXPERIMENTAL": "1"}
+                timeout=120,
+                env={**os.environ, "COSIGN_EXPERIMENTAL": "1"}
             )
+            if result.returncode != 0:
+                raise RuntimeError(f"cosign sign-blob failed: {result.stderr}")
+        except subprocess.CalledProcessError as exc:
+            raise RuntimeError(f"cosign sign-blob failed: {exc.stderr}") from exc
 
-            bundle_path = path.with_suffix(".bundle")
-            if not bundle_path.is_file():
-                return SigningResult(success=False, errors=["Bundle file was not created by cosign"])
+        # Parse log_index from stderr: "tlog entry created with index: 42"
+        log_index = None
+        for line in result.stderr.splitlines():
+            if "tlog entry created with index:" in line:
+                try:
+                    log_index = int(line.split(":")[-1].strip())
+                except ValueError:  # pragma: no cover
+                    pass
 
-            bundle_data = json.loads(bundle_path.read_text(encoding="utf-8"))
+        # Parse signature and certificate from stdout
+        signature = None
+        certificate = None
+        lines = result.stdout.strip().splitlines()
+        if lines:
+            if "-----BEGIN CERTIFICATE-----" in lines:
+                cert_idx = lines.index("-----BEGIN CERTIFICATE-----")
+                try:
+                    end_idx = lines.index("-----END CERTIFICATE-----", cert_idx)
+                    certificate = "\n".join(lines[cert_idx : end_idx + 1])
+                    signature = "\n".join(lines[end_idx + 1 :]).strip() or None
+                except ValueError:  # pragma: no cover
+                    certificate = lines[cert_idx]
+                    signature = "\n".join(lines[cert_idx + 1 :]).strip() or None
+            else:
+                signature = lines[0].strip()
 
-            signature_b64 = ""
-            cert_pem = ""
-            log_index = 0
+        return SigningResult(
+            signature=signature,
+            certificate=certificate,
+            log_index=log_index,
+            bundle_path=bundle_path_str
+        )
 
-            if "dsseEnvelope" in bundle_data:
-                sig_obj = bundle_data["dsseEnvelope"]["signatures"][0]
-                signature_b64 = sig_obj["sig"]
-            elif "messageSignature" in bundle_data:
-                signature_b64 = bundle_data["messageSignature"]["signature"]
-
-            if "verificationMaterial" in bundle_data:
-                mat = bundle_data["verificationMaterial"]
-                if "x509CertificateChain" in mat:
-                    cert_pem = mat["x509CertificateChain"]["certificates"][0].get("raw", "")
-                if "tlogEntries" in mat:
-                    log_index = mat["tlogEntries"][0].get("logIndex", 0)
-
-            return SigningResult(
-                success=True,
-                signature=SigstoreSignature(
-                    signature=signature_b64,
-                    cert=cert_pem,
-                    integrated_time=0,
-                    log_index=log_index
-                )
-            )
-        except (subprocess.CalledProcessError, json.JSONDecodeError, KeyError) as exc:
-            return SigningResult(success=False, errors=[str(exc)])
+    def sign_blob(self, data: bytes) -> SigningResult:
+        """Sign raw data in memory by writing to a temporary file."""
+        fd, temp_path = tempfile.mkstemp(suffix=".blob")
+        os.write(fd, data)
+        os.close(fd)
+        
+        path = Path(temp_path)
+        try:
+            result = self.sign(path)
+            return result
+        finally:
+            if path.exists():
+                path.unlink()
+            bundle_path = Path(str(path) + ".bundle")
+            if bundle_path.exists():
+                bundle_path.unlink()  # pragma: no cover
 
     def verify(self, path: Path, bundle_path: Path | None = None) -> VerificationResult:
         """Verify a signature using cosign."""
-        if not path.is_file():
-            return VerificationResult(verified=False, errors=[f"File not found: {path}"])
+        cmd = [self._cosign_path, "verify-blob", str(path)]
 
-        cmd = [self.cosign_path, "verify-blob", str(path)]
-
-        final_bundle = bundle_path or path.with_suffix(".bundle")
-        if final_bundle.is_file():
-            cmd.extend(["--bundle", str(final_bundle)])
-        else:
-            return VerificationResult(verified=False, errors=["No bundle found for verification"])
-
-        # For RUNE we usually verify against the known GitHub OIDC issuer
-        cmd.extend([
-            "--certificate-identity-regexp", ".*",
-            "--certificate-oidc-issuer", "https://token.actions.githubusercontent.com"
-        ])
+        if bundle_path is not None:
+            cmd.extend(["--bundle", str(bundle_path)])
 
         try:
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+            if result.returncode != 0:
+                return VerificationResult(verified=False, errors=[result.stderr])
+            
+            signer_identity = None
+            issuer = None
+            log_entry = None
+            
+            for line in result.stdout.splitlines():
+                if line.startswith("Signer: ") or line.startswith("Subject: "):
+                    signer_identity = line.split(": ", 1)[-1].strip()
+                elif line.startswith("Issuer: "):
+                    issuer = line.split(": ", 1)[-1].strip()
+                elif line.startswith("{"):
+                    try:
+                        log_entry = json.loads(line)
+                    except json.JSONDecodeError:  # pragma: no cover
+                        pass
+            
             return VerificationResult(
                 verified=True,
-                signer_identity="verified-via-cosign",
-                raw_output=result.stderr
+                signer_identity=signer_identity,
+                issuer=issuer,
+                log_entry=log_entry
             )
+            
         except subprocess.CalledProcessError as exc:
-            return VerificationResult(verified=False, errors=[exc.stderr], raw_output=exc.stderr)
+            return VerificationResult(verified=False, errors=[exc.stderr])
