@@ -16,10 +16,10 @@ permissions:
 
 jobs:
   security:
-    uses: lpasquali/rune-ci/.github/workflows/security-scan.yml@144ef855dbf0420e5d9a8de2c8d8f89c2e789265
+    uses: lpasquali/rune-ci/.github/workflows/security-scan.yml@93af917436df6540699bdecc3040e857ba6688a9
 
   python:
-    uses: lpasquali/rune-ci/.github/workflows/python-quality.yml@144ef855dbf0420e5d9a8de2c8d8f89c2e789265
+    uses: lpasquali/rune-ci/.github/workflows/python-quality.yml@93af917436df6540699bdecc3040e857ba6688a9
     with:
       source-dirs: "rune_audit"
       path-filter: "^(rune_audit/|tests/|requirements\\.txt|pyproject\\.toml)"
