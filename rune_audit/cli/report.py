@@ -18,8 +18,11 @@ console = Console()
 
 
 def _load_evidence(config: AuditConfig) -> EvidenceBundle:
-    """Load evidence bundle (stub -- returns empty bundle)."""
-    return EvidenceBundle(repos=config.repos)
+    """Load evidence bundle from GitHub."""
+    from rune_audit.collectors.github import GitHubCollector
+
+    with GitHubCollector(repos=config.repos, token=config.github_token) as collector:
+        return collector.collect_all()
 
 
 def _write_output(content: str, output_path: str | None, label: str) -> None:
