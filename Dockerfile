@@ -5,7 +5,7 @@ WORKDIR /app
 COPY pyproject.toml README.md LICENSE NOTICE ./
 COPY rune_audit/ rune_audit/
 
-RUN pip install --no-cache-dir pip==26.0 && \
+RUN pip install --no-cache-dir pip>=26.1 && \
     pip install --no-cache-dir .
 
 FROM python:3.14-slim
